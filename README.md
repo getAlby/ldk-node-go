@@ -1,6 +1,6 @@
 # ldk-node-go
 
-Experimental Go bindings for [ldk-node](https://github.com/lightningdevkit/ldk-node)
+Experimental Go bindings for Alby's [ldk-node fork](https://github.com/getAlby/ldk-node)
 
 ## Generating bindings
 
