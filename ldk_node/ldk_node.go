@@ -798,7 +798,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_ldknode_send_spontaneous_payment(uniffiStatus)
 		})
-		if checksum != 39235 {
+		if checksum != 10854 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_ldknode_send_spontaneous_payment: UniFFI API checksum mismatch")
 		}
@@ -1787,12 +1787,12 @@ func (_self *LdkNode) SendPaymentUsingAmount(invoice Bolt11Invoice, amountMsat u
 	}
 }
 
-func (_self *LdkNode) SendSpontaneousPayment(amountMsat uint64, nodeId PublicKey) (PaymentHash, error) {
+func (_self *LdkNode) SendSpontaneousPayment(amountMsat uint64, nodeId PublicKey, customTlvs []TlvEntry) (PaymentHash, error) {
 	_pointer := _self.ffiObject.incrementPointer("*LdkNode")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_ldknode_send_spontaneous_payment(
-			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), _uniffiStatus)
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), FfiConverterSequenceTypeTlvEntryINSTANCE.Lower(customTlvs), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue PaymentHash
@@ -2302,13 +2302,14 @@ func (_ FfiDestroyerTypeOutPoint) Destroy(value OutPoint) {
 }
 
 type PaymentDetails struct {
-	Hash         PaymentHash
-	Preimage     *PaymentPreimage
-	Secret       *PaymentSecret
-	AmountMsat   *uint64
-	Direction    PaymentDirection
-	Status       PaymentStatus
-	LspFeeLimits *LspFeeLimits
+	Hash          PaymentHash
+	Preimage      *PaymentPreimage
+	Secret        *PaymentSecret
+	AmountMsat    *uint64
+	Direction     PaymentDirection
+	Status        PaymentStatus
+	LspFeeLimits  *LspFeeLimits
+	Bolt11Invoice *string
 }
 
 func (r *PaymentDetails) Destroy() {
@@ -2319,6 +2320,7 @@ func (r *PaymentDetails) Destroy() {
 	FfiDestroyerTypePaymentDirection{}.Destroy(r.Direction)
 	FfiDestroyerTypePaymentStatus{}.Destroy(r.Status)
 	FfiDestroyerOptionalTypeLspFeeLimits{}.Destroy(r.LspFeeLimits)
+	FfiDestroyerOptionalString{}.Destroy(r.Bolt11Invoice)
 }
 
 type FfiConverterTypePaymentDetails struct{}
@@ -2338,6 +2340,7 @@ func (c FfiConverterTypePaymentDetails) Read(reader io.Reader) PaymentDetails {
 		FfiConverterTypePaymentDirectionINSTANCE.Read(reader),
 		FfiConverterTypePaymentStatusINSTANCE.Read(reader),
 		FfiConverterOptionalTypeLSPFeeLimitsINSTANCE.Read(reader),
+		FfiConverterOptionalStringINSTANCE.Read(reader),
 	}
 }
 
@@ -2353,6 +2356,7 @@ func (c FfiConverterTypePaymentDetails) Write(writer io.Writer, value PaymentDet
 	FfiConverterTypePaymentDirectionINSTANCE.Write(writer, value.Direction)
 	FfiConverterTypePaymentStatusINSTANCE.Write(writer, value.Status)
 	FfiConverterOptionalTypeLSPFeeLimitsINSTANCE.Write(writer, value.LspFeeLimits)
+	FfiConverterOptionalStringINSTANCE.Write(writer, value.Bolt11Invoice)
 }
 
 type FfiDestroyerTypePaymentDetails struct{}
@@ -2406,6 +2410,46 @@ func (c FfiConverterTypePeerDetails) Write(writer io.Writer, value PeerDetails) 
 type FfiDestroyerTypePeerDetails struct{}
 
 func (_ FfiDestroyerTypePeerDetails) Destroy(value PeerDetails) {
+	value.Destroy()
+}
+
+type TlvEntry struct {
+	Type  uint64
+	Value []uint8
+}
+
+func (r *TlvEntry) Destroy() {
+	FfiDestroyerUint64{}.Destroy(r.Type)
+	FfiDestroyerSequenceUint8{}.Destroy(r.Value)
+}
+
+type FfiConverterTypeTlvEntry struct{}
+
+var FfiConverterTypeTlvEntryINSTANCE = FfiConverterTypeTlvEntry{}
+
+func (c FfiConverterTypeTlvEntry) Lift(rb RustBufferI) TlvEntry {
+	return LiftFromRustBuffer[TlvEntry](c, rb)
+}
+
+func (c FfiConverterTypeTlvEntry) Read(reader io.Reader) TlvEntry {
+	return TlvEntry{
+		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterSequenceUint8INSTANCE.Read(reader),
+	}
+}
+
+func (c FfiConverterTypeTlvEntry) Lower(value TlvEntry) RustBuffer {
+	return LowerIntoRustBuffer[TlvEntry](c, value)
+}
+
+func (c FfiConverterTypeTlvEntry) Write(writer io.Writer, value TlvEntry) {
+	FfiConverterUint64INSTANCE.Write(writer, value.Type)
+	FfiConverterSequenceUint8INSTANCE.Write(writer, value.Value)
+}
+
+type FfiDestroyerTypeTlvEntry struct{}
+
+func (_ FfiDestroyerTypeTlvEntry) Destroy(value TlvEntry) {
 	value.Destroy()
 }
 
@@ -3308,6 +3352,7 @@ var ErrNodeErrorInvalidAmount = fmt.Errorf("NodeErrorInvalidAmount")
 var ErrNodeErrorInvalidInvoice = fmt.Errorf("NodeErrorInvalidInvoice")
 var ErrNodeErrorInvalidChannelId = fmt.Errorf("NodeErrorInvalidChannelId")
 var ErrNodeErrorInvalidNetwork = fmt.Errorf("NodeErrorInvalidNetwork")
+var ErrNodeErrorInvalidCustomTlv = fmt.Errorf("NodeErrorInvalidCustomTlv")
 var ErrNodeErrorDuplicatePayment = fmt.Errorf("NodeErrorDuplicatePayment")
 var ErrNodeErrorInsufficientFunds = fmt.Errorf("NodeErrorInsufficientFunds")
 var ErrNodeErrorLiquiditySourceUnavailable = fmt.Errorf("NodeErrorLiquiditySourceUnavailable")
@@ -3836,6 +3881,24 @@ func (self NodeErrorInvalidNetwork) Is(target error) bool {
 	return target == ErrNodeErrorInvalidNetwork
 }
 
+type NodeErrorInvalidCustomTlv struct {
+	message string
+}
+
+func NewNodeErrorInvalidCustomTlv() *NodeError {
+	return &NodeError{
+		err: &NodeErrorInvalidCustomTlv{},
+	}
+}
+
+func (err NodeErrorInvalidCustomTlv) Error() string {
+	return fmt.Sprintf("InvalidCustomTlv: %s", err.message)
+}
+
+func (self NodeErrorInvalidCustomTlv) Is(target error) bool {
+	return target == ErrNodeErrorInvalidCustomTlv
+}
+
 type NodeErrorDuplicatePayment struct {
 	message string
 }
@@ -3984,12 +4047,14 @@ func (c FfiConverterTypeNodeError) Read(reader io.Reader) error {
 	case 29:
 		return &NodeError{&NodeErrorInvalidNetwork{message}}
 	case 30:
-		return &NodeError{&NodeErrorDuplicatePayment{message}}
+		return &NodeError{&NodeErrorInvalidCustomTlv{message}}
 	case 31:
-		return &NodeError{&NodeErrorInsufficientFunds{message}}
+		return &NodeError{&NodeErrorDuplicatePayment{message}}
 	case 32:
-		return &NodeError{&NodeErrorLiquiditySourceUnavailable{message}}
+		return &NodeError{&NodeErrorInsufficientFunds{message}}
 	case 33:
+		return &NodeError{&NodeErrorLiquiditySourceUnavailable{message}}
+	case 34:
 		return &NodeError{&NodeErrorLiquidityFeeTooHigh{message}}
 	default:
 		panic(fmt.Sprintf("Unknown error code %d in FfiConverterTypeNodeError.Read()", errorID))
@@ -4057,14 +4122,16 @@ func (c FfiConverterTypeNodeError) Write(writer io.Writer, value *NodeError) {
 		writeInt32(writer, 28)
 	case *NodeErrorInvalidNetwork:
 		writeInt32(writer, 29)
-	case *NodeErrorDuplicatePayment:
+	case *NodeErrorInvalidCustomTlv:
 		writeInt32(writer, 30)
-	case *NodeErrorInsufficientFunds:
+	case *NodeErrorDuplicatePayment:
 		writeInt32(writer, 31)
-	case *NodeErrorLiquiditySourceUnavailable:
+	case *NodeErrorInsufficientFunds:
 		writeInt32(writer, 32)
-	case *NodeErrorLiquidityFeeTooHigh:
+	case *NodeErrorLiquiditySourceUnavailable:
 		writeInt32(writer, 33)
+	case *NodeErrorLiquidityFeeTooHigh:
+		writeInt32(writer, 34)
 	default:
 		_ = variantValue
 		panic(fmt.Sprintf("invalid error value `%v` in FfiConverterTypeNodeError.Write", value))
@@ -5046,6 +5113,49 @@ type FfiDestroyerSequenceTypePeerDetails struct{}
 func (FfiDestroyerSequenceTypePeerDetails) Destroy(sequence []PeerDetails) {
 	for _, value := range sequence {
 		FfiDestroyerTypePeerDetails{}.Destroy(value)
+	}
+}
+
+type FfiConverterSequenceTypeTlvEntry struct{}
+
+var FfiConverterSequenceTypeTlvEntryINSTANCE = FfiConverterSequenceTypeTlvEntry{}
+
+func (c FfiConverterSequenceTypeTlvEntry) Lift(rb RustBufferI) []TlvEntry {
+	return LiftFromRustBuffer[[]TlvEntry](c, rb)
+}
+
+func (c FfiConverterSequenceTypeTlvEntry) Read(reader io.Reader) []TlvEntry {
+	length := readInt32(reader)
+	if length == 0 {
+		return nil
+	}
+	result := make([]TlvEntry, 0, length)
+	for i := int32(0); i < length; i++ {
+		result = append(result, FfiConverterTypeTlvEntryINSTANCE.Read(reader))
+	}
+	return result
+}
+
+func (c FfiConverterSequenceTypeTlvEntry) Lower(value []TlvEntry) RustBuffer {
+	return LowerIntoRustBuffer[[]TlvEntry](c, value)
+}
+
+func (c FfiConverterSequenceTypeTlvEntry) Write(writer io.Writer, value []TlvEntry) {
+	if len(value) > math.MaxInt32 {
+		panic("[]TlvEntry is too large to fit into Int32")
+	}
+
+	writeInt32(writer, int32(len(value)))
+	for _, item := range value {
+		FfiConverterTypeTlvEntryINSTANCE.Write(writer, item)
+	}
+}
+
+type FfiDestroyerSequenceTypeTlvEntry struct{}
+
+func (FfiDestroyerSequenceTypeTlvEntry) Destroy(sequence []TlvEntry) {
+	for _, value := range sequence {
+		FfiDestroyerTypeTlvEntry{}.Destroy(value)
 	}
 }
 
