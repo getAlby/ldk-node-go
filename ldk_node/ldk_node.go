@@ -2310,6 +2310,7 @@ type PaymentDetails struct {
 	Status        PaymentStatus
 	LspFeeLimits  *LspFeeLimits
 	Bolt11Invoice *string
+	LastUpdate    uint64
 }
 
 func (r *PaymentDetails) Destroy() {
@@ -2321,6 +2322,7 @@ func (r *PaymentDetails) Destroy() {
 	FfiDestroyerTypePaymentStatus{}.Destroy(r.Status)
 	FfiDestroyerOptionalTypeLspFeeLimits{}.Destroy(r.LspFeeLimits)
 	FfiDestroyerOptionalString{}.Destroy(r.Bolt11Invoice)
+	FfiDestroyerUint64{}.Destroy(r.LastUpdate)
 }
 
 type FfiConverterTypePaymentDetails struct{}
@@ -2341,6 +2343,7 @@ func (c FfiConverterTypePaymentDetails) Read(reader io.Reader) PaymentDetails {
 		FfiConverterTypePaymentStatusINSTANCE.Read(reader),
 		FfiConverterOptionalTypeLSPFeeLimitsINSTANCE.Read(reader),
 		FfiConverterOptionalStringINSTANCE.Read(reader),
+		FfiConverterUint64INSTANCE.Read(reader),
 	}
 }
 
@@ -2357,6 +2360,7 @@ func (c FfiConverterTypePaymentDetails) Write(writer io.Writer, value PaymentDet
 	FfiConverterTypePaymentStatusINSTANCE.Write(writer, value.Status)
 	FfiConverterOptionalTypeLSPFeeLimitsINSTANCE.Write(writer, value.LspFeeLimits)
 	FfiConverterOptionalStringINSTANCE.Write(writer, value.Bolt11Invoice)
+	FfiConverterUint64INSTANCE.Write(writer, value.LastUpdate)
 }
 
 type FfiDestroyerTypePaymentDetails struct{}
