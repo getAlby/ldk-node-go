@@ -751,6 +751,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_ldknode_reset_router(uniffiStatus)
+		})
+		if checksum != 45048 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_ldknode_reset_router: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_ldknode_send_all_to_onchain_address(uniffiStatus)
 		})
 		if checksum != 24019 {
@@ -1715,6 +1724,17 @@ func (_self *LdkNode) RemovePayment(paymentHash PaymentHash) error {
 	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_ldknode_remove_payment(
 			_pointer, FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), _uniffiStatus)
+		return false
+	})
+	return _uniffiErr
+}
+
+func (_self *LdkNode) ResetRouter() error {
+	_pointer := _self.ffiObject.incrementPointer("*LdkNode")
+	defer _self.ffiObject.decrementPointer()
+	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_ldknode_reset_router(
+			_pointer, _uniffiStatus)
 		return false
 	})
 	return _uniffiErr
