@@ -751,6 +751,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_ldknode_reset_router(uniffiStatus)
+		})
+		if checksum != 45048 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_ldknode_reset_router: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_ldknode_send_all_to_onchain_address(uniffiStatus)
 		})
 		if checksum != 24019 {
@@ -1720,6 +1729,17 @@ func (_self *LdkNode) RemovePayment(paymentHash PaymentHash) error {
 	return _uniffiErr
 }
 
+func (_self *LdkNode) ResetRouter() error {
+	_pointer := _self.ffiObject.incrementPointer("*LdkNode")
+	defer _self.ffiObject.decrementPointer()
+	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_ldknode_reset_router(
+			_pointer, _uniffiStatus)
+		return false
+	})
+	return _uniffiErr
+}
+
 func (_self *LdkNode) SendAllToOnchainAddress(address Address) (Txid, error) {
 	_pointer := _self.ffiObject.incrementPointer("*LdkNode")
 	defer _self.ffiObject.decrementPointer()
@@ -2310,6 +2330,7 @@ type PaymentDetails struct {
 	Status        PaymentStatus
 	LspFeeLimits  *LspFeeLimits
 	Bolt11Invoice *string
+	LastUpdate    uint64
 }
 
 func (r *PaymentDetails) Destroy() {
@@ -2321,6 +2342,7 @@ func (r *PaymentDetails) Destroy() {
 	FfiDestroyerTypePaymentStatus{}.Destroy(r.Status)
 	FfiDestroyerOptionalTypeLspFeeLimits{}.Destroy(r.LspFeeLimits)
 	FfiDestroyerOptionalString{}.Destroy(r.Bolt11Invoice)
+	FfiDestroyerUint64{}.Destroy(r.LastUpdate)
 }
 
 type FfiConverterTypePaymentDetails struct{}
@@ -2341,6 +2363,7 @@ func (c FfiConverterTypePaymentDetails) Read(reader io.Reader) PaymentDetails {
 		FfiConverterTypePaymentStatusINSTANCE.Read(reader),
 		FfiConverterOptionalTypeLSPFeeLimitsINSTANCE.Read(reader),
 		FfiConverterOptionalStringINSTANCE.Read(reader),
+		FfiConverterUint64INSTANCE.Read(reader),
 	}
 }
 
@@ -2357,6 +2380,7 @@ func (c FfiConverterTypePaymentDetails) Write(writer io.Writer, value PaymentDet
 	FfiConverterTypePaymentStatusINSTANCE.Write(writer, value.Status)
 	FfiConverterOptionalTypeLSPFeeLimitsINSTANCE.Write(writer, value.LspFeeLimits)
 	FfiConverterOptionalStringINSTANCE.Write(writer, value.Bolt11Invoice)
+	FfiConverterUint64INSTANCE.Write(writer, value.LastUpdate)
 }
 
 type FfiDestroyerTypePaymentDetails struct{}

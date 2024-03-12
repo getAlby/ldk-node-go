@@ -356,6 +356,11 @@ void uniffi_ldk_node_fn_method_ldknode_remove_payment(
 	RustCallStatus* out_status
 );
 
+void uniffi_ldk_node_fn_method_ldknode_reset_router(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
 RustBuffer uniffi_ldk_node_fn_method_ldknode_send_all_to_onchain_address(
 	void* ptr,
 	RustBuffer address,
@@ -936,6 +941,10 @@ uint16_t uniffi_ldk_node_checksum_method_ldknode_receive_variable_amount_payment
 );
 
 uint16_t uniffi_ldk_node_checksum_method_ldknode_remove_payment(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_ldknode_reset_router(
 	RustCallStatus* out_status
 );
 
