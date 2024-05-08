@@ -2724,6 +2724,7 @@ type PaymentDetails struct {
 	Direction  PaymentDirection
 	Status     PaymentStatus
 	LastUpdate uint64
+	FeeMsat    *uint64
 }
 
 func (r *PaymentDetails) Destroy() {
@@ -2733,6 +2734,7 @@ func (r *PaymentDetails) Destroy() {
 	FfiDestroyerTypePaymentDirection{}.Destroy(r.Direction)
 	FfiDestroyerTypePaymentStatus{}.Destroy(r.Status)
 	FfiDestroyerUint64{}.Destroy(r.LastUpdate)
+	FfiDestroyerOptionalUint64{}.Destroy(r.FeeMsat)
 }
 
 type FfiConverterTypePaymentDetails struct{}
@@ -2751,6 +2753,7 @@ func (c FfiConverterTypePaymentDetails) Read(reader io.Reader) PaymentDetails {
 		FfiConverterTypePaymentDirectionINSTANCE.Read(reader),
 		FfiConverterTypePaymentStatusINSTANCE.Read(reader),
 		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterOptionalUint64INSTANCE.Read(reader),
 	}
 }
 
@@ -2765,6 +2768,7 @@ func (c FfiConverterTypePaymentDetails) Write(writer io.Writer, value PaymentDet
 	FfiConverterTypePaymentDirectionINSTANCE.Write(writer, value.Direction)
 	FfiConverterTypePaymentStatusINSTANCE.Write(writer, value.Status)
 	FfiConverterUint64INSTANCE.Write(writer, value.LastUpdate)
+	FfiConverterOptionalUint64INSTANCE.Write(writer, value.FeeMsat)
 }
 
 type FfiDestroyerTypePaymentDetails struct{}
