@@ -814,6 +814,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_reset_router_record(uniffiStatus)
+		})
+		if checksum != 54397 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_reset_router_record: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_sign_message(uniffiStatus)
 		})
 		if checksum != 22595 {
@@ -1898,6 +1907,17 @@ func (_self *Node) ResetRouter() error {
 	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_node_reset_router(
 			_pointer, _uniffiStatus)
+		return false
+	})
+	return _uniffiErr
+}
+
+func (_self *Node) ResetRouterRecord(key PersistentRecordKey) error {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_node_reset_router_record(
+			_pointer, FfiConverterTypePersistentRecordKeyINSTANCE.Lower(key), _uniffiStatus)
 		return false
 	})
 	return _uniffiErr
@@ -4972,6 +4992,39 @@ type FfiDestroyerTypePendingSweepBalance struct{}
 
 func (_ FfiDestroyerTypePendingSweepBalance) Destroy(value PendingSweepBalance) {
 	value.Destroy()
+}
+
+type PersistentRecordKey uint
+
+const (
+	PersistentRecordKeyLatestRgsSyncTimestamp PersistentRecordKey = 1
+	PersistentRecordKeyScorer                 PersistentRecordKey = 2
+	PersistentRecordKeyNetworkGraph           PersistentRecordKey = 3
+)
+
+type FfiConverterTypePersistentRecordKey struct{}
+
+var FfiConverterTypePersistentRecordKeyINSTANCE = FfiConverterTypePersistentRecordKey{}
+
+func (c FfiConverterTypePersistentRecordKey) Lift(rb RustBufferI) PersistentRecordKey {
+	return LiftFromRustBuffer[PersistentRecordKey](c, rb)
+}
+
+func (c FfiConverterTypePersistentRecordKey) Lower(value PersistentRecordKey) RustBuffer {
+	return LowerIntoRustBuffer[PersistentRecordKey](c, value)
+}
+func (FfiConverterTypePersistentRecordKey) Read(reader io.Reader) PersistentRecordKey {
+	id := readInt32(reader)
+	return PersistentRecordKey(id)
+}
+
+func (FfiConverterTypePersistentRecordKey) Write(writer io.Writer, value PersistentRecordKey) {
+	writeInt32(writer, int32(value))
+}
+
+type FfiDestroyerTypePersistentRecordKey struct{}
+
+func (_ FfiDestroyerTypePersistentRecordKey) Destroy(value PersistentRecordKey) {
 }
 
 type FfiConverterOptionalUint16 struct{}
