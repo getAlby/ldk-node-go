@@ -398,17 +398,6 @@ void uniffi_ldk_node_fn_method_node_remove_payment(
 	RustCallStatus* out_status
 );
 
-void uniffi_ldk_node_fn_method_node_reset_router(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_reset_router_record(
-	void* ptr,
-	RustBuffer key,
-	RustCallStatus* out_status
-);
-
 RustBuffer uniffi_ldk_node_fn_method_node_sign_message(
 	void* ptr,
 	RustBuffer msg,
@@ -1012,14 +1001,6 @@ uint16_t uniffi_ldk_node_checksum_method_node_payment(
 );
 
 uint16_t uniffi_ldk_node_checksum_method_node_remove_payment(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_reset_router(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_reset_router_record(
 	RustCallStatus* out_status
 );
 
