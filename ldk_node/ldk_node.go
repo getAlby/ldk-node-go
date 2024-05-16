@@ -805,24 +805,6 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_node_reset_router(uniffiStatus)
-		})
-		if checksum != 49565 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_node_reset_router: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_node_reset_router_record(uniffiStatus)
-		})
-		if checksum != 54397 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_node_reset_router_record: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_sign_message(uniffiStatus)
 		})
 		if checksum != 22595 {
@@ -1896,28 +1878,6 @@ func (_self *Node) RemovePayment(paymentId PaymentId) error {
 	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_node_remove_payment(
 			_pointer, FfiConverterTypePaymentIdINSTANCE.Lower(paymentId), _uniffiStatus)
-		return false
-	})
-	return _uniffiErr
-}
-
-func (_self *Node) ResetRouter() error {
-	_pointer := _self.ffiObject.incrementPointer("*Node")
-	defer _self.ffiObject.decrementPointer()
-	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
-		C.uniffi_ldk_node_fn_method_node_reset_router(
-			_pointer, _uniffiStatus)
-		return false
-	})
-	return _uniffiErr
-}
-
-func (_self *Node) ResetRouterRecord(key PersistentRecordKey) error {
-	_pointer := _self.ffiObject.incrementPointer("*Node")
-	defer _self.ffiObject.decrementPointer()
-	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
-		C.uniffi_ldk_node_fn_method_node_reset_router_record(
-			_pointer, FfiConverterTypePersistentRecordKeyINSTANCE.Lower(key), _uniffiStatus)
 		return false
 	})
 	return _uniffiErr
@@ -3295,6 +3255,12 @@ type ClosureReasonFundingBatchClosure struct {
 func (e ClosureReasonFundingBatchClosure) Destroy() {
 }
 
+type ClosureReasonHtlCsTimedOut struct {
+}
+
+func (e ClosureReasonHtlCsTimedOut) Destroy() {
+}
+
 type FfiConverterTypeClosureReason struct{}
 
 var FfiConverterTypeClosureReasonINSTANCE = FfiConverterTypeClosureReason{}
@@ -3337,6 +3303,8 @@ func (FfiConverterTypeClosureReason) Read(reader io.Reader) ClosureReason {
 		return ClosureReasonCounterpartyCoopClosedUnfundedChannel{}
 	case 12:
 		return ClosureReasonFundingBatchClosure{}
+	case 13:
+		return ClosureReasonHtlCsTimedOut{}
 	default:
 		panic(fmt.Sprintf("invalid enum value %v in FfiConverterTypeClosureReason.Read()", id))
 	}
@@ -3370,6 +3338,8 @@ func (FfiConverterTypeClosureReason) Write(writer io.Writer, value ClosureReason
 		writeInt32(writer, 11)
 	case ClosureReasonFundingBatchClosure:
 		writeInt32(writer, 12)
+	case ClosureReasonHtlCsTimedOut:
+		writeInt32(writer, 13)
 	default:
 		_ = variant_value
 		panic(fmt.Sprintf("invalid enum value `%v` in FfiConverterTypeClosureReason.Write", value))
@@ -3835,11 +3805,14 @@ var ErrNodeErrorChannelClosingFailed = fmt.Errorf("NodeErrorChannelClosingFailed
 var ErrNodeErrorChannelConfigUpdateFailed = fmt.Errorf("NodeErrorChannelConfigUpdateFailed")
 var ErrNodeErrorPersistenceFailed = fmt.Errorf("NodeErrorPersistenceFailed")
 var ErrNodeErrorFeerateEstimationUpdateFailed = fmt.Errorf("NodeErrorFeerateEstimationUpdateFailed")
+var ErrNodeErrorFeerateEstimationUpdateTimeout = fmt.Errorf("NodeErrorFeerateEstimationUpdateTimeout")
 var ErrNodeErrorWalletOperationFailed = fmt.Errorf("NodeErrorWalletOperationFailed")
+var ErrNodeErrorWalletOperationTimeout = fmt.Errorf("NodeErrorWalletOperationTimeout")
 var ErrNodeErrorOnchainTxSigningFailed = fmt.Errorf("NodeErrorOnchainTxSigningFailed")
 var ErrNodeErrorMessageSigningFailed = fmt.Errorf("NodeErrorMessageSigningFailed")
 var ErrNodeErrorTxSyncFailed = fmt.Errorf("NodeErrorTxSyncFailed")
 var ErrNodeErrorGossipUpdateFailed = fmt.Errorf("NodeErrorGossipUpdateFailed")
+var ErrNodeErrorGossipUpdateTimeout = fmt.Errorf("NodeErrorGossipUpdateTimeout")
 var ErrNodeErrorLiquidityRequestFailed = fmt.Errorf("NodeErrorLiquidityRequestFailed")
 var ErrNodeErrorInvalidAddress = fmt.Errorf("NodeErrorInvalidAddress")
 var ErrNodeErrorInvalidSocketAddress = fmt.Errorf("NodeErrorInvalidSocketAddress")
@@ -4076,6 +4049,24 @@ func (self NodeErrorFeerateEstimationUpdateFailed) Is(target error) bool {
 	return target == ErrNodeErrorFeerateEstimationUpdateFailed
 }
 
+type NodeErrorFeerateEstimationUpdateTimeout struct {
+	message string
+}
+
+func NewNodeErrorFeerateEstimationUpdateTimeout() *NodeError {
+	return &NodeError{
+		err: &NodeErrorFeerateEstimationUpdateTimeout{},
+	}
+}
+
+func (err NodeErrorFeerateEstimationUpdateTimeout) Error() string {
+	return fmt.Sprintf("FeerateEstimationUpdateTimeout: %s", err.message)
+}
+
+func (self NodeErrorFeerateEstimationUpdateTimeout) Is(target error) bool {
+	return target == ErrNodeErrorFeerateEstimationUpdateTimeout
+}
+
 type NodeErrorWalletOperationFailed struct {
 	message string
 }
@@ -4092,6 +4083,24 @@ func (err NodeErrorWalletOperationFailed) Error() string {
 
 func (self NodeErrorWalletOperationFailed) Is(target error) bool {
 	return target == ErrNodeErrorWalletOperationFailed
+}
+
+type NodeErrorWalletOperationTimeout struct {
+	message string
+}
+
+func NewNodeErrorWalletOperationTimeout() *NodeError {
+	return &NodeError{
+		err: &NodeErrorWalletOperationTimeout{},
+	}
+}
+
+func (err NodeErrorWalletOperationTimeout) Error() string {
+	return fmt.Sprintf("WalletOperationTimeout: %s", err.message)
+}
+
+func (self NodeErrorWalletOperationTimeout) Is(target error) bool {
+	return target == ErrNodeErrorWalletOperationTimeout
 }
 
 type NodeErrorOnchainTxSigningFailed struct {
@@ -4164,6 +4173,24 @@ func (err NodeErrorGossipUpdateFailed) Error() string {
 
 func (self NodeErrorGossipUpdateFailed) Is(target error) bool {
 	return target == ErrNodeErrorGossipUpdateFailed
+}
+
+type NodeErrorGossipUpdateTimeout struct {
+	message string
+}
+
+func NewNodeErrorGossipUpdateTimeout() *NodeError {
+	return &NodeError{
+		err: &NodeErrorGossipUpdateTimeout{},
+	}
+}
+
+func (err NodeErrorGossipUpdateTimeout) Error() string {
+	return fmt.Sprintf("GossipUpdateTimeout: %s", err.message)
+}
+
+func (self NodeErrorGossipUpdateTimeout) Is(target error) bool {
+	return target == ErrNodeErrorGossipUpdateTimeout
 }
 
 type NodeErrorLiquidityRequestFailed struct {
@@ -4532,50 +4559,56 @@ func (c FfiConverterTypeNodeError) Read(reader io.Reader) error {
 	case 12:
 		return &NodeError{&NodeErrorFeerateEstimationUpdateFailed{message}}
 	case 13:
-		return &NodeError{&NodeErrorWalletOperationFailed{message}}
+		return &NodeError{&NodeErrorFeerateEstimationUpdateTimeout{message}}
 	case 14:
-		return &NodeError{&NodeErrorOnchainTxSigningFailed{message}}
+		return &NodeError{&NodeErrorWalletOperationFailed{message}}
 	case 15:
-		return &NodeError{&NodeErrorMessageSigningFailed{message}}
+		return &NodeError{&NodeErrorWalletOperationTimeout{message}}
 	case 16:
-		return &NodeError{&NodeErrorTxSyncFailed{message}}
+		return &NodeError{&NodeErrorOnchainTxSigningFailed{message}}
 	case 17:
-		return &NodeError{&NodeErrorGossipUpdateFailed{message}}
+		return &NodeError{&NodeErrorMessageSigningFailed{message}}
 	case 18:
-		return &NodeError{&NodeErrorLiquidityRequestFailed{message}}
+		return &NodeError{&NodeErrorTxSyncFailed{message}}
 	case 19:
-		return &NodeError{&NodeErrorInvalidAddress{message}}
+		return &NodeError{&NodeErrorGossipUpdateFailed{message}}
 	case 20:
-		return &NodeError{&NodeErrorInvalidSocketAddress{message}}
+		return &NodeError{&NodeErrorGossipUpdateTimeout{message}}
 	case 21:
-		return &NodeError{&NodeErrorInvalidPublicKey{message}}
+		return &NodeError{&NodeErrorLiquidityRequestFailed{message}}
 	case 22:
-		return &NodeError{&NodeErrorInvalidSecretKey{message}}
+		return &NodeError{&NodeErrorInvalidAddress{message}}
 	case 23:
-		return &NodeError{&NodeErrorInvalidPaymentId{message}}
+		return &NodeError{&NodeErrorInvalidSocketAddress{message}}
 	case 24:
-		return &NodeError{&NodeErrorInvalidPaymentHash{message}}
+		return &NodeError{&NodeErrorInvalidPublicKey{message}}
 	case 25:
-		return &NodeError{&NodeErrorInvalidPaymentPreimage{message}}
+		return &NodeError{&NodeErrorInvalidSecretKey{message}}
 	case 26:
-		return &NodeError{&NodeErrorInvalidPaymentSecret{message}}
+		return &NodeError{&NodeErrorInvalidPaymentId{message}}
 	case 27:
-		return &NodeError{&NodeErrorInvalidAmount{message}}
+		return &NodeError{&NodeErrorInvalidPaymentHash{message}}
 	case 28:
-		return &NodeError{&NodeErrorInvalidInvoice{message}}
+		return &NodeError{&NodeErrorInvalidPaymentPreimage{message}}
 	case 29:
-		return &NodeError{&NodeErrorInvalidChannelId{message}}
+		return &NodeError{&NodeErrorInvalidPaymentSecret{message}}
 	case 30:
-		return &NodeError{&NodeErrorInvalidNetwork{message}}
+		return &NodeError{&NodeErrorInvalidAmount{message}}
 	case 31:
-		return &NodeError{&NodeErrorInvalidCustomTlv{message}}
+		return &NodeError{&NodeErrorInvalidInvoice{message}}
 	case 32:
-		return &NodeError{&NodeErrorDuplicatePayment{message}}
+		return &NodeError{&NodeErrorInvalidChannelId{message}}
 	case 33:
-		return &NodeError{&NodeErrorInsufficientFunds{message}}
+		return &NodeError{&NodeErrorInvalidNetwork{message}}
 	case 34:
-		return &NodeError{&NodeErrorLiquiditySourceUnavailable{message}}
+		return &NodeError{&NodeErrorInvalidCustomTlv{message}}
 	case 35:
+		return &NodeError{&NodeErrorDuplicatePayment{message}}
+	case 36:
+		return &NodeError{&NodeErrorInsufficientFunds{message}}
+	case 37:
+		return &NodeError{&NodeErrorLiquiditySourceUnavailable{message}}
+	case 38:
 		return &NodeError{&NodeErrorLiquidityFeeTooHigh{message}}
 	default:
 		panic(fmt.Sprintf("Unknown error code %d in FfiConverterTypeNodeError.Read()", errorID))
@@ -4609,52 +4642,58 @@ func (c FfiConverterTypeNodeError) Write(writer io.Writer, value *NodeError) {
 		writeInt32(writer, 11)
 	case *NodeErrorFeerateEstimationUpdateFailed:
 		writeInt32(writer, 12)
-	case *NodeErrorWalletOperationFailed:
+	case *NodeErrorFeerateEstimationUpdateTimeout:
 		writeInt32(writer, 13)
-	case *NodeErrorOnchainTxSigningFailed:
+	case *NodeErrorWalletOperationFailed:
 		writeInt32(writer, 14)
-	case *NodeErrorMessageSigningFailed:
+	case *NodeErrorWalletOperationTimeout:
 		writeInt32(writer, 15)
-	case *NodeErrorTxSyncFailed:
+	case *NodeErrorOnchainTxSigningFailed:
 		writeInt32(writer, 16)
-	case *NodeErrorGossipUpdateFailed:
+	case *NodeErrorMessageSigningFailed:
 		writeInt32(writer, 17)
-	case *NodeErrorLiquidityRequestFailed:
+	case *NodeErrorTxSyncFailed:
 		writeInt32(writer, 18)
-	case *NodeErrorInvalidAddress:
+	case *NodeErrorGossipUpdateFailed:
 		writeInt32(writer, 19)
-	case *NodeErrorInvalidSocketAddress:
+	case *NodeErrorGossipUpdateTimeout:
 		writeInt32(writer, 20)
-	case *NodeErrorInvalidPublicKey:
+	case *NodeErrorLiquidityRequestFailed:
 		writeInt32(writer, 21)
-	case *NodeErrorInvalidSecretKey:
+	case *NodeErrorInvalidAddress:
 		writeInt32(writer, 22)
-	case *NodeErrorInvalidPaymentId:
+	case *NodeErrorInvalidSocketAddress:
 		writeInt32(writer, 23)
-	case *NodeErrorInvalidPaymentHash:
+	case *NodeErrorInvalidPublicKey:
 		writeInt32(writer, 24)
-	case *NodeErrorInvalidPaymentPreimage:
+	case *NodeErrorInvalidSecretKey:
 		writeInt32(writer, 25)
-	case *NodeErrorInvalidPaymentSecret:
+	case *NodeErrorInvalidPaymentId:
 		writeInt32(writer, 26)
-	case *NodeErrorInvalidAmount:
+	case *NodeErrorInvalidPaymentHash:
 		writeInt32(writer, 27)
-	case *NodeErrorInvalidInvoice:
+	case *NodeErrorInvalidPaymentPreimage:
 		writeInt32(writer, 28)
-	case *NodeErrorInvalidChannelId:
+	case *NodeErrorInvalidPaymentSecret:
 		writeInt32(writer, 29)
-	case *NodeErrorInvalidNetwork:
+	case *NodeErrorInvalidAmount:
 		writeInt32(writer, 30)
-	case *NodeErrorInvalidCustomTlv:
+	case *NodeErrorInvalidInvoice:
 		writeInt32(writer, 31)
-	case *NodeErrorDuplicatePayment:
+	case *NodeErrorInvalidChannelId:
 		writeInt32(writer, 32)
-	case *NodeErrorInsufficientFunds:
+	case *NodeErrorInvalidNetwork:
 		writeInt32(writer, 33)
-	case *NodeErrorLiquiditySourceUnavailable:
+	case *NodeErrorInvalidCustomTlv:
 		writeInt32(writer, 34)
-	case *NodeErrorLiquidityFeeTooHigh:
+	case *NodeErrorDuplicatePayment:
 		writeInt32(writer, 35)
+	case *NodeErrorInsufficientFunds:
+		writeInt32(writer, 36)
+	case *NodeErrorLiquiditySourceUnavailable:
+		writeInt32(writer, 37)
+	case *NodeErrorLiquidityFeeTooHigh:
+		writeInt32(writer, 38)
 	default:
 		_ = variantValue
 		panic(fmt.Sprintf("invalid error value `%v` in FfiConverterTypeNodeError.Write", value))
@@ -4992,39 +5031,6 @@ type FfiDestroyerTypePendingSweepBalance struct{}
 
 func (_ FfiDestroyerTypePendingSweepBalance) Destroy(value PendingSweepBalance) {
 	value.Destroy()
-}
-
-type PersistentRecordKey uint
-
-const (
-	PersistentRecordKeyLatestRgsSyncTimestamp PersistentRecordKey = 1
-	PersistentRecordKeyScorer                 PersistentRecordKey = 2
-	PersistentRecordKeyNetworkGraph           PersistentRecordKey = 3
-)
-
-type FfiConverterTypePersistentRecordKey struct{}
-
-var FfiConverterTypePersistentRecordKeyINSTANCE = FfiConverterTypePersistentRecordKey{}
-
-func (c FfiConverterTypePersistentRecordKey) Lift(rb RustBufferI) PersistentRecordKey {
-	return LiftFromRustBuffer[PersistentRecordKey](c, rb)
-}
-
-func (c FfiConverterTypePersistentRecordKey) Lower(value PersistentRecordKey) RustBuffer {
-	return LowerIntoRustBuffer[PersistentRecordKey](c, value)
-}
-func (FfiConverterTypePersistentRecordKey) Read(reader io.Reader) PersistentRecordKey {
-	id := readInt32(reader)
-	return PersistentRecordKey(id)
-}
-
-func (FfiConverterTypePersistentRecordKey) Write(writer io.Writer, value PersistentRecordKey) {
-	writeInt32(writer, int32(value))
-}
-
-type FfiDestroyerTypePersistentRecordKey struct{}
-
-func (_ FfiDestroyerTypePersistentRecordKey) Destroy(value PersistentRecordKey) {
 }
 
 type FfiConverterOptionalUint16 struct{}
