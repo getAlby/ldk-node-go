@@ -293,6 +293,33 @@ void uniffi_ldk_node_fn_method_channelconfig_set_max_dust_htlc_exposure_from_fix
 	RustCallStatus* out_status
 );
 
+void uniffi_ldk_node_fn_free_networkgraph(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_channel(
+	void* ptr,
+	uint64_t short_channel_id,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_list_channels(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_list_nodes(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_node(
+	void* ptr,
+	RustBuffer node_id,
+	RustCallStatus* out_status
+);
+
 void uniffi_ldk_node_fn_free_node(
 	void* ptr,
 	RustCallStatus* out_status
@@ -367,6 +394,11 @@ RustBuffer uniffi_ldk_node_fn_method_node_list_peers(
 );
 
 RustBuffer uniffi_ldk_node_fn_method_node_listening_addresses(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
+void* uniffi_ldk_node_fn_method_node_network_graph(
 	void* ptr,
 	RustCallStatus* out_status
 );
@@ -936,6 +968,22 @@ uint16_t uniffi_ldk_node_checksum_method_channelconfig_set_max_dust_htlc_exposur
 	RustCallStatus* out_status
 );
 
+uint16_t uniffi_ldk_node_checksum_method_networkgraph_channel(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_networkgraph_list_channels(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_networkgraph_list_nodes(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_networkgraph_node(
+	RustCallStatus* out_status
+);
+
 uint16_t uniffi_ldk_node_checksum_method_node_bolt11_payment(
 	RustCallStatus* out_status
 );
@@ -981,6 +1029,10 @@ uint16_t uniffi_ldk_node_checksum_method_node_list_peers(
 );
 
 uint16_t uniffi_ldk_node_checksum_method_node_listening_addresses(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_node_network_graph(
 	RustCallStatus* out_status
 );
 
