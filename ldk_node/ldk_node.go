@@ -5199,13 +5199,15 @@ func (e PaymentKindBolt11Jit) Destroy() {
 }
 
 type PaymentKindSpontaneous struct {
-	Hash     PaymentHash
-	Preimage *PaymentPreimage
+	Hash       PaymentHash
+	Preimage   *PaymentPreimage
+	CustomTlvs []TlvEntry
 }
 
 func (e PaymentKindSpontaneous) Destroy() {
 	FfiDestroyerTypePaymentHash{}.Destroy(e.Hash)
 	FfiDestroyerOptionalTypePaymentPreimage{}.Destroy(e.Preimage)
+	FfiDestroyerSequenceTypeTlvEntry{}.Destroy(e.CustomTlvs)
 }
 
 type FfiConverterTypePaymentKind struct{}
@@ -5242,6 +5244,7 @@ func (FfiConverterTypePaymentKind) Read(reader io.Reader) PaymentKind {
 		return PaymentKindSpontaneous{
 			FfiConverterTypePaymentHashINSTANCE.Read(reader),
 			FfiConverterOptionalTypePaymentPreimageINSTANCE.Read(reader),
+			FfiConverterSequenceTypeTlvEntryINSTANCE.Read(reader),
 		}
 	default:
 		panic(fmt.Sprintf("invalid enum value %v in FfiConverterTypePaymentKind.Read()", id))
@@ -5268,6 +5271,7 @@ func (FfiConverterTypePaymentKind) Write(writer io.Writer, value PaymentKind) {
 		writeInt32(writer, 4)
 		FfiConverterTypePaymentHashINSTANCE.Write(writer, variant_value.Hash)
 		FfiConverterOptionalTypePaymentPreimageINSTANCE.Write(writer, variant_value.Preimage)
+		FfiConverterSequenceTypeTlvEntryINSTANCE.Write(writer, variant_value.CustomTlvs)
 	default:
 		_ = variant_value
 		panic(fmt.Sprintf("invalid enum value `%v` in FfiConverterTypePaymentKind.Write", value))
