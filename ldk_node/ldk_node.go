@@ -364,6 +364,24 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11payment_claim_for_hash(uniffiStatus)
+		})
+		if checksum != 40017 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_claim_for_hash: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11payment_fail_for_hash(uniffiStatus)
+		})
+		if checksum != 22118 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_fail_for_hash: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive(uniffiStatus)
 		})
 		if checksum != 44074 {
@@ -373,11 +391,29 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_for_hash(uniffiStatus)
+		})
+		if checksum != 4239 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_for_hash: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount(uniffiStatus)
 		})
 		if checksum != 50172 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_for_hash(uniffiStatus)
+		})
+		if checksum != 60371 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_for_hash: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -432,6 +468,60 @@ func uniffiCheckChecksums() {
 		if checksum != 52842 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_send_using_amount: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt12payment_initiate_refund(uniffiStatus)
+		})
+		if checksum != 5705 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_initiate_refund: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt12payment_receive(uniffiStatus)
+		})
+		if checksum != 50807 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_receive: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt12payment_receive_variable_amount(uniffiStatus)
+		})
+		if checksum != 50355 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_receive_variable_amount: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt12payment_request_refund_payment(uniffiStatus)
+		})
+		if checksum != 50892 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_request_refund_payment: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt12payment_send(uniffiStatus)
+		})
+		if checksum != 49474 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_send: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt12payment_send_using_amount(uniffiStatus)
+		})
+		if checksum != 63959 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_send_using_amount: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -697,9 +787,18 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_bolt12_payment(uniffiStatus)
+		})
+		if checksum != 49254 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_bolt12_payment: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_close_channel(uniffiStatus)
 		})
-		if checksum != 47156 {
+		if checksum != 1420 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_node_close_channel: UniFFI API checksum mismatch")
 		}
@@ -747,6 +846,15 @@ func uniffiCheckChecksums() {
 		if checksum != 47939 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_node_event_handled: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_force_close_channel(uniffiStatus)
+		})
+		if checksum != 4972 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_force_close_channel: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -1239,6 +1347,28 @@ type Bolt11Payment struct {
 	ffiObject FfiObject
 }
 
+func (_self *Bolt11Payment) ClaimForHash(paymentHash PaymentHash, claimableAmountMsat uint64, preimage PaymentPreimage) error {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
+	defer _self.ffiObject.decrementPointer()
+	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_bolt11payment_claim_for_hash(
+			_pointer, FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), FfiConverterUint64INSTANCE.Lower(claimableAmountMsat), FfiConverterTypePaymentPreimageINSTANCE.Lower(preimage), _uniffiStatus)
+		return false
+	})
+	return _uniffiErr
+}
+
+func (_self *Bolt11Payment) FailForHash(paymentHash PaymentHash) error {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
+	defer _self.ffiObject.decrementPointer()
+	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_bolt11payment_fail_for_hash(
+			_pointer, FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), _uniffiStatus)
+		return false
+	})
+	return _uniffiErr
+}
+
 func (_self *Bolt11Payment) Receive(amountMsat uint64, description string, expirySecs uint32) (Bolt11Invoice, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
@@ -1254,12 +1384,42 @@ func (_self *Bolt11Payment) Receive(amountMsat uint64, description string, expir
 	}
 }
 
+func (_self *Bolt11Payment) ReceiveForHash(amountMsat uint64, description string, expirySecs uint32, paymentHash PaymentHash) (Bolt11Invoice, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_for_hash(
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterStringINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue Bolt11Invoice
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypeBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
 func (_self *Bolt11Payment) ReceiveVariableAmount(description string, expirySecs uint32) (Bolt11Invoice, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount(
 			_pointer, FfiConverterStringINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue Bolt11Invoice
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypeBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (_self *Bolt11Payment) ReceiveVariableAmountForHash(description string, expirySecs uint32, paymentHash PaymentHash) (Bolt11Invoice, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_for_hash(
+			_pointer, FfiConverterStringINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue Bolt11Invoice
@@ -1392,6 +1552,144 @@ func (c FfiConverterBolt11Payment) Write(writer io.Writer, value *Bolt11Payment)
 type FfiDestroyerBolt11Payment struct{}
 
 func (_ FfiDestroyerBolt11Payment) Destroy(value *Bolt11Payment) {
+	value.Destroy()
+}
+
+type Bolt12Payment struct {
+	ffiObject FfiObject
+}
+
+func (_self *Bolt12Payment) InitiateRefund(amountMsat uint64, expirySecs uint32) (Refund, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_bolt12payment_initiate_refund(
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterUint32INSTANCE.Lower(expirySecs), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue Refund
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypeRefundINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (_self *Bolt12Payment) Receive(amountMsat uint64, description string) (Offer, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_bolt12payment_receive(
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterStringINSTANCE.Lower(description), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue Offer
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypeOfferINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (_self *Bolt12Payment) ReceiveVariableAmount(description string) (Offer, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_bolt12payment_receive_variable_amount(
+			_pointer, FfiConverterStringINSTANCE.Lower(description), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue Offer
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypeOfferINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (_self *Bolt12Payment) RequestRefundPayment(refund Refund) (Bolt12Invoice, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_bolt12payment_request_refund_payment(
+			_pointer, FfiConverterTypeRefundINSTANCE.Lower(refund), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue Bolt12Invoice
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypeBolt12InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (_self *Bolt12Payment) Send(offer Offer, payerNote *string) (PaymentId, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_bolt12payment_send(
+			_pointer, FfiConverterTypeOfferINSTANCE.Lower(offer), FfiConverterOptionalStringINSTANCE.Lower(payerNote), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue PaymentId
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (_self *Bolt12Payment) SendUsingAmount(offer Offer, payerNote *string, amountMsat uint64) (PaymentId, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_bolt12payment_send_using_amount(
+			_pointer, FfiConverterTypeOfferINSTANCE.Lower(offer), FfiConverterOptionalStringINSTANCE.Lower(payerNote), FfiConverterUint64INSTANCE.Lower(amountMsat), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue PaymentId
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (object *Bolt12Payment) Destroy() {
+	runtime.SetFinalizer(object, nil)
+	object.ffiObject.destroy()
+}
+
+type FfiConverterBolt12Payment struct{}
+
+var FfiConverterBolt12PaymentINSTANCE = FfiConverterBolt12Payment{}
+
+func (c FfiConverterBolt12Payment) Lift(pointer unsafe.Pointer) *Bolt12Payment {
+	result := &Bolt12Payment{
+		newFfiObject(
+			pointer,
+			func(pointer unsafe.Pointer, status *C.RustCallStatus) {
+				C.uniffi_ldk_node_fn_free_bolt12payment(pointer, status)
+			}),
+	}
+	runtime.SetFinalizer(result, (*Bolt12Payment).Destroy)
+	return result
+}
+
+func (c FfiConverterBolt12Payment) Read(reader io.Reader) *Bolt12Payment {
+	return c.Lift(unsafe.Pointer(uintptr(readUint64(reader))))
+}
+
+func (c FfiConverterBolt12Payment) Lower(value *Bolt12Payment) unsafe.Pointer {
+	// TODO: this is bad - all synchronization from ObjectRuntime.go is discarded here,
+	// because the pointer will be decremented immediately after this function returns,
+	// and someone will be left holding onto a non-locked pointer.
+	pointer := value.ffiObject.incrementPointer("*Bolt12Payment")
+	defer value.ffiObject.decrementPointer()
+	return pointer
+}
+
+func (c FfiConverterBolt12Payment) Write(writer io.Writer, value *Bolt12Payment) {
+	writeUint64(writer, uint64(uintptr(c.Lower(value))))
+}
+
+type FfiDestroyerBolt12Payment struct{}
+
+func (_ FfiDestroyerBolt12Payment) Destroy(value *Bolt12Payment) {
 	value.Destroy()
 }
 
@@ -1853,12 +2151,21 @@ func (_self *Node) Bolt11Payment() *Bolt11Payment {
 	}))
 }
 
-func (_self *Node) CloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey, force bool) error {
+func (_self *Node) Bolt12Payment() *Bolt12Payment {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterBolt12PaymentINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_node_bolt12_payment(
+			_pointer, _uniffiStatus)
+	}))
+}
+
+func (_self *Node) CloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_node_close_channel(
-			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), FfiConverterBoolINSTANCE.Lower(force), _uniffiStatus)
+			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), _uniffiStatus)
 		return false
 	})
 	return _uniffiErr
@@ -1918,6 +2225,17 @@ func (_self *Node) EventHandled() {
 			_pointer, _uniffiStatus)
 		return false
 	})
+}
+
+func (_self *Node) ForceCloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey) error {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_node_force_close_channel(
+			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), _uniffiStatus)
+		return false
+	})
+	return _uniffiErr
 }
 
 func (_self *Node) ListBalances() BalanceDetails {
@@ -3028,14 +3346,15 @@ func (_ FfiDestroyerTypeOutPoint) Destroy(value OutPoint) {
 }
 
 type PaymentDetails struct {
-	Id         PaymentId
-	Kind       PaymentKind
-	AmountMsat *uint64
-	Direction  PaymentDirection
-	Status     PaymentStatus
-	LastUpdate uint64
-	FeeMsat    *uint64
-	CreatedAt  uint64
+	Id                    PaymentId
+	Kind                  PaymentKind
+	AmountMsat            *uint64
+	Direction             PaymentDirection
+	Status                PaymentStatus
+	LastUpdate            uint64
+	FeeMsat               *uint64
+	CreatedAt             uint64
+	LatestUpdateTimestamp uint64
 }
 
 func (r *PaymentDetails) Destroy() {
@@ -3047,6 +3366,7 @@ func (r *PaymentDetails) Destroy() {
 	FfiDestroyerUint64{}.Destroy(r.LastUpdate)
 	FfiDestroyerOptionalUint64{}.Destroy(r.FeeMsat)
 	FfiDestroyerUint64{}.Destroy(r.CreatedAt)
+	FfiDestroyerUint64{}.Destroy(r.LatestUpdateTimestamp)
 }
 
 type FfiConverterTypePaymentDetails struct{}
@@ -3067,6 +3387,7 @@ func (c FfiConverterTypePaymentDetails) Read(reader io.Reader) PaymentDetails {
 		FfiConverterUint64INSTANCE.Read(reader),
 		FfiConverterOptionalUint64INSTANCE.Read(reader),
 		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterUint64INSTANCE.Read(reader),
 	}
 }
 
@@ -3083,6 +3404,7 @@ func (c FfiConverterTypePaymentDetails) Write(writer io.Writer, value PaymentDet
 	FfiConverterUint64INSTANCE.Write(writer, value.LastUpdate)
 	FfiConverterOptionalUint64INSTANCE.Write(writer, value.FeeMsat)
 	FfiConverterUint64INSTANCE.Write(writer, value.CreatedAt)
+	FfiConverterUint64INSTANCE.Write(writer, value.LatestUpdateTimestamp)
 }
 
 type FfiDestroyerTypePaymentDetails struct{}
@@ -3765,6 +4087,20 @@ func (e EventPaymentReceived) Destroy() {
 	FfiDestroyerUint64{}.Destroy(e.AmountMsat)
 }
 
+type EventPaymentClaimable struct {
+	PaymentId           PaymentId
+	PaymentHash         PaymentHash
+	ClaimableAmountMsat uint64
+	ClaimDeadline       *uint32
+}
+
+func (e EventPaymentClaimable) Destroy() {
+	FfiDestroyerTypePaymentId{}.Destroy(e.PaymentId)
+	FfiDestroyerTypePaymentHash{}.Destroy(e.PaymentHash)
+	FfiDestroyerUint64{}.Destroy(e.ClaimableAmountMsat)
+	FfiDestroyerOptionalUint32{}.Destroy(e.ClaimDeadline)
+}
+
 type EventChannelPending struct {
 	ChannelId                ChannelId
 	UserChannelId            UserChannelId
@@ -3840,6 +4176,13 @@ func (FfiConverterTypeEvent) Read(reader io.Reader) Event {
 			FfiConverterUint64INSTANCE.Read(reader),
 		}
 	case 4:
+		return EventPaymentClaimable{
+			FfiConverterTypePaymentIdINSTANCE.Read(reader),
+			FfiConverterTypePaymentHashINSTANCE.Read(reader),
+			FfiConverterUint64INSTANCE.Read(reader),
+			FfiConverterOptionalUint32INSTANCE.Read(reader),
+		}
+	case 5:
 		return EventChannelPending{
 			FfiConverterTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterTypeUserChannelIdINSTANCE.Read(reader),
@@ -3847,13 +4190,13 @@ func (FfiConverterTypeEvent) Read(reader io.Reader) Event {
 			FfiConverterTypePublicKeyINSTANCE.Read(reader),
 			FfiConverterTypeOutPointINSTANCE.Read(reader),
 		}
-	case 5:
+	case 6:
 		return EventChannelReady{
 			FfiConverterTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterTypeUserChannelIdINSTANCE.Read(reader),
 			FfiConverterOptionalTypePublicKeyINSTANCE.Read(reader),
 		}
-	case 6:
+	case 7:
 		return EventChannelClosed{
 			FfiConverterTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterTypeUserChannelIdINSTANCE.Read(reader),
@@ -3882,20 +4225,26 @@ func (FfiConverterTypeEvent) Write(writer io.Writer, value Event) {
 		FfiConverterOptionalTypePaymentIdINSTANCE.Write(writer, variant_value.PaymentId)
 		FfiConverterTypePaymentHashINSTANCE.Write(writer, variant_value.PaymentHash)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountMsat)
-	case EventChannelPending:
+	case EventPaymentClaimable:
 		writeInt32(writer, 4)
+		FfiConverterTypePaymentIdINSTANCE.Write(writer, variant_value.PaymentId)
+		FfiConverterTypePaymentHashINSTANCE.Write(writer, variant_value.PaymentHash)
+		FfiConverterUint64INSTANCE.Write(writer, variant_value.ClaimableAmountMsat)
+		FfiConverterOptionalUint32INSTANCE.Write(writer, variant_value.ClaimDeadline)
+	case EventChannelPending:
+		writeInt32(writer, 5)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypeUserChannelIdINSTANCE.Write(writer, variant_value.UserChannelId)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.FormerTemporaryChannelId)
 		FfiConverterTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
 		FfiConverterTypeOutPointINSTANCE.Write(writer, variant_value.FundingTxo)
 	case EventChannelReady:
-		writeInt32(writer, 5)
+		writeInt32(writer, 6)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypeUserChannelIdINSTANCE.Write(writer, variant_value.UserChannelId)
 		FfiConverterOptionalTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
 	case EventChannelClosed:
-		writeInt32(writer, 6)
+		writeInt32(writer, 7)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypeUserChannelIdINSTANCE.Write(writer, variant_value.UserChannelId)
 		FfiConverterOptionalTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
@@ -4172,6 +4521,9 @@ var ErrNodeErrorNotRunning = fmt.Errorf("NodeErrorNotRunning")
 var ErrNodeErrorOnchainTxCreationFailed = fmt.Errorf("NodeErrorOnchainTxCreationFailed")
 var ErrNodeErrorConnectionFailed = fmt.Errorf("NodeErrorConnectionFailed")
 var ErrNodeErrorInvoiceCreationFailed = fmt.Errorf("NodeErrorInvoiceCreationFailed")
+var ErrNodeErrorInvoiceRequestCreationFailed = fmt.Errorf("NodeErrorInvoiceRequestCreationFailed")
+var ErrNodeErrorOfferCreationFailed = fmt.Errorf("NodeErrorOfferCreationFailed")
+var ErrNodeErrorRefundCreationFailed = fmt.Errorf("NodeErrorRefundCreationFailed")
 var ErrNodeErrorPaymentSendingFailed = fmt.Errorf("NodeErrorPaymentSendingFailed")
 var ErrNodeErrorProbeSendingFailed = fmt.Errorf("NodeErrorProbeSendingFailed")
 var ErrNodeErrorChannelCreationFailed = fmt.Errorf("NodeErrorChannelCreationFailed")
@@ -4185,6 +4537,7 @@ var ErrNodeErrorWalletOperationTimeout = fmt.Errorf("NodeErrorWalletOperationTim
 var ErrNodeErrorOnchainTxSigningFailed = fmt.Errorf("NodeErrorOnchainTxSigningFailed")
 var ErrNodeErrorMessageSigningFailed = fmt.Errorf("NodeErrorMessageSigningFailed")
 var ErrNodeErrorTxSyncFailed = fmt.Errorf("NodeErrorTxSyncFailed")
+var ErrNodeErrorTxSyncTimeout = fmt.Errorf("NodeErrorTxSyncTimeout")
 var ErrNodeErrorGossipUpdateFailed = fmt.Errorf("NodeErrorGossipUpdateFailed")
 var ErrNodeErrorGossipUpdateTimeout = fmt.Errorf("NodeErrorGossipUpdateTimeout")
 var ErrNodeErrorLiquidityRequestFailed = fmt.Errorf("NodeErrorLiquidityRequestFailed")
@@ -4192,6 +4545,7 @@ var ErrNodeErrorInvalidAddress = fmt.Errorf("NodeErrorInvalidAddress")
 var ErrNodeErrorInvalidSocketAddress = fmt.Errorf("NodeErrorInvalidSocketAddress")
 var ErrNodeErrorInvalidPublicKey = fmt.Errorf("NodeErrorInvalidPublicKey")
 var ErrNodeErrorInvalidSecretKey = fmt.Errorf("NodeErrorInvalidSecretKey")
+var ErrNodeErrorInvalidOfferId = fmt.Errorf("NodeErrorInvalidOfferId")
 var ErrNodeErrorInvalidNodeId = fmt.Errorf("NodeErrorInvalidNodeId")
 var ErrNodeErrorInvalidPaymentId = fmt.Errorf("NodeErrorInvalidPaymentId")
 var ErrNodeErrorInvalidPaymentHash = fmt.Errorf("NodeErrorInvalidPaymentHash")
@@ -4199,10 +4553,13 @@ var ErrNodeErrorInvalidPaymentPreimage = fmt.Errorf("NodeErrorInvalidPaymentPrei
 var ErrNodeErrorInvalidPaymentSecret = fmt.Errorf("NodeErrorInvalidPaymentSecret")
 var ErrNodeErrorInvalidAmount = fmt.Errorf("NodeErrorInvalidAmount")
 var ErrNodeErrorInvalidInvoice = fmt.Errorf("NodeErrorInvalidInvoice")
+var ErrNodeErrorInvalidOffer = fmt.Errorf("NodeErrorInvalidOffer")
+var ErrNodeErrorInvalidRefund = fmt.Errorf("NodeErrorInvalidRefund")
 var ErrNodeErrorInvalidChannelId = fmt.Errorf("NodeErrorInvalidChannelId")
 var ErrNodeErrorInvalidNetwork = fmt.Errorf("NodeErrorInvalidNetwork")
 var ErrNodeErrorInvalidCustomTlv = fmt.Errorf("NodeErrorInvalidCustomTlv")
 var ErrNodeErrorDuplicatePayment = fmt.Errorf("NodeErrorDuplicatePayment")
+var ErrNodeErrorUnsupportedCurrency = fmt.Errorf("NodeErrorUnsupportedCurrency")
 var ErrNodeErrorInsufficientFunds = fmt.Errorf("NodeErrorInsufficientFunds")
 var ErrNodeErrorLiquiditySourceUnavailable = fmt.Errorf("NodeErrorLiquiditySourceUnavailable")
 var ErrNodeErrorLiquidityFeeTooHigh = fmt.Errorf("NodeErrorLiquidityFeeTooHigh")
@@ -4296,6 +4653,60 @@ func (err NodeErrorInvoiceCreationFailed) Error() string {
 
 func (self NodeErrorInvoiceCreationFailed) Is(target error) bool {
 	return target == ErrNodeErrorInvoiceCreationFailed
+}
+
+type NodeErrorInvoiceRequestCreationFailed struct {
+	message string
+}
+
+func NewNodeErrorInvoiceRequestCreationFailed() *NodeError {
+	return &NodeError{
+		err: &NodeErrorInvoiceRequestCreationFailed{},
+	}
+}
+
+func (err NodeErrorInvoiceRequestCreationFailed) Error() string {
+	return fmt.Sprintf("InvoiceRequestCreationFailed: %s", err.message)
+}
+
+func (self NodeErrorInvoiceRequestCreationFailed) Is(target error) bool {
+	return target == ErrNodeErrorInvoiceRequestCreationFailed
+}
+
+type NodeErrorOfferCreationFailed struct {
+	message string
+}
+
+func NewNodeErrorOfferCreationFailed() *NodeError {
+	return &NodeError{
+		err: &NodeErrorOfferCreationFailed{},
+	}
+}
+
+func (err NodeErrorOfferCreationFailed) Error() string {
+	return fmt.Sprintf("OfferCreationFailed: %s", err.message)
+}
+
+func (self NodeErrorOfferCreationFailed) Is(target error) bool {
+	return target == ErrNodeErrorOfferCreationFailed
+}
+
+type NodeErrorRefundCreationFailed struct {
+	message string
+}
+
+func NewNodeErrorRefundCreationFailed() *NodeError {
+	return &NodeError{
+		err: &NodeErrorRefundCreationFailed{},
+	}
+}
+
+func (err NodeErrorRefundCreationFailed) Error() string {
+	return fmt.Sprintf("RefundCreationFailed: %s", err.message)
+}
+
+func (self NodeErrorRefundCreationFailed) Is(target error) bool {
+	return target == ErrNodeErrorRefundCreationFailed
 }
 
 type NodeErrorPaymentSendingFailed struct {
@@ -4532,6 +4943,24 @@ func (self NodeErrorTxSyncFailed) Is(target error) bool {
 	return target == ErrNodeErrorTxSyncFailed
 }
 
+type NodeErrorTxSyncTimeout struct {
+	message string
+}
+
+func NewNodeErrorTxSyncTimeout() *NodeError {
+	return &NodeError{
+		err: &NodeErrorTxSyncTimeout{},
+	}
+}
+
+func (err NodeErrorTxSyncTimeout) Error() string {
+	return fmt.Sprintf("TxSyncTimeout: %s", err.message)
+}
+
+func (self NodeErrorTxSyncTimeout) Is(target error) bool {
+	return target == ErrNodeErrorTxSyncTimeout
+}
+
 type NodeErrorGossipUpdateFailed struct {
 	message string
 }
@@ -4656,6 +5085,24 @@ func (err NodeErrorInvalidSecretKey) Error() string {
 
 func (self NodeErrorInvalidSecretKey) Is(target error) bool {
 	return target == ErrNodeErrorInvalidSecretKey
+}
+
+type NodeErrorInvalidOfferId struct {
+	message string
+}
+
+func NewNodeErrorInvalidOfferId() *NodeError {
+	return &NodeError{
+		err: &NodeErrorInvalidOfferId{},
+	}
+}
+
+func (err NodeErrorInvalidOfferId) Error() string {
+	return fmt.Sprintf("InvalidOfferId: %s", err.message)
+}
+
+func (self NodeErrorInvalidOfferId) Is(target error) bool {
+	return target == ErrNodeErrorInvalidOfferId
 }
 
 type NodeErrorInvalidNodeId struct {
@@ -4784,6 +5231,42 @@ func (self NodeErrorInvalidInvoice) Is(target error) bool {
 	return target == ErrNodeErrorInvalidInvoice
 }
 
+type NodeErrorInvalidOffer struct {
+	message string
+}
+
+func NewNodeErrorInvalidOffer() *NodeError {
+	return &NodeError{
+		err: &NodeErrorInvalidOffer{},
+	}
+}
+
+func (err NodeErrorInvalidOffer) Error() string {
+	return fmt.Sprintf("InvalidOffer: %s", err.message)
+}
+
+func (self NodeErrorInvalidOffer) Is(target error) bool {
+	return target == ErrNodeErrorInvalidOffer
+}
+
+type NodeErrorInvalidRefund struct {
+	message string
+}
+
+func NewNodeErrorInvalidRefund() *NodeError {
+	return &NodeError{
+		err: &NodeErrorInvalidRefund{},
+	}
+}
+
+func (err NodeErrorInvalidRefund) Error() string {
+	return fmt.Sprintf("InvalidRefund: %s", err.message)
+}
+
+func (self NodeErrorInvalidRefund) Is(target error) bool {
+	return target == ErrNodeErrorInvalidRefund
+}
+
 type NodeErrorInvalidChannelId struct {
 	message string
 }
@@ -4854,6 +5337,24 @@ func (err NodeErrorDuplicatePayment) Error() string {
 
 func (self NodeErrorDuplicatePayment) Is(target error) bool {
 	return target == ErrNodeErrorDuplicatePayment
+}
+
+type NodeErrorUnsupportedCurrency struct {
+	message string
+}
+
+func NewNodeErrorUnsupportedCurrency() *NodeError {
+	return &NodeError{
+		err: &NodeErrorUnsupportedCurrency{},
+	}
+}
+
+func (err NodeErrorUnsupportedCurrency) Error() string {
+	return fmt.Sprintf("UnsupportedCurrency: %s", err.message)
+}
+
+func (self NodeErrorUnsupportedCurrency) Is(target error) bool {
+	return target == ErrNodeErrorUnsupportedCurrency
 }
 
 type NodeErrorInsufficientFunds struct {
@@ -4938,72 +5439,88 @@ func (c FfiConverterTypeNodeError) Read(reader io.Reader) error {
 	case 5:
 		return &NodeError{&NodeErrorInvoiceCreationFailed{message}}
 	case 6:
-		return &NodeError{&NodeErrorPaymentSendingFailed{message}}
+		return &NodeError{&NodeErrorInvoiceRequestCreationFailed{message}}
 	case 7:
-		return &NodeError{&NodeErrorProbeSendingFailed{message}}
+		return &NodeError{&NodeErrorOfferCreationFailed{message}}
 	case 8:
-		return &NodeError{&NodeErrorChannelCreationFailed{message}}
+		return &NodeError{&NodeErrorRefundCreationFailed{message}}
 	case 9:
-		return &NodeError{&NodeErrorChannelClosingFailed{message}}
+		return &NodeError{&NodeErrorPaymentSendingFailed{message}}
 	case 10:
-		return &NodeError{&NodeErrorChannelConfigUpdateFailed{message}}
+		return &NodeError{&NodeErrorProbeSendingFailed{message}}
 	case 11:
-		return &NodeError{&NodeErrorPersistenceFailed{message}}
+		return &NodeError{&NodeErrorChannelCreationFailed{message}}
 	case 12:
-		return &NodeError{&NodeErrorFeerateEstimationUpdateFailed{message}}
+		return &NodeError{&NodeErrorChannelClosingFailed{message}}
 	case 13:
-		return &NodeError{&NodeErrorFeerateEstimationUpdateTimeout{message}}
+		return &NodeError{&NodeErrorChannelConfigUpdateFailed{message}}
 	case 14:
-		return &NodeError{&NodeErrorWalletOperationFailed{message}}
+		return &NodeError{&NodeErrorPersistenceFailed{message}}
 	case 15:
-		return &NodeError{&NodeErrorWalletOperationTimeout{message}}
+		return &NodeError{&NodeErrorFeerateEstimationUpdateFailed{message}}
 	case 16:
-		return &NodeError{&NodeErrorOnchainTxSigningFailed{message}}
+		return &NodeError{&NodeErrorFeerateEstimationUpdateTimeout{message}}
 	case 17:
-		return &NodeError{&NodeErrorMessageSigningFailed{message}}
+		return &NodeError{&NodeErrorWalletOperationFailed{message}}
 	case 18:
-		return &NodeError{&NodeErrorTxSyncFailed{message}}
+		return &NodeError{&NodeErrorWalletOperationTimeout{message}}
 	case 19:
-		return &NodeError{&NodeErrorGossipUpdateFailed{message}}
+		return &NodeError{&NodeErrorOnchainTxSigningFailed{message}}
 	case 20:
-		return &NodeError{&NodeErrorGossipUpdateTimeout{message}}
+		return &NodeError{&NodeErrorMessageSigningFailed{message}}
 	case 21:
-		return &NodeError{&NodeErrorLiquidityRequestFailed{message}}
+		return &NodeError{&NodeErrorTxSyncFailed{message}}
 	case 22:
-		return &NodeError{&NodeErrorInvalidAddress{message}}
+		return &NodeError{&NodeErrorTxSyncTimeout{message}}
 	case 23:
-		return &NodeError{&NodeErrorInvalidSocketAddress{message}}
+		return &NodeError{&NodeErrorGossipUpdateFailed{message}}
 	case 24:
-		return &NodeError{&NodeErrorInvalidPublicKey{message}}
+		return &NodeError{&NodeErrorGossipUpdateTimeout{message}}
 	case 25:
-		return &NodeError{&NodeErrorInvalidSecretKey{message}}
+		return &NodeError{&NodeErrorLiquidityRequestFailed{message}}
 	case 26:
-		return &NodeError{&NodeErrorInvalidNodeId{message}}
+		return &NodeError{&NodeErrorInvalidAddress{message}}
 	case 27:
-		return &NodeError{&NodeErrorInvalidPaymentId{message}}
+		return &NodeError{&NodeErrorInvalidSocketAddress{message}}
 	case 28:
-		return &NodeError{&NodeErrorInvalidPaymentHash{message}}
+		return &NodeError{&NodeErrorInvalidPublicKey{message}}
 	case 29:
-		return &NodeError{&NodeErrorInvalidPaymentPreimage{message}}
+		return &NodeError{&NodeErrorInvalidSecretKey{message}}
 	case 30:
-		return &NodeError{&NodeErrorInvalidPaymentSecret{message}}
+		return &NodeError{&NodeErrorInvalidOfferId{message}}
 	case 31:
-		return &NodeError{&NodeErrorInvalidAmount{message}}
+		return &NodeError{&NodeErrorInvalidNodeId{message}}
 	case 32:
-		return &NodeError{&NodeErrorInvalidInvoice{message}}
+		return &NodeError{&NodeErrorInvalidPaymentId{message}}
 	case 33:
-		return &NodeError{&NodeErrorInvalidChannelId{message}}
+		return &NodeError{&NodeErrorInvalidPaymentHash{message}}
 	case 34:
-		return &NodeError{&NodeErrorInvalidNetwork{message}}
+		return &NodeError{&NodeErrorInvalidPaymentPreimage{message}}
 	case 35:
-		return &NodeError{&NodeErrorInvalidCustomTlv{message}}
+		return &NodeError{&NodeErrorInvalidPaymentSecret{message}}
 	case 36:
-		return &NodeError{&NodeErrorDuplicatePayment{message}}
+		return &NodeError{&NodeErrorInvalidAmount{message}}
 	case 37:
-		return &NodeError{&NodeErrorInsufficientFunds{message}}
+		return &NodeError{&NodeErrorInvalidInvoice{message}}
 	case 38:
-		return &NodeError{&NodeErrorLiquiditySourceUnavailable{message}}
+		return &NodeError{&NodeErrorInvalidOffer{message}}
 	case 39:
+		return &NodeError{&NodeErrorInvalidRefund{message}}
+	case 40:
+		return &NodeError{&NodeErrorInvalidChannelId{message}}
+	case 41:
+		return &NodeError{&NodeErrorInvalidNetwork{message}}
+	case 42:
+		return &NodeError{&NodeErrorInvalidCustomTlv{message}}
+	case 43:
+		return &NodeError{&NodeErrorDuplicatePayment{message}}
+	case 44:
+		return &NodeError{&NodeErrorUnsupportedCurrency{message}}
+	case 45:
+		return &NodeError{&NodeErrorInsufficientFunds{message}}
+	case 46:
+		return &NodeError{&NodeErrorLiquiditySourceUnavailable{message}}
+	case 47:
 		return &NodeError{&NodeErrorLiquidityFeeTooHigh{message}}
 	default:
 		panic(fmt.Sprintf("Unknown error code %d in FfiConverterTypeNodeError.Read()", errorID))
@@ -5023,74 +5540,90 @@ func (c FfiConverterTypeNodeError) Write(writer io.Writer, value *NodeError) {
 		writeInt32(writer, 4)
 	case *NodeErrorInvoiceCreationFailed:
 		writeInt32(writer, 5)
-	case *NodeErrorPaymentSendingFailed:
+	case *NodeErrorInvoiceRequestCreationFailed:
 		writeInt32(writer, 6)
-	case *NodeErrorProbeSendingFailed:
+	case *NodeErrorOfferCreationFailed:
 		writeInt32(writer, 7)
-	case *NodeErrorChannelCreationFailed:
+	case *NodeErrorRefundCreationFailed:
 		writeInt32(writer, 8)
-	case *NodeErrorChannelClosingFailed:
+	case *NodeErrorPaymentSendingFailed:
 		writeInt32(writer, 9)
-	case *NodeErrorChannelConfigUpdateFailed:
+	case *NodeErrorProbeSendingFailed:
 		writeInt32(writer, 10)
-	case *NodeErrorPersistenceFailed:
+	case *NodeErrorChannelCreationFailed:
 		writeInt32(writer, 11)
-	case *NodeErrorFeerateEstimationUpdateFailed:
+	case *NodeErrorChannelClosingFailed:
 		writeInt32(writer, 12)
-	case *NodeErrorFeerateEstimationUpdateTimeout:
+	case *NodeErrorChannelConfigUpdateFailed:
 		writeInt32(writer, 13)
-	case *NodeErrorWalletOperationFailed:
+	case *NodeErrorPersistenceFailed:
 		writeInt32(writer, 14)
-	case *NodeErrorWalletOperationTimeout:
+	case *NodeErrorFeerateEstimationUpdateFailed:
 		writeInt32(writer, 15)
-	case *NodeErrorOnchainTxSigningFailed:
+	case *NodeErrorFeerateEstimationUpdateTimeout:
 		writeInt32(writer, 16)
-	case *NodeErrorMessageSigningFailed:
+	case *NodeErrorWalletOperationFailed:
 		writeInt32(writer, 17)
-	case *NodeErrorTxSyncFailed:
+	case *NodeErrorWalletOperationTimeout:
 		writeInt32(writer, 18)
-	case *NodeErrorGossipUpdateFailed:
+	case *NodeErrorOnchainTxSigningFailed:
 		writeInt32(writer, 19)
-	case *NodeErrorGossipUpdateTimeout:
+	case *NodeErrorMessageSigningFailed:
 		writeInt32(writer, 20)
-	case *NodeErrorLiquidityRequestFailed:
+	case *NodeErrorTxSyncFailed:
 		writeInt32(writer, 21)
-	case *NodeErrorInvalidAddress:
+	case *NodeErrorTxSyncTimeout:
 		writeInt32(writer, 22)
-	case *NodeErrorInvalidSocketAddress:
+	case *NodeErrorGossipUpdateFailed:
 		writeInt32(writer, 23)
-	case *NodeErrorInvalidPublicKey:
+	case *NodeErrorGossipUpdateTimeout:
 		writeInt32(writer, 24)
-	case *NodeErrorInvalidSecretKey:
+	case *NodeErrorLiquidityRequestFailed:
 		writeInt32(writer, 25)
-	case *NodeErrorInvalidNodeId:
+	case *NodeErrorInvalidAddress:
 		writeInt32(writer, 26)
-	case *NodeErrorInvalidPaymentId:
+	case *NodeErrorInvalidSocketAddress:
 		writeInt32(writer, 27)
-	case *NodeErrorInvalidPaymentHash:
+	case *NodeErrorInvalidPublicKey:
 		writeInt32(writer, 28)
-	case *NodeErrorInvalidPaymentPreimage:
+	case *NodeErrorInvalidSecretKey:
 		writeInt32(writer, 29)
-	case *NodeErrorInvalidPaymentSecret:
+	case *NodeErrorInvalidOfferId:
 		writeInt32(writer, 30)
-	case *NodeErrorInvalidAmount:
+	case *NodeErrorInvalidNodeId:
 		writeInt32(writer, 31)
-	case *NodeErrorInvalidInvoice:
+	case *NodeErrorInvalidPaymentId:
 		writeInt32(writer, 32)
-	case *NodeErrorInvalidChannelId:
+	case *NodeErrorInvalidPaymentHash:
 		writeInt32(writer, 33)
-	case *NodeErrorInvalidNetwork:
+	case *NodeErrorInvalidPaymentPreimage:
 		writeInt32(writer, 34)
-	case *NodeErrorInvalidCustomTlv:
+	case *NodeErrorInvalidPaymentSecret:
 		writeInt32(writer, 35)
-	case *NodeErrorDuplicatePayment:
+	case *NodeErrorInvalidAmount:
 		writeInt32(writer, 36)
-	case *NodeErrorInsufficientFunds:
+	case *NodeErrorInvalidInvoice:
 		writeInt32(writer, 37)
-	case *NodeErrorLiquiditySourceUnavailable:
+	case *NodeErrorInvalidOffer:
 		writeInt32(writer, 38)
-	case *NodeErrorLiquidityFeeTooHigh:
+	case *NodeErrorInvalidRefund:
 		writeInt32(writer, 39)
+	case *NodeErrorInvalidChannelId:
+		writeInt32(writer, 40)
+	case *NodeErrorInvalidNetwork:
+		writeInt32(writer, 41)
+	case *NodeErrorInvalidCustomTlv:
+		writeInt32(writer, 42)
+	case *NodeErrorDuplicatePayment:
+		writeInt32(writer, 43)
+	case *NodeErrorUnsupportedCurrency:
+		writeInt32(writer, 44)
+	case *NodeErrorInsufficientFunds:
+		writeInt32(writer, 45)
+	case *NodeErrorLiquiditySourceUnavailable:
+		writeInt32(writer, 46)
+	case *NodeErrorLiquidityFeeTooHigh:
+		writeInt32(writer, 47)
 	default:
 		_ = variantValue
 		panic(fmt.Sprintf("invalid error value `%v` in FfiConverterTypeNodeError.Write", value))
@@ -5202,6 +5735,32 @@ func (e PaymentKindBolt11Jit) Destroy() {
 	FfiDestroyerTypeLspFeeLimits{}.Destroy(e.LspFeeLimits)
 }
 
+type PaymentKindBolt12Offer struct {
+	Hash     *PaymentHash
+	Preimage *PaymentPreimage
+	Secret   *PaymentSecret
+	OfferId  OfferId
+}
+
+func (e PaymentKindBolt12Offer) Destroy() {
+	FfiDestroyerOptionalTypePaymentHash{}.Destroy(e.Hash)
+	FfiDestroyerOptionalTypePaymentPreimage{}.Destroy(e.Preimage)
+	FfiDestroyerOptionalTypePaymentSecret{}.Destroy(e.Secret)
+	FfiDestroyerTypeOfferId{}.Destroy(e.OfferId)
+}
+
+type PaymentKindBolt12Refund struct {
+	Hash     *PaymentHash
+	Preimage *PaymentPreimage
+	Secret   *PaymentSecret
+}
+
+func (e PaymentKindBolt12Refund) Destroy() {
+	FfiDestroyerOptionalTypePaymentHash{}.Destroy(e.Hash)
+	FfiDestroyerOptionalTypePaymentPreimage{}.Destroy(e.Preimage)
+	FfiDestroyerOptionalTypePaymentSecret{}.Destroy(e.Secret)
+}
+
 type PaymentKindSpontaneous struct {
 	Hash       PaymentHash
 	Preimage   *PaymentPreimage
@@ -5245,6 +5804,19 @@ func (FfiConverterTypePaymentKind) Read(reader io.Reader) PaymentKind {
 			FfiConverterTypeLSPFeeLimitsINSTANCE.Read(reader),
 		}
 	case 4:
+		return PaymentKindBolt12Offer{
+			FfiConverterOptionalTypePaymentHashINSTANCE.Read(reader),
+			FfiConverterOptionalTypePaymentPreimageINSTANCE.Read(reader),
+			FfiConverterOptionalTypePaymentSecretINSTANCE.Read(reader),
+			FfiConverterTypeOfferIdINSTANCE.Read(reader),
+		}
+	case 5:
+		return PaymentKindBolt12Refund{
+			FfiConverterOptionalTypePaymentHashINSTANCE.Read(reader),
+			FfiConverterOptionalTypePaymentPreimageINSTANCE.Read(reader),
+			FfiConverterOptionalTypePaymentSecretINSTANCE.Read(reader),
+		}
+	case 6:
 		return PaymentKindSpontaneous{
 			FfiConverterTypePaymentHashINSTANCE.Read(reader),
 			FfiConverterOptionalTypePaymentPreimageINSTANCE.Read(reader),
@@ -5271,8 +5843,19 @@ func (FfiConverterTypePaymentKind) Write(writer io.Writer, value PaymentKind) {
 		FfiConverterOptionalTypePaymentPreimageINSTANCE.Write(writer, variant_value.Preimage)
 		FfiConverterOptionalTypePaymentSecretINSTANCE.Write(writer, variant_value.Secret)
 		FfiConverterTypeLSPFeeLimitsINSTANCE.Write(writer, variant_value.LspFeeLimits)
-	case PaymentKindSpontaneous:
+	case PaymentKindBolt12Offer:
 		writeInt32(writer, 4)
+		FfiConverterOptionalTypePaymentHashINSTANCE.Write(writer, variant_value.Hash)
+		FfiConverterOptionalTypePaymentPreimageINSTANCE.Write(writer, variant_value.Preimage)
+		FfiConverterOptionalTypePaymentSecretINSTANCE.Write(writer, variant_value.Secret)
+		FfiConverterTypeOfferIdINSTANCE.Write(writer, variant_value.OfferId)
+	case PaymentKindBolt12Refund:
+		writeInt32(writer, 5)
+		FfiConverterOptionalTypePaymentHashINSTANCE.Write(writer, variant_value.Hash)
+		FfiConverterOptionalTypePaymentPreimageINSTANCE.Write(writer, variant_value.Preimage)
+		FfiConverterOptionalTypePaymentSecretINSTANCE.Write(writer, variant_value.Secret)
+	case PaymentKindSpontaneous:
+		writeInt32(writer, 6)
 		FfiConverterTypePaymentHashINSTANCE.Write(writer, variant_value.Hash)
 		FfiConverterOptionalTypePaymentPreimageINSTANCE.Write(writer, variant_value.Preimage)
 		FfiConverterSequenceTypeTlvEntryINSTANCE.Write(writer, variant_value.CustomTlvs)
@@ -6100,6 +6683,43 @@ func (_ FfiDestroyerOptionalTypeChannelId) Destroy(value *ChannelId) {
 	}
 }
 
+type FfiConverterOptionalTypePaymentHash struct{}
+
+var FfiConverterOptionalTypePaymentHashINSTANCE = FfiConverterOptionalTypePaymentHash{}
+
+func (c FfiConverterOptionalTypePaymentHash) Lift(rb RustBufferI) *PaymentHash {
+	return LiftFromRustBuffer[*PaymentHash](c, rb)
+}
+
+func (_ FfiConverterOptionalTypePaymentHash) Read(reader io.Reader) *PaymentHash {
+	if readInt8(reader) == 0 {
+		return nil
+	}
+	temp := FfiConverterTypePaymentHashINSTANCE.Read(reader)
+	return &temp
+}
+
+func (c FfiConverterOptionalTypePaymentHash) Lower(value *PaymentHash) RustBuffer {
+	return LowerIntoRustBuffer[*PaymentHash](c, value)
+}
+
+func (_ FfiConverterOptionalTypePaymentHash) Write(writer io.Writer, value *PaymentHash) {
+	if value == nil {
+		writeInt8(writer, 0)
+	} else {
+		writeInt8(writer, 1)
+		FfiConverterTypePaymentHashINSTANCE.Write(writer, *value)
+	}
+}
+
+type FfiDestroyerOptionalTypePaymentHash struct{}
+
+func (_ FfiDestroyerOptionalTypePaymentHash) Destroy(value *PaymentHash) {
+	if value != nil {
+		FfiDestroyerTypePaymentHash{}.Destroy(*value)
+	}
+}
+
 type FfiConverterOptionalTypePaymentId struct{}
 
 var FfiConverterOptionalTypePaymentIdINSTANCE = FfiConverterOptionalTypePaymentId{}
@@ -6759,6 +7379,17 @@ var FfiConverterTypeBolt11InvoiceINSTANCE = FfiConverterString{}
  * is needed because the UDL type name is used in function/method signatures.
  * It's also what we have an external type that references a custom type.
  */
+type Bolt12Invoice = string
+type FfiConverterTypeBolt12Invoice = FfiConverterString
+type FfiDestroyerTypeBolt12Invoice = FfiDestroyerString
+
+var FfiConverterTypeBolt12InvoiceINSTANCE = FfiConverterString{}
+
+/**
+ * Typealias from the type name used in the UDL file to the builtin type.  This
+ * is needed because the UDL type name is used in function/method signatures.
+ * It's also what we have an external type that references a custom type.
+ */
 type ChannelId = string
 type FfiConverterTypeChannelId = FfiConverterString
 type FfiDestroyerTypeChannelId = FfiDestroyerString
@@ -6797,6 +7428,28 @@ type FfiConverterTypeNodeId = FfiConverterString
 type FfiDestroyerTypeNodeId = FfiDestroyerString
 
 var FfiConverterTypeNodeIdINSTANCE = FfiConverterString{}
+
+/**
+ * Typealias from the type name used in the UDL file to the builtin type.  This
+ * is needed because the UDL type name is used in function/method signatures.
+ * It's also what we have an external type that references a custom type.
+ */
+type Offer = string
+type FfiConverterTypeOffer = FfiConverterString
+type FfiDestroyerTypeOffer = FfiDestroyerString
+
+var FfiConverterTypeOfferINSTANCE = FfiConverterString{}
+
+/**
+ * Typealias from the type name used in the UDL file to the builtin type.  This
+ * is needed because the UDL type name is used in function/method signatures.
+ * It's also what we have an external type that references a custom type.
+ */
+type OfferId = string
+type FfiConverterTypeOfferId = FfiConverterString
+type FfiDestroyerTypeOfferId = FfiDestroyerString
+
+var FfiConverterTypeOfferIdINSTANCE = FfiConverterString{}
 
 /**
  * Typealias from the type name used in the UDL file to the builtin type.  This
@@ -6852,6 +7505,17 @@ type FfiConverterTypePublicKey = FfiConverterString
 type FfiDestroyerTypePublicKey = FfiDestroyerString
 
 var FfiConverterTypePublicKeyINSTANCE = FfiConverterString{}
+
+/**
+ * Typealias from the type name used in the UDL file to the builtin type.  This
+ * is needed because the UDL type name is used in function/method signatures.
+ * It's also what we have an external type that references a custom type.
+ */
+type Refund = string
+type FfiConverterTypeRefund = FfiConverterString
+type FfiDestroyerTypeRefund = FfiDestroyerString
+
+var FfiConverterTypeRefundINSTANCE = FfiConverterString{}
 
 /**
  * Typealias from the type name used in the UDL file to the builtin type.  This

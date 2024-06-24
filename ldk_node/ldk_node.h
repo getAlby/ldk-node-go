@@ -73,6 +73,20 @@ void uniffi_ldk_node_fn_free_bolt11payment(
 	RustCallStatus* out_status
 );
 
+void uniffi_ldk_node_fn_method_bolt11payment_claim_for_hash(
+	void* ptr,
+	RustBuffer payment_hash,
+	uint64_t claimable_amount_msat,
+	RustBuffer preimage,
+	RustCallStatus* out_status
+);
+
+void uniffi_ldk_node_fn_method_bolt11payment_fail_for_hash(
+	void* ptr,
+	RustBuffer payment_hash,
+	RustCallStatus* out_status
+);
+
 RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive(
 	void* ptr,
 	uint64_t amount_msat,
@@ -81,10 +95,27 @@ RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive(
 	RustCallStatus* out_status
 );
 
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_for_hash(
+	void* ptr,
+	uint64_t amount_msat,
+	RustBuffer description,
+	uint32_t expiry_secs,
+	RustBuffer payment_hash,
+	RustCallStatus* out_status
+);
+
 RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount(
 	void* ptr,
 	RustBuffer description,
 	uint32_t expiry_secs,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_for_hash(
+	void* ptr,
+	RustBuffer description,
+	uint32_t expiry_secs,
+	RustBuffer payment_hash,
 	RustCallStatus* out_status
 );
 
@@ -127,6 +158,52 @@ void uniffi_ldk_node_fn_method_bolt11payment_send_probes_using_amount(
 RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send_using_amount(
 	void* ptr,
 	RustBuffer invoice,
+	uint64_t amount_msat,
+	RustCallStatus* out_status
+);
+
+void uniffi_ldk_node_fn_free_bolt12payment(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_initiate_refund(
+	void* ptr,
+	uint64_t amount_msat,
+	uint32_t expiry_secs,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_receive(
+	void* ptr,
+	uint64_t amount_msat,
+	RustBuffer description,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_receive_variable_amount(
+	void* ptr,
+	RustBuffer description,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_request_refund_payment(
+	void* ptr,
+	RustBuffer refund,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send(
+	void* ptr,
+	RustBuffer offer,
+	RustBuffer payer_note,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send_using_amount(
+	void* ptr,
+	RustBuffer offer,
+	RustBuffer payer_note,
 	uint64_t amount_msat,
 	RustCallStatus* out_status
 );
@@ -330,11 +407,15 @@ void* uniffi_ldk_node_fn_method_node_bolt11_payment(
 	RustCallStatus* out_status
 );
 
+void* uniffi_ldk_node_fn_method_node_bolt12_payment(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
 void uniffi_ldk_node_fn_method_node_close_channel(
 	void* ptr,
 	RustBuffer user_channel_id,
 	RustBuffer counterparty_node_id,
-	int8_t force,
 	RustCallStatus* out_status
 );
 
@@ -370,6 +451,13 @@ void uniffi_ldk_node_fn_method_node_disconnect(
 
 void uniffi_ldk_node_fn_method_node_event_handled(
 	void* ptr,
+	RustCallStatus* out_status
+);
+
+void uniffi_ldk_node_fn_method_node_force_close_channel(
+	void* ptr,
+	RustBuffer user_channel_id,
+	RustBuffer counterparty_node_id,
 	RustCallStatus* out_status
 );
 
@@ -840,11 +928,27 @@ uint16_t uniffi_ldk_node_checksum_func_generate_entropy_mnemonic(
 	RustCallStatus* out_status
 );
 
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_claim_for_hash(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_fail_for_hash(
+	RustCallStatus* out_status
+);
+
 uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive(
 	RustCallStatus* out_status
 );
 
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_for_hash(
+	RustCallStatus* out_status
+);
+
 uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_for_hash(
 	RustCallStatus* out_status
 );
 
@@ -869,6 +973,30 @@ uint16_t uniffi_ldk_node_checksum_method_bolt11payment_send_probes_using_amount(
 );
 
 uint16_t uniffi_ldk_node_checksum_method_bolt11payment_send_using_amount(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_initiate_refund(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_receive(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_receive_variable_amount(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_request_refund_payment(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_send(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_send_using_amount(
 	RustCallStatus* out_status
 );
 
@@ -988,6 +1116,10 @@ uint16_t uniffi_ldk_node_checksum_method_node_bolt11_payment(
 	RustCallStatus* out_status
 );
 
+uint16_t uniffi_ldk_node_checksum_method_node_bolt12_payment(
+	RustCallStatus* out_status
+);
+
 uint16_t uniffi_ldk_node_checksum_method_node_close_channel(
 	RustCallStatus* out_status
 );
@@ -1009,6 +1141,10 @@ uint16_t uniffi_ldk_node_checksum_method_node_disconnect(
 );
 
 uint16_t uniffi_ldk_node_checksum_method_node_event_handled(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_node_force_close_channel(
 	RustCallStatus* out_status
 );
 
