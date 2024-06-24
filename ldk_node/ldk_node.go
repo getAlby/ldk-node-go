@@ -1021,6 +1021,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_update_fee_estimates(uniffiStatus)
+		})
+		if checksum != 52795 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_update_fee_estimates: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_verify_signature(uniffiStatus)
 		})
 		if checksum != 56945 {
@@ -2411,6 +2420,17 @@ func (_self *Node) UpdateChannelConfig(userChannelId UserChannelId, counterparty
 	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_node_update_channel_config(
 			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), FfiConverterChannelConfigINSTANCE.Lower(channelConfig), _uniffiStatus)
+		return false
+	})
+	return _uniffiErr
+}
+
+func (_self *Node) UpdateFeeEstimates() error {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_node_update_fee_estimates(
+			_pointer, _uniffiStatus)
 		return false
 	})
 	return _uniffiErr

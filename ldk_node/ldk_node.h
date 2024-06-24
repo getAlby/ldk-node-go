@@ -557,6 +557,11 @@ void uniffi_ldk_node_fn_method_node_update_channel_config(
 	RustCallStatus* out_status
 );
 
+void uniffi_ldk_node_fn_method_node_update_fee_estimates(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
 int8_t uniffi_ldk_node_fn_method_node_verify_signature(
 	void* ptr,
 	RustBuffer msg,
@@ -1217,6 +1222,10 @@ uint16_t uniffi_ldk_node_checksum_method_node_sync_wallets(
 );
 
 uint16_t uniffi_ldk_node_checksum_method_node_update_channel_config(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_node_update_fee_estimates(
 	RustCallStatus* out_status
 );
 
