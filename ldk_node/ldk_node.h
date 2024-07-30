@@ -594,7 +594,7 @@ RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_all_to_address(
 RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_to_address(
 	void* ptr,
 	RustBuffer address,
-	uint64_t amount_msat,
+	uint64_t amount_sats,
 	RustCallStatus* out_status
 );
 

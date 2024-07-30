@@ -1068,7 +1068,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_onchainpayment_send_to_address(uniffiStatus)
 		})
-		if checksum != 36709 {
+		if checksum != 3083 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_onchainpayment_send_to_address: UniFFI API checksum mismatch")
 		}
@@ -2532,12 +2532,12 @@ func (_self *OnchainPayment) SendAllToAddress(address Address) (Txid, error) {
 	}
 }
 
-func (_self *OnchainPayment) SendToAddress(address Address, amountMsat uint64) (Txid, error) {
+func (_self *OnchainPayment) SendToAddress(address Address, amountSats uint64) (Txid, error) {
 	_pointer := _self.ffiObject.incrementPointer("*OnchainPayment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_onchainpayment_send_to_address(
-			_pointer, FfiConverterTypeAddressINSTANCE.Lower(address), FfiConverterUint64INSTANCE.Lower(amountMsat), _uniffiStatus)
+			_pointer, FfiConverterTypeAddressINSTANCE.Lower(address), FfiConverterUint64INSTANCE.Lower(amountSats), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue Txid
