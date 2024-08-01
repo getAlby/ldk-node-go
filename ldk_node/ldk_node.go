@@ -1077,7 +1077,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_spontaneouspayment_send(uniffiStatus)
 		})
-		if checksum != 11473 {
+		if checksum != 64760 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_spontaneouspayment_send: UniFFI API checksum mismatch")
 		}
@@ -2595,12 +2595,12 @@ type SpontaneousPayment struct {
 	ffiObject FfiObject
 }
 
-func (_self *SpontaneousPayment) Send(amountMsat uint64, nodeId PublicKey, customTlvs []TlvEntry) (PaymentId, error) {
+func (_self *SpontaneousPayment) Send(amountMsat uint64, nodeId PublicKey, customTlvs []TlvEntry, preimage *PaymentPreimage) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*SpontaneousPayment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_spontaneouspayment_send(
-			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), FfiConverterSequenceTypeTlvEntryINSTANCE.Lower(customTlvs), _uniffiStatus)
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), FfiConverterSequenceTypeTlvEntryINSTANCE.Lower(customTlvs), FfiConverterOptionalTypePaymentPreimageINSTANCE.Lower(preimage), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue PaymentId

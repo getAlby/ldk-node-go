@@ -608,6 +608,7 @@ RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send(
 	uint64_t amount_msat,
 	RustBuffer node_id,
 	RustBuffer custom_tlvs,
+	RustBuffer preimage,
 	RustCallStatus* out_status
 );
 
