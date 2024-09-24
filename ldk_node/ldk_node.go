@@ -544,6 +544,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_builder_restore_encoded_channel_monitors(uniffiStatus)
+		})
+		if checksum != 34188 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_restore_encoded_channel_monitors: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_builder_set_entropy_bip39_mnemonic(uniffiStatus)
 		})
 		if checksum != 35659 {
@@ -850,11 +859,29 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_force_close_all_channels_without_broadcasting_txn(uniffiStatus)
+		})
+		if checksum != 12970 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_force_close_all_channels_without_broadcasting_txn: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_force_close_channel(uniffiStatus)
 		})
 		if checksum != 4972 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_node_force_close_channel: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_get_encoded_channel_monitors(uniffiStatus)
+		})
+		if checksum != 8831 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_get_encoded_channel_monitors: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -1748,6 +1775,16 @@ func (_self *Builder) BuildWithFsStore() (*Node, error) {
 	}
 }
 
+func (_self *Builder) RestoreEncodedChannelMonitors(monitors []KeyValue) {
+	_pointer := _self.ffiObject.incrementPointer("*Builder")
+	defer _self.ffiObject.decrementPointer()
+	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_builder_restore_encoded_channel_monitors(
+			_pointer, FfiConverterSequenceTypeKeyValueINSTANCE.Lower(monitors), _uniffiStatus)
+		return false
+	})
+}
+
 func (_self *Builder) SetEntropyBip39Mnemonic(mnemonic Mnemonic, passphrase *string) {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
@@ -2236,6 +2273,16 @@ func (_self *Node) EventHandled() {
 	})
 }
 
+func (_self *Node) ForceCloseAllChannelsWithoutBroadcastingTxn() {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_node_force_close_all_channels_without_broadcasting_txn(
+			_pointer, _uniffiStatus)
+		return false
+	})
+}
+
 func (_self *Node) ForceCloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
@@ -2245,6 +2292,21 @@ func (_self *Node) ForceCloseChannel(userChannelId UserChannelId, counterpartyNo
 		return false
 	})
 	return _uniffiErr
+}
+
+func (_self *Node) GetEncodedChannelMonitors() ([]KeyValue, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_node_get_encoded_channel_monitors(
+			_pointer, _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue []KeyValue
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterSequenceTypeKeyValueINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
 }
 
 func (_self *Node) ListBalances() BalanceDetails {
@@ -3134,6 +3196,46 @@ func (c FfiConverterTypeConfig) Write(writer io.Writer, value Config) {
 type FfiDestroyerTypeConfig struct{}
 
 func (_ FfiDestroyerTypeConfig) Destroy(value Config) {
+	value.Destroy()
+}
+
+type KeyValue struct {
+	Key   string
+	Value []uint8
+}
+
+func (r *KeyValue) Destroy() {
+	FfiDestroyerString{}.Destroy(r.Key)
+	FfiDestroyerSequenceUint8{}.Destroy(r.Value)
+}
+
+type FfiConverterTypeKeyValue struct{}
+
+var FfiConverterTypeKeyValueINSTANCE = FfiConverterTypeKeyValue{}
+
+func (c FfiConverterTypeKeyValue) Lift(rb RustBufferI) KeyValue {
+	return LiftFromRustBuffer[KeyValue](c, rb)
+}
+
+func (c FfiConverterTypeKeyValue) Read(reader io.Reader) KeyValue {
+	return KeyValue{
+		FfiConverterStringINSTANCE.Read(reader),
+		FfiConverterSequenceUint8INSTANCE.Read(reader),
+	}
+}
+
+func (c FfiConverterTypeKeyValue) Lower(value KeyValue) RustBuffer {
+	return LowerIntoRustBuffer[KeyValue](c, value)
+}
+
+func (c FfiConverterTypeKeyValue) Write(writer io.Writer, value KeyValue) {
+	FfiConverterStringINSTANCE.Write(writer, value.Key)
+	FfiConverterSequenceUint8INSTANCE.Write(writer, value.Value)
+}
+
+type FfiDestroyerTypeKeyValue struct{}
+
+func (_ FfiDestroyerTypeKeyValue) Destroy(value KeyValue) {
 	value.Destroy()
 }
 
@@ -7014,6 +7116,49 @@ type FfiDestroyerSequenceTypeChannelDetails struct{}
 func (FfiDestroyerSequenceTypeChannelDetails) Destroy(sequence []ChannelDetails) {
 	for _, value := range sequence {
 		FfiDestroyerTypeChannelDetails{}.Destroy(value)
+	}
+}
+
+type FfiConverterSequenceTypeKeyValue struct{}
+
+var FfiConverterSequenceTypeKeyValueINSTANCE = FfiConverterSequenceTypeKeyValue{}
+
+func (c FfiConverterSequenceTypeKeyValue) Lift(rb RustBufferI) []KeyValue {
+	return LiftFromRustBuffer[[]KeyValue](c, rb)
+}
+
+func (c FfiConverterSequenceTypeKeyValue) Read(reader io.Reader) []KeyValue {
+	length := readInt32(reader)
+	if length == 0 {
+		return nil
+	}
+	result := make([]KeyValue, 0, length)
+	for i := int32(0); i < length; i++ {
+		result = append(result, FfiConverterTypeKeyValueINSTANCE.Read(reader))
+	}
+	return result
+}
+
+func (c FfiConverterSequenceTypeKeyValue) Lower(value []KeyValue) RustBuffer {
+	return LowerIntoRustBuffer[[]KeyValue](c, value)
+}
+
+func (c FfiConverterSequenceTypeKeyValue) Write(writer io.Writer, value []KeyValue) {
+	if len(value) > math.MaxInt32 {
+		panic("[]KeyValue is too large to fit into Int32")
+	}
+
+	writeInt32(writer, int32(len(value)))
+	for _, item := range value {
+		FfiConverterTypeKeyValueINSTANCE.Write(writer, item)
+	}
+}
+
+type FfiDestroyerSequenceTypeKeyValue struct{}
+
+func (FfiDestroyerSequenceTypeKeyValue) Destroy(sequence []KeyValue) {
+	for _, value := range sequence {
+		FfiDestroyerTypeKeyValue{}.Destroy(value)
 	}
 }
 

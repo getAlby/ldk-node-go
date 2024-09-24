@@ -232,6 +232,12 @@ void* uniffi_ldk_node_fn_method_builder_build_with_fs_store(
 	RustCallStatus* out_status
 );
 
+void uniffi_ldk_node_fn_method_builder_restore_encoded_channel_monitors(
+	void* ptr,
+	RustBuffer monitors,
+	RustCallStatus* out_status
+);
+
 void uniffi_ldk_node_fn_method_builder_set_entropy_bip39_mnemonic(
 	void* ptr,
 	RustBuffer mnemonic,
@@ -454,10 +460,20 @@ void uniffi_ldk_node_fn_method_node_event_handled(
 	RustCallStatus* out_status
 );
 
+void uniffi_ldk_node_fn_method_node_force_close_all_channels_without_broadcasting_txn(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
 void uniffi_ldk_node_fn_method_node_force_close_channel(
 	void* ptr,
 	RustBuffer user_channel_id,
 	RustBuffer counterparty_node_id,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_node_get_encoded_channel_monitors(
+	void* ptr,
 	RustCallStatus* out_status
 );
 
@@ -1014,6 +1030,10 @@ uint16_t uniffi_ldk_node_checksum_method_builder_build_with_fs_store(
 	RustCallStatus* out_status
 );
 
+uint16_t uniffi_ldk_node_checksum_method_builder_restore_encoded_channel_monitors(
+	RustCallStatus* out_status
+);
+
 uint16_t uniffi_ldk_node_checksum_method_builder_set_entropy_bip39_mnemonic(
 	RustCallStatus* out_status
 );
@@ -1150,7 +1170,15 @@ uint16_t uniffi_ldk_node_checksum_method_node_event_handled(
 	RustCallStatus* out_status
 );
 
+uint16_t uniffi_ldk_node_checksum_method_node_force_close_all_channels_without_broadcasting_txn(
+	RustCallStatus* out_status
+);
+
 uint16_t uniffi_ldk_node_checksum_method_node_force_close_channel(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_node_get_encoded_channel_monitors(
 	RustCallStatus* out_status
 );
 
