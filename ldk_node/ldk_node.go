@@ -438,7 +438,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_send(uniffiStatus)
 		})
-		if checksum != 54619 {
+		if checksum != 20666 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_send: UniFFI API checksum mismatch")
 		}
@@ -465,7 +465,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_send_using_amount(uniffiStatus)
 		})
-		if checksum != 52842 {
+		if checksum != 63159 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_send_using_amount: UniFFI API checksum mismatch")
 		}
@@ -474,7 +474,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt12payment_initiate_refund(uniffiStatus)
 		})
-		if checksum != 5705 {
+		if checksum != 57799 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_initiate_refund: UniFFI API checksum mismatch")
 		}
@@ -483,7 +483,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt12payment_receive(uniffiStatus)
 		})
-		if checksum != 50807 {
+		if checksum != 18429 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_receive: UniFFI API checksum mismatch")
 		}
@@ -492,7 +492,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt12payment_receive_variable_amount(uniffiStatus)
 		})
-		if checksum != 50355 {
+		if checksum != 29252 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_receive_variable_amount: UniFFI API checksum mismatch")
 		}
@@ -510,7 +510,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt12payment_send(uniffiStatus)
 		})
-		if checksum != 49474 {
+		if checksum != 64402 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_send: UniFFI API checksum mismatch")
 		}
@@ -519,7 +519,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt12payment_send_using_amount(uniffiStatus)
 		})
-		if checksum != 63959 {
+		if checksum != 26048 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt12payment_send_using_amount: UniFFI API checksum mismatch")
 		}
@@ -544,11 +544,47 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_builder_build_with_vss_store(uniffiStatus)
+		})
+		if checksum != 10256 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_build_with_vss_store: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_builder_build_with_vss_store_and_fixed_headers(uniffiStatus)
+		})
+		if checksum != 17368 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_build_with_vss_store_and_fixed_headers: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_builder_restore_encoded_channel_monitors(uniffiStatus)
 		})
 		if checksum != 34188 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_restore_encoded_channel_monitors: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_builder_set_chain_source_bitcoind_rpc(uniffiStatus)
+		})
+		if checksum != 2111 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_set_chain_source_bitcoind_rpc: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_builder_set_chain_source_esplora(uniffiStatus)
+		})
+		if checksum != 21678 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_set_chain_source_esplora: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -576,15 +612,6 @@ func uniffiCheckChecksums() {
 		if checksum != 64056 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_set_entropy_seed_path: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_builder_set_esplora_server(uniffiStatus)
-		})
-		if checksum != 7044 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_set_esplora_server: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -634,119 +661,20 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_builder_set_node_alias(uniffiStatus)
+		})
+		if checksum != 52925 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_set_node_alias: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_builder_set_storage_dir_path(uniffiStatus)
 		})
 		if checksum != 59019 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_set_storage_dir_path: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_accept_underpaying_htlcs(uniffiStatus)
-		})
-		if checksum != 45655 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_accept_underpaying_htlcs: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_cltv_expiry_delta(uniffiStatus)
-		})
-		if checksum != 19044 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_cltv_expiry_delta: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_force_close_avoidance_max_fee_satoshis(uniffiStatus)
-		})
-		if checksum != 69 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_force_close_avoidance_max_fee_satoshis: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_forwarding_fee_base_msat(uniffiStatus)
-		})
-		if checksum != 3400 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_forwarding_fee_base_msat: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_forwarding_fee_proportional_millionths(uniffiStatus)
-		})
-		if checksum != 31794 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_forwarding_fee_proportional_millionths: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_set_accept_underpaying_htlcs(uniffiStatus)
-		})
-		if checksum != 27275 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_set_accept_underpaying_htlcs: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_set_cltv_expiry_delta(uniffiStatus)
-		})
-		if checksum != 40735 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_set_cltv_expiry_delta: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_set_force_close_avoidance_max_fee_satoshis(uniffiStatus)
-		})
-		if checksum != 48479 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_set_force_close_avoidance_max_fee_satoshis: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_set_forwarding_fee_base_msat(uniffiStatus)
-		})
-		if checksum != 29831 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_set_forwarding_fee_base_msat: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_set_forwarding_fee_proportional_millionths(uniffiStatus)
-		})
-		if checksum != 65060 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_set_forwarding_fee_proportional_millionths: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_set_max_dust_htlc_exposure_from_fee_rate_multiplier(uniffiStatus)
-		})
-		if checksum != 4707 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_set_max_dust_htlc_exposure_from_fee_rate_multiplier: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_channelconfig_set_max_dust_htlc_exposure_from_fixed_limit(uniffiStatus)
-		})
-		if checksum != 16864 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_channelconfig_set_max_dust_htlc_exposure_from_fixed_limit: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -832,15 +760,6 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_node_connect_open_channel(uniffiStatus)
-		})
-		if checksum != 8778 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_node_connect_open_channel: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_disconnect(uniffiStatus)
 		})
 		if checksum != 47760 {
@@ -870,7 +789,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_force_close_channel(uniffiStatus)
 		})
-		if checksum != 4972 {
+		if checksum != 48609 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_node_force_close_channel: UniFFI API checksum mismatch")
 		}
@@ -949,6 +868,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_node_alias(uniffiStatus)
+		})
+		if checksum != 26583 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_node_alias: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_node_id(uniffiStatus)
 		})
 		if checksum != 34585 {
@@ -963,6 +891,24 @@ func uniffiCheckChecksums() {
 		if checksum != 6092 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_node_onchain_payment: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_open_announced_channel(uniffiStatus)
+		})
+		if checksum != 609 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_open_announced_channel: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_open_channel(uniffiStatus)
+		})
+		if checksum != 57394 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_open_channel: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -987,7 +933,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_sign_message(uniffiStatus)
 		})
-		if checksum != 22595 {
+		if checksum != 35420 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_node_sign_message: UniFFI API checksum mismatch")
 		}
@@ -1039,9 +985,18 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_unified_qr_payment(uniffiStatus)
+		})
+		if checksum != 9837 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_unified_qr_payment: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_update_channel_config(uniffiStatus)
 		})
-		if checksum != 21821 {
+		if checksum != 42796 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_node_update_channel_config: UniFFI API checksum mismatch")
 		}
@@ -1104,7 +1059,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_spontaneouspayment_send(uniffiStatus)
 		})
-		if checksum != 64760 {
+		if checksum != 50859 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_spontaneouspayment_send: UniFFI API checksum mismatch")
 		}
@@ -1116,6 +1071,24 @@ func uniffiCheckChecksums() {
 		if checksum != 32884 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_spontaneouspayment_send_probes: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_unifiedqrpayment_receive(uniffiStatus)
+		})
+		if checksum != 18681 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_unifiedqrpayment_receive: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_unifiedqrpayment_send(uniffiStatus)
+		})
+		if checksum != 1473 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_unifiedqrpayment_send: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -1134,15 +1107,6 @@ func uniffiCheckChecksums() {
 		if checksum != 48442 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_constructor_builder_new: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_constructor_channelconfig_new(uniffiStatus)
-		})
-		if checksum != 24987 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_constructor_channelconfig_new: UniFFI API checksum mismatch")
 		}
 	}
 }
@@ -1495,12 +1459,12 @@ func (_self *Bolt11Payment) ReceiveViaJitChannel(amountMsat uint64, description 
 	}
 }
 
-func (_self *Bolt11Payment) Send(invoice Bolt11Invoice) (PaymentId, error) {
+func (_self *Bolt11Payment) Send(invoice Bolt11Invoice, sendingParameters *SendingParameters) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_bolt11payment_send(
-			_pointer, FfiConverterTypeBolt11InvoiceINSTANCE.Lower(invoice), _uniffiStatus)
+			_pointer, FfiConverterTypeBolt11InvoiceINSTANCE.Lower(invoice), FfiConverterOptionalTypeSendingParametersINSTANCE.Lower(sendingParameters), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue PaymentId
@@ -1532,12 +1496,12 @@ func (_self *Bolt11Payment) SendProbesUsingAmount(invoice Bolt11Invoice, amountM
 	return _uniffiErr
 }
 
-func (_self *Bolt11Payment) SendUsingAmount(invoice Bolt11Invoice, amountMsat uint64) (PaymentId, error) {
+func (_self *Bolt11Payment) SendUsingAmount(invoice Bolt11Invoice, amountMsat uint64, sendingParameters *SendingParameters) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_bolt11payment_send_using_amount(
-			_pointer, FfiConverterTypeBolt11InvoiceINSTANCE.Lower(invoice), FfiConverterUint64INSTANCE.Lower(amountMsat), _uniffiStatus)
+			_pointer, FfiConverterTypeBolt11InvoiceINSTANCE.Lower(invoice), FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterOptionalTypeSendingParametersINSTANCE.Lower(sendingParameters), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue PaymentId
@@ -1595,12 +1559,12 @@ type Bolt12Payment struct {
 	ffiObject FfiObject
 }
 
-func (_self *Bolt12Payment) InitiateRefund(amountMsat uint64, expirySecs uint32) (Refund, error) {
+func (_self *Bolt12Payment) InitiateRefund(amountMsat uint64, expirySecs uint32, quantity *uint64, payerNote *string) (Refund, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_bolt12payment_initiate_refund(
-			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterUint32INSTANCE.Lower(expirySecs), _uniffiStatus)
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterOptionalUint64INSTANCE.Lower(quantity), FfiConverterOptionalStringINSTANCE.Lower(payerNote), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue Refund
@@ -1610,12 +1574,12 @@ func (_self *Bolt12Payment) InitiateRefund(amountMsat uint64, expirySecs uint32)
 	}
 }
 
-func (_self *Bolt12Payment) Receive(amountMsat uint64, description string) (Offer, error) {
+func (_self *Bolt12Payment) Receive(amountMsat uint64, description string, expirySecs *uint32, quantity *uint64) (Offer, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_bolt12payment_receive(
-			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterStringINSTANCE.Lower(description), _uniffiStatus)
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterStringINSTANCE.Lower(description), FfiConverterOptionalUint32INSTANCE.Lower(expirySecs), FfiConverterOptionalUint64INSTANCE.Lower(quantity), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue Offer
@@ -1625,12 +1589,12 @@ func (_self *Bolt12Payment) Receive(amountMsat uint64, description string) (Offe
 	}
 }
 
-func (_self *Bolt12Payment) ReceiveVariableAmount(description string) (Offer, error) {
+func (_self *Bolt12Payment) ReceiveVariableAmount(description string, expirySecs *uint32) (Offer, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_bolt12payment_receive_variable_amount(
-			_pointer, FfiConverterStringINSTANCE.Lower(description), _uniffiStatus)
+			_pointer, FfiConverterStringINSTANCE.Lower(description), FfiConverterOptionalUint32INSTANCE.Lower(expirySecs), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue Offer
@@ -1655,12 +1619,12 @@ func (_self *Bolt12Payment) RequestRefundPayment(refund Refund) (Bolt12Invoice, 
 	}
 }
 
-func (_self *Bolt12Payment) Send(offer Offer, payerNote *string) (PaymentId, error) {
+func (_self *Bolt12Payment) Send(offer Offer, quantity *uint64, payerNote *string) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_bolt12payment_send(
-			_pointer, FfiConverterTypeOfferINSTANCE.Lower(offer), FfiConverterOptionalStringINSTANCE.Lower(payerNote), _uniffiStatus)
+			_pointer, FfiConverterTypeOfferINSTANCE.Lower(offer), FfiConverterOptionalUint64INSTANCE.Lower(quantity), FfiConverterOptionalStringINSTANCE.Lower(payerNote), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue PaymentId
@@ -1670,12 +1634,12 @@ func (_self *Bolt12Payment) Send(offer Offer, payerNote *string) (PaymentId, err
 	}
 }
 
-func (_self *Bolt12Payment) SendUsingAmount(offer Offer, payerNote *string, amountMsat uint64) (PaymentId, error) {
+func (_self *Bolt12Payment) SendUsingAmount(offer Offer, amountMsat uint64, quantity *uint64, payerNote *string) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_bolt12payment_send_using_amount(
-			_pointer, FfiConverterTypeOfferINSTANCE.Lower(offer), FfiConverterOptionalStringINSTANCE.Lower(payerNote), FfiConverterUint64INSTANCE.Lower(amountMsat), _uniffiStatus)
+			_pointer, FfiConverterTypeOfferINSTANCE.Lower(offer), FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterOptionalUint64INSTANCE.Lower(quantity), FfiConverterOptionalStringINSTANCE.Lower(payerNote), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue PaymentId
@@ -1775,12 +1739,62 @@ func (_self *Builder) BuildWithFsStore() (*Node, error) {
 	}
 }
 
+func (_self *Builder) BuildWithVssStore(vssUrl string, storeId string, lnurlAuthServerUrl string, fixedHeaders map[string]string) (*Node, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Builder")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeBuildError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_builder_build_with_vss_store(
+			_pointer, FfiConverterStringINSTANCE.Lower(vssUrl), FfiConverterStringINSTANCE.Lower(storeId), FfiConverterStringINSTANCE.Lower(lnurlAuthServerUrl), FfiConverterMapStringStringINSTANCE.Lower(fixedHeaders), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue *Node
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (_self *Builder) BuildWithVssStoreAndFixedHeaders(vssUrl string, storeId string, fixedHeaders map[string]string) (*Node, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Builder")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeBuildError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_fixed_headers(
+			_pointer, FfiConverterStringINSTANCE.Lower(vssUrl), FfiConverterStringINSTANCE.Lower(storeId), FfiConverterMapStringStringINSTANCE.Lower(fixedHeaders), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue *Node
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
 func (_self *Builder) RestoreEncodedChannelMonitors(monitors []KeyValue) {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
 	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_builder_restore_encoded_channel_monitors(
 			_pointer, FfiConverterSequenceTypeKeyValueINSTANCE.Lower(monitors), _uniffiStatus)
+		return false
+	})
+}
+
+func (_self *Builder) SetChainSourceBitcoindRpc(rpcHost string, rpcPort uint16, rpcUser string, rpcPassword string) {
+	_pointer := _self.ffiObject.incrementPointer("*Builder")
+	defer _self.ffiObject.decrementPointer()
+	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_builder_set_chain_source_bitcoind_rpc(
+			_pointer, FfiConverterStringINSTANCE.Lower(rpcHost), FfiConverterUint16INSTANCE.Lower(rpcPort), FfiConverterStringINSTANCE.Lower(rpcUser), FfiConverterStringINSTANCE.Lower(rpcPassword), _uniffiStatus)
+		return false
+	})
+}
+
+func (_self *Builder) SetChainSourceEsplora(serverUrl string, config *EsploraSyncConfig) {
+	_pointer := _self.ffiObject.incrementPointer("*Builder")
+	defer _self.ffiObject.decrementPointer()
+	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_builder_set_chain_source_esplora(
+			_pointer, FfiConverterStringINSTANCE.Lower(serverUrl), FfiConverterOptionalTypeEsploraSyncConfigINSTANCE.Lower(config), _uniffiStatus)
 		return false
 	})
 }
@@ -1812,16 +1826,6 @@ func (_self *Builder) SetEntropySeedPath(seedPath string) {
 	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_builder_set_entropy_seed_path(
 			_pointer, FfiConverterStringINSTANCE.Lower(seedPath), _uniffiStatus)
-		return false
-	})
-}
-
-func (_self *Builder) SetEsploraServer(esploraServerUrl string) {
-	_pointer := _self.ffiObject.incrementPointer("*Builder")
-	defer _self.ffiObject.decrementPointer()
-	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
-		C.uniffi_ldk_node_fn_method_builder_set_esplora_server(
-			_pointer, FfiConverterStringINSTANCE.Lower(esploraServerUrl), _uniffiStatus)
 		return false
 	})
 }
@@ -1877,6 +1881,17 @@ func (_self *Builder) SetNetwork(network Network) {
 	})
 }
 
+func (_self *Builder) SetNodeAlias(nodeAlias string) error {
+	_pointer := _self.ffiObject.incrementPointer("*Builder")
+	defer _self.ffiObject.decrementPointer()
+	_, _uniffiErr := rustCallWithError(FfiConverterTypeBuildError{}, func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_builder_set_node_alias(
+			_pointer, FfiConverterStringINSTANCE.Lower(nodeAlias), _uniffiStatus)
+		return false
+	})
+	return _uniffiErr
+}
+
 func (_self *Builder) SetStorageDirPath(storageDirPath string) {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
@@ -1928,175 +1943,6 @@ func (c FfiConverterBuilder) Write(writer io.Writer, value *Builder) {
 type FfiDestroyerBuilder struct{}
 
 func (_ FfiDestroyerBuilder) Destroy(value *Builder) {
-	value.Destroy()
-}
-
-type ChannelConfig struct {
-	ffiObject FfiObject
-}
-
-func NewChannelConfig() *ChannelConfig {
-	return FfiConverterChannelConfigINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
-		return C.uniffi_ldk_node_fn_constructor_channelconfig_new(_uniffiStatus)
-	}))
-}
-
-func (_self *ChannelConfig) AcceptUnderpayingHtlcs() bool {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	return FfiConverterBoolINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.int8_t {
-		return C.uniffi_ldk_node_fn_method_channelconfig_accept_underpaying_htlcs(
-			_pointer, _uniffiStatus)
-	}))
-}
-
-func (_self *ChannelConfig) CltvExpiryDelta() uint16 {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	return FfiConverterUint16INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
-		return C.uniffi_ldk_node_fn_method_channelconfig_cltv_expiry_delta(
-			_pointer, _uniffiStatus)
-	}))
-}
-
-func (_self *ChannelConfig) ForceCloseAvoidanceMaxFeeSatoshis() uint64 {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	return FfiConverterUint64INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint64_t {
-		return C.uniffi_ldk_node_fn_method_channelconfig_force_close_avoidance_max_fee_satoshis(
-			_pointer, _uniffiStatus)
-	}))
-}
-
-func (_self *ChannelConfig) ForwardingFeeBaseMsat() uint32 {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	return FfiConverterUint32INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint32_t {
-		return C.uniffi_ldk_node_fn_method_channelconfig_forwarding_fee_base_msat(
-			_pointer, _uniffiStatus)
-	}))
-}
-
-func (_self *ChannelConfig) ForwardingFeeProportionalMillionths() uint32 {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	return FfiConverterUint32INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint32_t {
-		return C.uniffi_ldk_node_fn_method_channelconfig_forwarding_fee_proportional_millionths(
-			_pointer, _uniffiStatus)
-	}))
-}
-
-func (_self *ChannelConfig) SetAcceptUnderpayingHtlcs(value bool) {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
-		C.uniffi_ldk_node_fn_method_channelconfig_set_accept_underpaying_htlcs(
-			_pointer, FfiConverterBoolINSTANCE.Lower(value), _uniffiStatus)
-		return false
-	})
-}
-
-func (_self *ChannelConfig) SetCltvExpiryDelta(value uint16) {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
-		C.uniffi_ldk_node_fn_method_channelconfig_set_cltv_expiry_delta(
-			_pointer, FfiConverterUint16INSTANCE.Lower(value), _uniffiStatus)
-		return false
-	})
-}
-
-func (_self *ChannelConfig) SetForceCloseAvoidanceMaxFeeSatoshis(valueSat uint64) {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
-		C.uniffi_ldk_node_fn_method_channelconfig_set_force_close_avoidance_max_fee_satoshis(
-			_pointer, FfiConverterUint64INSTANCE.Lower(valueSat), _uniffiStatus)
-		return false
-	})
-}
-
-func (_self *ChannelConfig) SetForwardingFeeBaseMsat(feeMsat uint32) {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
-		C.uniffi_ldk_node_fn_method_channelconfig_set_forwarding_fee_base_msat(
-			_pointer, FfiConverterUint32INSTANCE.Lower(feeMsat), _uniffiStatus)
-		return false
-	})
-}
-
-func (_self *ChannelConfig) SetForwardingFeeProportionalMillionths(value uint32) {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
-		C.uniffi_ldk_node_fn_method_channelconfig_set_forwarding_fee_proportional_millionths(
-			_pointer, FfiConverterUint32INSTANCE.Lower(value), _uniffiStatus)
-		return false
-	})
-}
-
-func (_self *ChannelConfig) SetMaxDustHtlcExposureFromFeeRateMultiplier(multiplier uint64) {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
-		C.uniffi_ldk_node_fn_method_channelconfig_set_max_dust_htlc_exposure_from_fee_rate_multiplier(
-			_pointer, FfiConverterUint64INSTANCE.Lower(multiplier), _uniffiStatus)
-		return false
-	})
-}
-
-func (_self *ChannelConfig) SetMaxDustHtlcExposureFromFixedLimit(limitMsat uint64) {
-	_pointer := _self.ffiObject.incrementPointer("*ChannelConfig")
-	defer _self.ffiObject.decrementPointer()
-	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
-		C.uniffi_ldk_node_fn_method_channelconfig_set_max_dust_htlc_exposure_from_fixed_limit(
-			_pointer, FfiConverterUint64INSTANCE.Lower(limitMsat), _uniffiStatus)
-		return false
-	})
-}
-
-func (object *ChannelConfig) Destroy() {
-	runtime.SetFinalizer(object, nil)
-	object.ffiObject.destroy()
-}
-
-type FfiConverterChannelConfig struct{}
-
-var FfiConverterChannelConfigINSTANCE = FfiConverterChannelConfig{}
-
-func (c FfiConverterChannelConfig) Lift(pointer unsafe.Pointer) *ChannelConfig {
-	result := &ChannelConfig{
-		newFfiObject(
-			pointer,
-			func(pointer unsafe.Pointer, status *C.RustCallStatus) {
-				C.uniffi_ldk_node_fn_free_channelconfig(pointer, status)
-			}),
-	}
-	runtime.SetFinalizer(result, (*ChannelConfig).Destroy)
-	return result
-}
-
-func (c FfiConverterChannelConfig) Read(reader io.Reader) *ChannelConfig {
-	return c.Lift(unsafe.Pointer(uintptr(readUint64(reader))))
-}
-
-func (c FfiConverterChannelConfig) Lower(value *ChannelConfig) unsafe.Pointer {
-	// TODO: this is bad - all synchronization from ObjectRuntime.go is discarded here,
-	// because the pointer will be decremented immediately after this function returns,
-	// and someone will be left holding onto a non-locked pointer.
-	pointer := value.ffiObject.incrementPointer("*ChannelConfig")
-	defer value.ffiObject.decrementPointer()
-	return pointer
-}
-
-func (c FfiConverterChannelConfig) Write(writer io.Writer, value *ChannelConfig) {
-	writeUint64(writer, uint64(uintptr(c.Lower(value))))
-}
-
-type FfiDestroyerChannelConfig struct{}
-
-func (_ FfiDestroyerChannelConfig) Destroy(value *ChannelConfig) {
 	value.Destroy()
 }
 
@@ -2237,21 +2083,6 @@ func (_self *Node) Connect(nodeId PublicKey, address SocketAddress, persist bool
 	return _uniffiErr
 }
 
-func (_self *Node) ConnectOpenChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig **ChannelConfig, announceChannel bool) (UserChannelId, error) {
-	_pointer := _self.ffiObject.incrementPointer("*Node")
-	defer _self.ffiObject.decrementPointer()
-	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
-		return C.uniffi_ldk_node_fn_method_node_connect_open_channel(
-			_pointer, FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), FfiConverterTypeSocketAddressINSTANCE.Lower(address), FfiConverterUint64INSTANCE.Lower(channelAmountSats), FfiConverterOptionalUint64INSTANCE.Lower(pushToCounterpartyMsat), FfiConverterOptionalChannelConfigINSTANCE.Lower(channelConfig), FfiConverterBoolINSTANCE.Lower(announceChannel), _uniffiStatus)
-	})
-	if _uniffiErr != nil {
-		var _uniffiDefaultValue UserChannelId
-		return _uniffiDefaultValue, _uniffiErr
-	} else {
-		return FfiConverterTypeUserChannelIdINSTANCE.Lift(_uniffiRV), _uniffiErr
-	}
-}
-
 func (_self *Node) Disconnect(nodeId PublicKey) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
@@ -2283,12 +2114,12 @@ func (_self *Node) ForceCloseAllChannelsWithoutBroadcastingTxn() {
 	})
 }
 
-func (_self *Node) ForceCloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey) error {
+func (_self *Node) ForceCloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey, reason *string) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_node_force_close_channel(
-			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), _uniffiStatus)
+			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), FfiConverterOptionalStringINSTANCE.Lower(reason), _uniffiStatus)
 		return false
 	})
 	return _uniffiErr
@@ -2372,6 +2203,15 @@ func (_self *Node) NextEvent() *Event {
 	}))
 }
 
+func (_self *Node) NodeAlias() *NodeAlias {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterOptionalTypeNodeAliasINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_node_node_alias(
+			_pointer, _uniffiStatus)
+	}))
+}
+
 func (_self *Node) NodeId() PublicKey {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
@@ -2388,6 +2228,36 @@ func (_self *Node) OnchainPayment() *OnchainPayment {
 		return C.uniffi_ldk_node_fn_method_node_onchain_payment(
 			_pointer, _uniffiStatus)
 	}))
+}
+
+func (_self *Node) OpenAnnouncedChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig *ChannelConfig) (UserChannelId, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_node_open_announced_channel(
+			_pointer, FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), FfiConverterTypeSocketAddressINSTANCE.Lower(address), FfiConverterUint64INSTANCE.Lower(channelAmountSats), FfiConverterOptionalUint64INSTANCE.Lower(pushToCounterpartyMsat), FfiConverterOptionalTypeChannelConfigINSTANCE.Lower(channelConfig), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue UserChannelId
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypeUserChannelIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (_self *Node) OpenChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig *ChannelConfig) (UserChannelId, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_node_open_channel(
+			_pointer, FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), FfiConverterTypeSocketAddressINSTANCE.Lower(address), FfiConverterUint64INSTANCE.Lower(channelAmountSats), FfiConverterOptionalUint64INSTANCE.Lower(pushToCounterpartyMsat), FfiConverterOptionalTypeChannelConfigINSTANCE.Lower(channelConfig), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue UserChannelId
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypeUserChannelIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
 }
 
 func (_self *Node) Payment(paymentId PaymentId) *PaymentDetails {
@@ -2410,19 +2280,13 @@ func (_self *Node) RemovePayment(paymentId PaymentId) error {
 	return _uniffiErr
 }
 
-func (_self *Node) SignMessage(msg []uint8) (string, error) {
+func (_self *Node) SignMessage(msg []uint8) string {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
-	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+	return FfiConverterStringINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_node_sign_message(
 			_pointer, FfiConverterSequenceUint8INSTANCE.Lower(msg), _uniffiStatus)
-	})
-	if _uniffiErr != nil {
-		var _uniffiDefaultValue string
-		return _uniffiDefaultValue, _uniffiErr
-	} else {
-		return FfiConverterStringINSTANCE.Lift(_uniffiRV), _uniffiErr
-	}
+	}))
 }
 
 func (_self *Node) SpontaneousPayment() *SpontaneousPayment {
@@ -2476,12 +2340,21 @@ func (_self *Node) SyncWallets() error {
 	return _uniffiErr
 }
 
-func (_self *Node) UpdateChannelConfig(userChannelId UserChannelId, counterpartyNodeId PublicKey, channelConfig *ChannelConfig) error {
+func (_self *Node) UnifiedQrPayment() *UnifiedQrPayment {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterUnifiedQrPaymentINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_node_unified_qr_payment(
+			_pointer, _uniffiStatus)
+	}))
+}
+
+func (_self *Node) UpdateChannelConfig(userChannelId UserChannelId, counterpartyNodeId PublicKey, channelConfig ChannelConfig) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_node_update_channel_config(
-			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), FfiConverterChannelConfigINSTANCE.Lower(channelConfig), _uniffiStatus)
+			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), FfiConverterTypeChannelConfigINSTANCE.Lower(channelConfig), _uniffiStatus)
 		return false
 	})
 	return _uniffiErr
@@ -2657,12 +2530,12 @@ type SpontaneousPayment struct {
 	ffiObject FfiObject
 }
 
-func (_self *SpontaneousPayment) Send(amountMsat uint64, nodeId PublicKey, customTlvs []TlvEntry, preimage *PaymentPreimage) (PaymentId, error) {
+func (_self *SpontaneousPayment) Send(amountMsat uint64, nodeId PublicKey, sendingParameters *SendingParameters, customTlvs []TlvEntry, preimage *PaymentPreimage) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*SpontaneousPayment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return C.uniffi_ldk_node_fn_method_spontaneouspayment_send(
-			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), FfiConverterSequenceTypeTlvEntryINSTANCE.Lower(customTlvs), FfiConverterOptionalTypePaymentPreimageINSTANCE.Lower(preimage), _uniffiStatus)
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), FfiConverterOptionalTypeSendingParametersINSTANCE.Lower(sendingParameters), FfiConverterSequenceTypeTlvEntryINSTANCE.Lower(customTlvs), FfiConverterOptionalTypePaymentPreimageINSTANCE.Lower(preimage), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue PaymentId
@@ -2724,6 +2597,84 @@ func (c FfiConverterSpontaneousPayment) Write(writer io.Writer, value *Spontaneo
 type FfiDestroyerSpontaneousPayment struct{}
 
 func (_ FfiDestroyerSpontaneousPayment) Destroy(value *SpontaneousPayment) {
+	value.Destroy()
+}
+
+type UnifiedQrPayment struct {
+	ffiObject FfiObject
+}
+
+func (_self *UnifiedQrPayment) Receive(amountSats uint64, message string, expirySec uint32) (string, error) {
+	_pointer := _self.ffiObject.incrementPointer("*UnifiedQrPayment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_unifiedqrpayment_receive(
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountSats), FfiConverterStringINSTANCE.Lower(message), FfiConverterUint32INSTANCE.Lower(expirySec), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue string
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterStringINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (_self *UnifiedQrPayment) Send(uriStr string) (QrPaymentResult, error) {
+	_pointer := _self.ffiObject.incrementPointer("*UnifiedQrPayment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError(FfiConverterTypeNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return C.uniffi_ldk_node_fn_method_unifiedqrpayment_send(
+			_pointer, FfiConverterStringINSTANCE.Lower(uriStr), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue QrPaymentResult
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterTypeQrPaymentResultINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (object *UnifiedQrPayment) Destroy() {
+	runtime.SetFinalizer(object, nil)
+	object.ffiObject.destroy()
+}
+
+type FfiConverterUnifiedQrPayment struct{}
+
+var FfiConverterUnifiedQrPaymentINSTANCE = FfiConverterUnifiedQrPayment{}
+
+func (c FfiConverterUnifiedQrPayment) Lift(pointer unsafe.Pointer) *UnifiedQrPayment {
+	result := &UnifiedQrPayment{
+		newFfiObject(
+			pointer,
+			func(pointer unsafe.Pointer, status *C.RustCallStatus) {
+				C.uniffi_ldk_node_fn_free_unifiedqrpayment(pointer, status)
+			}),
+	}
+	runtime.SetFinalizer(result, (*UnifiedQrPayment).Destroy)
+	return result
+}
+
+func (c FfiConverterUnifiedQrPayment) Read(reader io.Reader) *UnifiedQrPayment {
+	return c.Lift(unsafe.Pointer(uintptr(readUint64(reader))))
+}
+
+func (c FfiConverterUnifiedQrPayment) Lower(value *UnifiedQrPayment) unsafe.Pointer {
+	// TODO: this is bad - all synchronization from ObjectRuntime.go is discarded here,
+	// because the pointer will be decremented immediately after this function returns,
+	// and someone will be left holding onto a non-locked pointer.
+	pointer := value.ffiObject.incrementPointer("*UnifiedQrPayment")
+	defer value.ffiObject.decrementPointer()
+	return pointer
+}
+
+func (c FfiConverterUnifiedQrPayment) Write(writer io.Writer, value *UnifiedQrPayment) {
+	writeUint64(writer, uint64(uintptr(c.Lower(value))))
+}
+
+type FfiDestroyerUnifiedQrPayment struct{}
+
+func (_ FfiDestroyerUnifiedQrPayment) Destroy(value *UnifiedQrPayment) {
 	value.Destroy()
 }
 
@@ -2863,6 +2814,62 @@ func (_ FfiDestroyerTypeBestBlock) Destroy(value BestBlock) {
 	value.Destroy()
 }
 
+type ChannelConfig struct {
+	ForwardingFeeProportionalMillionths uint32
+	ForwardingFeeBaseMsat               uint32
+	CltvExpiryDelta                     uint16
+	MaxDustHtlcExposure                 MaxDustHtlcExposure
+	ForceCloseAvoidanceMaxFeeSatoshis   uint64
+	AcceptUnderpayingHtlcs              bool
+}
+
+func (r *ChannelConfig) Destroy() {
+	FfiDestroyerUint32{}.Destroy(r.ForwardingFeeProportionalMillionths)
+	FfiDestroyerUint32{}.Destroy(r.ForwardingFeeBaseMsat)
+	FfiDestroyerUint16{}.Destroy(r.CltvExpiryDelta)
+	FfiDestroyerTypeMaxDustHtlcExposure{}.Destroy(r.MaxDustHtlcExposure)
+	FfiDestroyerUint64{}.Destroy(r.ForceCloseAvoidanceMaxFeeSatoshis)
+	FfiDestroyerBool{}.Destroy(r.AcceptUnderpayingHtlcs)
+}
+
+type FfiConverterTypeChannelConfig struct{}
+
+var FfiConverterTypeChannelConfigINSTANCE = FfiConverterTypeChannelConfig{}
+
+func (c FfiConverterTypeChannelConfig) Lift(rb RustBufferI) ChannelConfig {
+	return LiftFromRustBuffer[ChannelConfig](c, rb)
+}
+
+func (c FfiConverterTypeChannelConfig) Read(reader io.Reader) ChannelConfig {
+	return ChannelConfig{
+		FfiConverterUint32INSTANCE.Read(reader),
+		FfiConverterUint32INSTANCE.Read(reader),
+		FfiConverterUint16INSTANCE.Read(reader),
+		FfiConverterTypeMaxDustHTLCExposureINSTANCE.Read(reader),
+		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterBoolINSTANCE.Read(reader),
+	}
+}
+
+func (c FfiConverterTypeChannelConfig) Lower(value ChannelConfig) RustBuffer {
+	return LowerIntoRustBuffer[ChannelConfig](c, value)
+}
+
+func (c FfiConverterTypeChannelConfig) Write(writer io.Writer, value ChannelConfig) {
+	FfiConverterUint32INSTANCE.Write(writer, value.ForwardingFeeProportionalMillionths)
+	FfiConverterUint32INSTANCE.Write(writer, value.ForwardingFeeBaseMsat)
+	FfiConverterUint16INSTANCE.Write(writer, value.CltvExpiryDelta)
+	FfiConverterTypeMaxDustHTLCExposureINSTANCE.Write(writer, value.MaxDustHtlcExposure)
+	FfiConverterUint64INSTANCE.Write(writer, value.ForceCloseAvoidanceMaxFeeSatoshis)
+	FfiConverterBoolINSTANCE.Write(writer, value.AcceptUnderpayingHtlcs)
+}
+
+type FfiDestroyerTypeChannelConfig struct{}
+
+func (_ FfiDestroyerTypeChannelConfig) Destroy(value ChannelConfig) {
+	value.Destroy()
+}
+
 type ChannelDetails struct {
 	ChannelId                                           ChannelId
 	CounterpartyNodeId                                  PublicKey
@@ -2879,7 +2886,7 @@ type ChannelDetails struct {
 	IsOutbound                                          bool
 	IsChannelReady                                      bool
 	IsUsable                                            bool
-	IsPublic                                            bool
+	IsAnnounced                                         bool
 	CltvExpiryDelta                                     *uint16
 	CounterpartyUnspendablePunishmentReserve            uint64
 	CounterpartyOutboundHtlcMinimumMsat                 *uint64
@@ -2892,7 +2899,7 @@ type ChannelDetails struct {
 	ForceCloseSpendDelay                                *uint16
 	InboundHtlcMinimumMsat                              uint64
 	InboundHtlcMaximumMsat                              *uint64
-	Config                                              *ChannelConfig
+	Config                                              ChannelConfig
 }
 
 func (r *ChannelDetails) Destroy() {
@@ -2911,7 +2918,7 @@ func (r *ChannelDetails) Destroy() {
 	FfiDestroyerBool{}.Destroy(r.IsOutbound)
 	FfiDestroyerBool{}.Destroy(r.IsChannelReady)
 	FfiDestroyerBool{}.Destroy(r.IsUsable)
-	FfiDestroyerBool{}.Destroy(r.IsPublic)
+	FfiDestroyerBool{}.Destroy(r.IsAnnounced)
 	FfiDestroyerOptionalUint16{}.Destroy(r.CltvExpiryDelta)
 	FfiDestroyerUint64{}.Destroy(r.CounterpartyUnspendablePunishmentReserve)
 	FfiDestroyerOptionalUint64{}.Destroy(r.CounterpartyOutboundHtlcMinimumMsat)
@@ -2924,7 +2931,7 @@ func (r *ChannelDetails) Destroy() {
 	FfiDestroyerOptionalUint16{}.Destroy(r.ForceCloseSpendDelay)
 	FfiDestroyerUint64{}.Destroy(r.InboundHtlcMinimumMsat)
 	FfiDestroyerOptionalUint64{}.Destroy(r.InboundHtlcMaximumMsat)
-	FfiDestroyerChannelConfig{}.Destroy(r.Config)
+	FfiDestroyerTypeChannelConfig{}.Destroy(r.Config)
 }
 
 type FfiConverterTypeChannelDetails struct{}
@@ -2965,7 +2972,7 @@ func (c FfiConverterTypeChannelDetails) Read(reader io.Reader) ChannelDetails {
 		FfiConverterOptionalUint16INSTANCE.Read(reader),
 		FfiConverterUint64INSTANCE.Read(reader),
 		FfiConverterOptionalUint64INSTANCE.Read(reader),
-		FfiConverterChannelConfigINSTANCE.Read(reader),
+		FfiConverterTypeChannelConfigINSTANCE.Read(reader),
 	}
 }
 
@@ -2989,7 +2996,7 @@ func (c FfiConverterTypeChannelDetails) Write(writer io.Writer, value ChannelDet
 	FfiConverterBoolINSTANCE.Write(writer, value.IsOutbound)
 	FfiConverterBoolINSTANCE.Write(writer, value.IsChannelReady)
 	FfiConverterBoolINSTANCE.Write(writer, value.IsUsable)
-	FfiConverterBoolINSTANCE.Write(writer, value.IsPublic)
+	FfiConverterBoolINSTANCE.Write(writer, value.IsAnnounced)
 	FfiConverterOptionalUint16INSTANCE.Write(writer, value.CltvExpiryDelta)
 	FfiConverterUint64INSTANCE.Write(writer, value.CounterpartyUnspendablePunishmentReserve)
 	FfiConverterOptionalUint64INSTANCE.Write(writer, value.CounterpartyOutboundHtlcMinimumMsat)
@@ -3002,7 +3009,7 @@ func (c FfiConverterTypeChannelDetails) Write(writer io.Writer, value ChannelDet
 	FfiConverterOptionalUint16INSTANCE.Write(writer, value.ForceCloseSpendDelay)
 	FfiConverterUint64INSTANCE.Write(writer, value.InboundHtlcMinimumMsat)
 	FfiConverterOptionalUint64INSTANCE.Write(writer, value.InboundHtlcMaximumMsat)
-	FfiConverterChannelConfigINSTANCE.Write(writer, value.Config)
+	FfiConverterTypeChannelConfigINSTANCE.Write(writer, value.Config)
 }
 
 type FfiDestroyerTypeChannelDetails struct{}
@@ -3124,14 +3131,12 @@ type Config struct {
 	LogDirPath                      *string
 	Network                         Network
 	ListeningAddresses              *[]SocketAddress
-	DefaultCltvExpiryDelta          uint32
-	OnchainWalletSyncIntervalSecs   uint64
-	WalletSyncIntervalSecs          uint64
-	FeeRateCacheUpdateIntervalSecs  uint64
+	NodeAlias                       *NodeAlias
 	TrustedPeers0conf               []PublicKey
 	ProbingLiquidityLimitMultiplier uint64
 	LogLevel                        LogLevel
 	AnchorChannelsConfig            *AnchorChannelsConfig
+	SendingParameters               *SendingParameters
 }
 
 func (r *Config) Destroy() {
@@ -3139,14 +3144,12 @@ func (r *Config) Destroy() {
 	FfiDestroyerOptionalString{}.Destroy(r.LogDirPath)
 	FfiDestroyerTypeNetwork{}.Destroy(r.Network)
 	FfiDestroyerOptionalSequenceTypeSocketAddress{}.Destroy(r.ListeningAddresses)
-	FfiDestroyerUint32{}.Destroy(r.DefaultCltvExpiryDelta)
-	FfiDestroyerUint64{}.Destroy(r.OnchainWalletSyncIntervalSecs)
-	FfiDestroyerUint64{}.Destroy(r.WalletSyncIntervalSecs)
-	FfiDestroyerUint64{}.Destroy(r.FeeRateCacheUpdateIntervalSecs)
+	FfiDestroyerOptionalTypeNodeAlias{}.Destroy(r.NodeAlias)
 	FfiDestroyerSequenceTypePublicKey{}.Destroy(r.TrustedPeers0conf)
 	FfiDestroyerUint64{}.Destroy(r.ProbingLiquidityLimitMultiplier)
 	FfiDestroyerTypeLogLevel{}.Destroy(r.LogLevel)
 	FfiDestroyerOptionalTypeAnchorChannelsConfig{}.Destroy(r.AnchorChannelsConfig)
+	FfiDestroyerOptionalTypeSendingParameters{}.Destroy(r.SendingParameters)
 }
 
 type FfiConverterTypeConfig struct{}
@@ -3163,14 +3166,12 @@ func (c FfiConverterTypeConfig) Read(reader io.Reader) Config {
 		FfiConverterOptionalStringINSTANCE.Read(reader),
 		FfiConverterTypeNetworkINSTANCE.Read(reader),
 		FfiConverterOptionalSequenceTypeSocketAddressINSTANCE.Read(reader),
-		FfiConverterUint32INSTANCE.Read(reader),
-		FfiConverterUint64INSTANCE.Read(reader),
-		FfiConverterUint64INSTANCE.Read(reader),
-		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterOptionalTypeNodeAliasINSTANCE.Read(reader),
 		FfiConverterSequenceTypePublicKeyINSTANCE.Read(reader),
 		FfiConverterUint64INSTANCE.Read(reader),
 		FfiConverterTypeLogLevelINSTANCE.Read(reader),
 		FfiConverterOptionalTypeAnchorChannelsConfigINSTANCE.Read(reader),
+		FfiConverterOptionalTypeSendingParametersINSTANCE.Read(reader),
 	}
 }
 
@@ -3183,19 +3184,61 @@ func (c FfiConverterTypeConfig) Write(writer io.Writer, value Config) {
 	FfiConverterOptionalStringINSTANCE.Write(writer, value.LogDirPath)
 	FfiConverterTypeNetworkINSTANCE.Write(writer, value.Network)
 	FfiConverterOptionalSequenceTypeSocketAddressINSTANCE.Write(writer, value.ListeningAddresses)
-	FfiConverterUint32INSTANCE.Write(writer, value.DefaultCltvExpiryDelta)
-	FfiConverterUint64INSTANCE.Write(writer, value.OnchainWalletSyncIntervalSecs)
-	FfiConverterUint64INSTANCE.Write(writer, value.WalletSyncIntervalSecs)
-	FfiConverterUint64INSTANCE.Write(writer, value.FeeRateCacheUpdateIntervalSecs)
+	FfiConverterOptionalTypeNodeAliasINSTANCE.Write(writer, value.NodeAlias)
 	FfiConverterSequenceTypePublicKeyINSTANCE.Write(writer, value.TrustedPeers0conf)
 	FfiConverterUint64INSTANCE.Write(writer, value.ProbingLiquidityLimitMultiplier)
 	FfiConverterTypeLogLevelINSTANCE.Write(writer, value.LogLevel)
 	FfiConverterOptionalTypeAnchorChannelsConfigINSTANCE.Write(writer, value.AnchorChannelsConfig)
+	FfiConverterOptionalTypeSendingParametersINSTANCE.Write(writer, value.SendingParameters)
 }
 
 type FfiDestroyerTypeConfig struct{}
 
 func (_ FfiDestroyerTypeConfig) Destroy(value Config) {
+	value.Destroy()
+}
+
+type EsploraSyncConfig struct {
+	OnchainWalletSyncIntervalSecs   uint64
+	LightningWalletSyncIntervalSecs uint64
+	FeeRateCacheUpdateIntervalSecs  uint64
+}
+
+func (r *EsploraSyncConfig) Destroy() {
+	FfiDestroyerUint64{}.Destroy(r.OnchainWalletSyncIntervalSecs)
+	FfiDestroyerUint64{}.Destroy(r.LightningWalletSyncIntervalSecs)
+	FfiDestroyerUint64{}.Destroy(r.FeeRateCacheUpdateIntervalSecs)
+}
+
+type FfiConverterTypeEsploraSyncConfig struct{}
+
+var FfiConverterTypeEsploraSyncConfigINSTANCE = FfiConverterTypeEsploraSyncConfig{}
+
+func (c FfiConverterTypeEsploraSyncConfig) Lift(rb RustBufferI) EsploraSyncConfig {
+	return LiftFromRustBuffer[EsploraSyncConfig](c, rb)
+}
+
+func (c FfiConverterTypeEsploraSyncConfig) Read(reader io.Reader) EsploraSyncConfig {
+	return EsploraSyncConfig{
+		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterUint64INSTANCE.Read(reader),
+	}
+}
+
+func (c FfiConverterTypeEsploraSyncConfig) Lower(value EsploraSyncConfig) RustBuffer {
+	return LowerIntoRustBuffer[EsploraSyncConfig](c, value)
+}
+
+func (c FfiConverterTypeEsploraSyncConfig) Write(writer io.Writer, value EsploraSyncConfig) {
+	FfiConverterUint64INSTANCE.Write(writer, value.OnchainWalletSyncIntervalSecs)
+	FfiConverterUint64INSTANCE.Write(writer, value.LightningWalletSyncIntervalSecs)
+	FfiConverterUint64INSTANCE.Write(writer, value.FeeRateCacheUpdateIntervalSecs)
+}
+
+type FfiDestroyerTypeEsploraSyncConfig struct{}
+
+func (_ FfiDestroyerTypeEsploraSyncConfig) Destroy(value EsploraSyncConfig) {
 	value.Destroy()
 }
 
@@ -3367,22 +3410,24 @@ type NodeStatus struct {
 	IsRunning                                bool
 	IsListening                              bool
 	CurrentBestBlock                         BestBlock
-	LatestWalletSyncTimestamp                *uint64
+	LatestLightningWalletSyncTimestamp       *uint64
 	LatestOnchainWalletSyncTimestamp         *uint64
 	LatestFeeRateCacheUpdateTimestamp        *uint64
 	LatestRgsSnapshotTimestamp               *uint64
 	LatestNodeAnnouncementBroadcastTimestamp *uint64
+	LatestChannelMonitorArchivalHeight       *uint32
 }
 
 func (r *NodeStatus) Destroy() {
 	FfiDestroyerBool{}.Destroy(r.IsRunning)
 	FfiDestroyerBool{}.Destroy(r.IsListening)
 	FfiDestroyerTypeBestBlock{}.Destroy(r.CurrentBestBlock)
-	FfiDestroyerOptionalUint64{}.Destroy(r.LatestWalletSyncTimestamp)
+	FfiDestroyerOptionalUint64{}.Destroy(r.LatestLightningWalletSyncTimestamp)
 	FfiDestroyerOptionalUint64{}.Destroy(r.LatestOnchainWalletSyncTimestamp)
 	FfiDestroyerOptionalUint64{}.Destroy(r.LatestFeeRateCacheUpdateTimestamp)
 	FfiDestroyerOptionalUint64{}.Destroy(r.LatestRgsSnapshotTimestamp)
 	FfiDestroyerOptionalUint64{}.Destroy(r.LatestNodeAnnouncementBroadcastTimestamp)
+	FfiDestroyerOptionalUint32{}.Destroy(r.LatestChannelMonitorArchivalHeight)
 }
 
 type FfiConverterTypeNodeStatus struct{}
@@ -3403,6 +3448,7 @@ func (c FfiConverterTypeNodeStatus) Read(reader io.Reader) NodeStatus {
 		FfiConverterOptionalUint64INSTANCE.Read(reader),
 		FfiConverterOptionalUint64INSTANCE.Read(reader),
 		FfiConverterOptionalUint64INSTANCE.Read(reader),
+		FfiConverterOptionalUint32INSTANCE.Read(reader),
 	}
 }
 
@@ -3414,11 +3460,12 @@ func (c FfiConverterTypeNodeStatus) Write(writer io.Writer, value NodeStatus) {
 	FfiConverterBoolINSTANCE.Write(writer, value.IsRunning)
 	FfiConverterBoolINSTANCE.Write(writer, value.IsListening)
 	FfiConverterTypeBestBlockINSTANCE.Write(writer, value.CurrentBestBlock)
-	FfiConverterOptionalUint64INSTANCE.Write(writer, value.LatestWalletSyncTimestamp)
+	FfiConverterOptionalUint64INSTANCE.Write(writer, value.LatestLightningWalletSyncTimestamp)
 	FfiConverterOptionalUint64INSTANCE.Write(writer, value.LatestOnchainWalletSyncTimestamp)
 	FfiConverterOptionalUint64INSTANCE.Write(writer, value.LatestFeeRateCacheUpdateTimestamp)
 	FfiConverterOptionalUint64INSTANCE.Write(writer, value.LatestRgsSnapshotTimestamp)
 	FfiConverterOptionalUint64INSTANCE.Write(writer, value.LatestNodeAnnouncementBroadcastTimestamp)
+	FfiConverterOptionalUint32INSTANCE.Write(writer, value.LatestChannelMonitorArchivalHeight)
 }
 
 type FfiDestroyerTypeNodeStatus struct{}
@@ -3623,6 +3670,54 @@ func (_ FfiDestroyerTypeRoutingFees) Destroy(value RoutingFees) {
 	value.Destroy()
 }
 
+type SendingParameters struct {
+	MaxTotalRoutingFeeMsat          *MaxTotalRoutingFeeLimit
+	MaxTotalCltvExpiryDelta         *uint32
+	MaxPathCount                    *uint8
+	MaxChannelSaturationPowerOfHalf *uint8
+}
+
+func (r *SendingParameters) Destroy() {
+	FfiDestroyerOptionalTypeMaxTotalRoutingFeeLimit{}.Destroy(r.MaxTotalRoutingFeeMsat)
+	FfiDestroyerOptionalUint32{}.Destroy(r.MaxTotalCltvExpiryDelta)
+	FfiDestroyerOptionalUint8{}.Destroy(r.MaxPathCount)
+	FfiDestroyerOptionalUint8{}.Destroy(r.MaxChannelSaturationPowerOfHalf)
+}
+
+type FfiConverterTypeSendingParameters struct{}
+
+var FfiConverterTypeSendingParametersINSTANCE = FfiConverterTypeSendingParameters{}
+
+func (c FfiConverterTypeSendingParameters) Lift(rb RustBufferI) SendingParameters {
+	return LiftFromRustBuffer[SendingParameters](c, rb)
+}
+
+func (c FfiConverterTypeSendingParameters) Read(reader io.Reader) SendingParameters {
+	return SendingParameters{
+		FfiConverterOptionalTypeMaxTotalRoutingFeeLimitINSTANCE.Read(reader),
+		FfiConverterOptionalUint32INSTANCE.Read(reader),
+		FfiConverterOptionalUint8INSTANCE.Read(reader),
+		FfiConverterOptionalUint8INSTANCE.Read(reader),
+	}
+}
+
+func (c FfiConverterTypeSendingParameters) Lower(value SendingParameters) RustBuffer {
+	return LowerIntoRustBuffer[SendingParameters](c, value)
+}
+
+func (c FfiConverterTypeSendingParameters) Write(writer io.Writer, value SendingParameters) {
+	FfiConverterOptionalTypeMaxTotalRoutingFeeLimitINSTANCE.Write(writer, value.MaxTotalRoutingFeeMsat)
+	FfiConverterOptionalUint32INSTANCE.Write(writer, value.MaxTotalCltvExpiryDelta)
+	FfiConverterOptionalUint8INSTANCE.Write(writer, value.MaxPathCount)
+	FfiConverterOptionalUint8INSTANCE.Write(writer, value.MaxChannelSaturationPowerOfHalf)
+}
+
+type FfiDestroyerTypeSendingParameters struct{}
+
+func (_ FfiDestroyerTypeSendingParameters) Destroy(value SendingParameters) {
+	value.Destroy()
+}
+
 type TlvEntry struct {
 	Type  uint64
 	Value []uint8
@@ -3663,6 +3758,40 @@ func (_ FfiDestroyerTypeTlvEntry) Destroy(value TlvEntry) {
 	value.Destroy()
 }
 
+type BalanceSource uint
+
+const (
+	BalanceSourceHolderForceClosed       BalanceSource = 1
+	BalanceSourceCounterpartyForceClosed BalanceSource = 2
+	BalanceSourceCoopClose               BalanceSource = 3
+	BalanceSourceHtlc                    BalanceSource = 4
+)
+
+type FfiConverterTypeBalanceSource struct{}
+
+var FfiConverterTypeBalanceSourceINSTANCE = FfiConverterTypeBalanceSource{}
+
+func (c FfiConverterTypeBalanceSource) Lift(rb RustBufferI) BalanceSource {
+	return LiftFromRustBuffer[BalanceSource](c, rb)
+}
+
+func (c FfiConverterTypeBalanceSource) Lower(value BalanceSource) RustBuffer {
+	return LowerIntoRustBuffer[BalanceSource](c, value)
+}
+func (FfiConverterTypeBalanceSource) Read(reader io.Reader) BalanceSource {
+	id := readInt32(reader)
+	return BalanceSource(id)
+}
+
+func (FfiConverterTypeBalanceSource) Write(writer io.Writer, value BalanceSource) {
+	writeInt32(writer, int32(value))
+}
+
+type FfiDestroyerTypeBalanceSource struct{}
+
+func (_ FfiDestroyerTypeBalanceSource) Destroy(value BalanceSource) {
+}
+
 type BuildError struct {
 	err error
 }
@@ -3681,6 +3810,7 @@ var ErrBuildErrorInvalidSeedFile = fmt.Errorf("BuildErrorInvalidSeedFile")
 var ErrBuildErrorInvalidSystemTime = fmt.Errorf("BuildErrorInvalidSystemTime")
 var ErrBuildErrorInvalidChannelMonitor = fmt.Errorf("BuildErrorInvalidChannelMonitor")
 var ErrBuildErrorInvalidListeningAddresses = fmt.Errorf("BuildErrorInvalidListeningAddresses")
+var ErrBuildErrorInvalidNodeAlias = fmt.Errorf("BuildErrorInvalidNodeAlias")
 var ErrBuildErrorReadFailed = fmt.Errorf("BuildErrorReadFailed")
 var ErrBuildErrorWriteFailed = fmt.Errorf("BuildErrorWriteFailed")
 var ErrBuildErrorStoragePathAccessFailed = fmt.Errorf("BuildErrorStoragePathAccessFailed")
@@ -3777,6 +3907,24 @@ func (err BuildErrorInvalidListeningAddresses) Error() string {
 
 func (self BuildErrorInvalidListeningAddresses) Is(target error) bool {
 	return target == ErrBuildErrorInvalidListeningAddresses
+}
+
+type BuildErrorInvalidNodeAlias struct {
+	message string
+}
+
+func NewBuildErrorInvalidNodeAlias() *BuildError {
+	return &BuildError{
+		err: &BuildErrorInvalidNodeAlias{},
+	}
+}
+
+func (err BuildErrorInvalidNodeAlias) Error() string {
+	return fmt.Sprintf("InvalidNodeAlias: %s", err.message)
+}
+
+func (self BuildErrorInvalidNodeAlias) Is(target error) bool {
+	return target == ErrBuildErrorInvalidNodeAlias
 }
 
 type BuildErrorReadFailed struct {
@@ -3915,16 +4063,18 @@ func (c FfiConverterTypeBuildError) Read(reader io.Reader) error {
 	case 5:
 		return &BuildError{&BuildErrorInvalidListeningAddresses{message}}
 	case 6:
-		return &BuildError{&BuildErrorReadFailed{message}}
+		return &BuildError{&BuildErrorInvalidNodeAlias{message}}
 	case 7:
-		return &BuildError{&BuildErrorWriteFailed{message}}
+		return &BuildError{&BuildErrorReadFailed{message}}
 	case 8:
-		return &BuildError{&BuildErrorStoragePathAccessFailed{message}}
+		return &BuildError{&BuildErrorWriteFailed{message}}
 	case 9:
-		return &BuildError{&BuildErrorKvStoreSetupFailed{message}}
+		return &BuildError{&BuildErrorStoragePathAccessFailed{message}}
 	case 10:
-		return &BuildError{&BuildErrorWalletSetupFailed{message}}
+		return &BuildError{&BuildErrorKvStoreSetupFailed{message}}
 	case 11:
+		return &BuildError{&BuildErrorWalletSetupFailed{message}}
+	case 12:
 		return &BuildError{&BuildErrorLoggerSetupFailed{message}}
 	default:
 		panic(fmt.Sprintf("Unknown error code %d in FfiConverterTypeBuildError.Read()", errorID))
@@ -3944,18 +4094,20 @@ func (c FfiConverterTypeBuildError) Write(writer io.Writer, value *BuildError) {
 		writeInt32(writer, 4)
 	case *BuildErrorInvalidListeningAddresses:
 		writeInt32(writer, 5)
-	case *BuildErrorReadFailed:
+	case *BuildErrorInvalidNodeAlias:
 		writeInt32(writer, 6)
-	case *BuildErrorWriteFailed:
+	case *BuildErrorReadFailed:
 		writeInt32(writer, 7)
-	case *BuildErrorStoragePathAccessFailed:
+	case *BuildErrorWriteFailed:
 		writeInt32(writer, 8)
-	case *BuildErrorKvStoreSetupFailed:
+	case *BuildErrorStoragePathAccessFailed:
 		writeInt32(writer, 9)
-	case *BuildErrorWalletSetupFailed:
+	case *BuildErrorKvStoreSetupFailed:
 		writeInt32(writer, 10)
-	case *BuildErrorLoggerSetupFailed:
+	case *BuildErrorWalletSetupFailed:
 		writeInt32(writer, 11)
+	case *BuildErrorLoggerSetupFailed:
+		writeInt32(writer, 12)
 	default:
 		_ = variantValue
 		panic(fmt.Sprintf("invalid error value `%v` in FfiConverterTypeBuildError.Write", value))
@@ -4006,9 +4158,11 @@ func (e ClosureReasonCounterpartyForceClosed) Destroy() {
 }
 
 type ClosureReasonHolderForceClosed struct {
+	BroadcastedLatestTxn *bool
 }
 
 func (e ClosureReasonHolderForceClosed) Destroy() {
+	FfiDestroyerOptionalBool{}.Destroy(e.BroadcastedLatestTxn)
 }
 
 type ClosureReasonLegacyCooperativeClosure struct {
@@ -4079,6 +4233,16 @@ type ClosureReasonHtlCsTimedOut struct {
 func (e ClosureReasonHtlCsTimedOut) Destroy() {
 }
 
+type ClosureReasonPeerFeerateTooLow struct {
+	PeerFeerateSatPerKw     uint32
+	RequiredFeerateSatPerKw uint32
+}
+
+func (e ClosureReasonPeerFeerateTooLow) Destroy() {
+	FfiDestroyerUint32{}.Destroy(e.PeerFeerateSatPerKw)
+	FfiDestroyerUint32{}.Destroy(e.RequiredFeerateSatPerKw)
+}
+
 type FfiConverterTypeClosureReason struct{}
 
 var FfiConverterTypeClosureReasonINSTANCE = FfiConverterTypeClosureReason{}
@@ -4098,7 +4262,9 @@ func (FfiConverterTypeClosureReason) Read(reader io.Reader) ClosureReason {
 			FfiConverterTypeUntrustedStringINSTANCE.Read(reader),
 		}
 	case 2:
-		return ClosureReasonHolderForceClosed{}
+		return ClosureReasonHolderForceClosed{
+			FfiConverterOptionalBoolINSTANCE.Read(reader),
+		}
 	case 3:
 		return ClosureReasonLegacyCooperativeClosure{}
 	case 4:
@@ -4123,6 +4289,11 @@ func (FfiConverterTypeClosureReason) Read(reader io.Reader) ClosureReason {
 		return ClosureReasonFundingBatchClosure{}
 	case 13:
 		return ClosureReasonHtlCsTimedOut{}
+	case 14:
+		return ClosureReasonPeerFeerateTooLow{
+			FfiConverterUint32INSTANCE.Read(reader),
+			FfiConverterUint32INSTANCE.Read(reader),
+		}
 	default:
 		panic(fmt.Sprintf("invalid enum value %v in FfiConverterTypeClosureReason.Read()", id))
 	}
@@ -4135,6 +4306,7 @@ func (FfiConverterTypeClosureReason) Write(writer io.Writer, value ClosureReason
 		FfiConverterTypeUntrustedStringINSTANCE.Write(writer, variant_value.PeerMsg)
 	case ClosureReasonHolderForceClosed:
 		writeInt32(writer, 2)
+		FfiConverterOptionalBoolINSTANCE.Write(writer, variant_value.BroadcastedLatestTxn)
 	case ClosureReasonLegacyCooperativeClosure:
 		writeInt32(writer, 3)
 	case ClosureReasonCounterpartyInitiatedCooperativeClosure:
@@ -4158,6 +4330,10 @@ func (FfiConverterTypeClosureReason) Write(writer io.Writer, value ClosureReason
 		writeInt32(writer, 12)
 	case ClosureReasonHtlCsTimedOut:
 		writeInt32(writer, 13)
+	case ClosureReasonPeerFeerateTooLow:
+		writeInt32(writer, 14)
+		FfiConverterUint32INSTANCE.Write(writer, variant_value.PeerFeerateSatPerKw)
+		FfiConverterUint32INSTANCE.Write(writer, variant_value.RequiredFeerateSatPerKw)
 	default:
 		_ = variant_value
 		panic(fmt.Sprintf("invalid enum value `%v` in FfiConverterTypeClosureReason.Write", value))
@@ -4187,13 +4363,13 @@ func (e EventPaymentSuccessful) Destroy() {
 
 type EventPaymentFailed struct {
 	PaymentId   *PaymentId
-	PaymentHash PaymentHash
+	PaymentHash *PaymentHash
 	Reason      *PaymentFailureReason
 }
 
 func (e EventPaymentFailed) Destroy() {
 	FfiDestroyerOptionalTypePaymentId{}.Destroy(e.PaymentId)
-	FfiDestroyerTypePaymentHash{}.Destroy(e.PaymentHash)
+	FfiDestroyerOptionalTypePaymentHash{}.Destroy(e.PaymentHash)
 	FfiDestroyerOptionalTypePaymentFailureReason{}.Destroy(e.Reason)
 }
 
@@ -4288,7 +4464,7 @@ func (FfiConverterTypeEvent) Read(reader io.Reader) Event {
 	case 2:
 		return EventPaymentFailed{
 			FfiConverterOptionalTypePaymentIdINSTANCE.Read(reader),
-			FfiConverterTypePaymentHashINSTANCE.Read(reader),
+			FfiConverterOptionalTypePaymentHashINSTANCE.Read(reader),
 			FfiConverterOptionalTypePaymentFailureReasonINSTANCE.Read(reader),
 		}
 	case 3:
@@ -4340,7 +4516,7 @@ func (FfiConverterTypeEvent) Write(writer io.Writer, value Event) {
 	case EventPaymentFailed:
 		writeInt32(writer, 2)
 		FfiConverterOptionalTypePaymentIdINSTANCE.Write(writer, variant_value.PaymentId)
-		FfiConverterTypePaymentHashINSTANCE.Write(writer, variant_value.PaymentHash)
+		FfiConverterOptionalTypePaymentHashINSTANCE.Write(writer, variant_value.PaymentHash)
 		FfiConverterOptionalTypePaymentFailureReasonINSTANCE.Write(writer, variant_value.Reason)
 	case EventPaymentReceived:
 		writeInt32(writer, 3)
@@ -4387,15 +4563,25 @@ type LightningBalance interface {
 	Destroy()
 }
 type LightningBalanceClaimableOnChannelClose struct {
-	ChannelId          ChannelId
-	CounterpartyNodeId PublicKey
-	AmountSatoshis     uint64
+	ChannelId                        ChannelId
+	CounterpartyNodeId               PublicKey
+	AmountSatoshis                   uint64
+	TransactionFeeSatoshis           uint64
+	OutboundPaymentHtlcRoundedMsat   uint64
+	OutboundForwardedHtlcRoundedMsat uint64
+	InboundClaimingHtlcRoundedMsat   uint64
+	InboundHtlcRoundedMsat           uint64
 }
 
 func (e LightningBalanceClaimableOnChannelClose) Destroy() {
 	FfiDestroyerTypeChannelId{}.Destroy(e.ChannelId)
 	FfiDestroyerTypePublicKey{}.Destroy(e.CounterpartyNodeId)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
+	FfiDestroyerUint64{}.Destroy(e.TransactionFeeSatoshis)
+	FfiDestroyerUint64{}.Destroy(e.OutboundPaymentHtlcRoundedMsat)
+	FfiDestroyerUint64{}.Destroy(e.OutboundForwardedHtlcRoundedMsat)
+	FfiDestroyerUint64{}.Destroy(e.InboundClaimingHtlcRoundedMsat)
+	FfiDestroyerUint64{}.Destroy(e.InboundHtlcRoundedMsat)
 }
 
 type LightningBalanceClaimableAwaitingConfirmations struct {
@@ -4403,6 +4589,7 @@ type LightningBalanceClaimableAwaitingConfirmations struct {
 	CounterpartyNodeId PublicKey
 	AmountSatoshis     uint64
 	ConfirmationHeight uint32
+	Source             BalanceSource
 }
 
 func (e LightningBalanceClaimableAwaitingConfirmations) Destroy() {
@@ -4410,6 +4597,7 @@ func (e LightningBalanceClaimableAwaitingConfirmations) Destroy() {
 	FfiDestroyerTypePublicKey{}.Destroy(e.CounterpartyNodeId)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
 	FfiDestroyerUint32{}.Destroy(e.ConfirmationHeight)
+	FfiDestroyerTypeBalanceSource{}.Destroy(e.Source)
 }
 
 type LightningBalanceContentiousClaimable struct {
@@ -4436,6 +4624,7 @@ type LightningBalanceMaybeTimeoutClaimableHtlc struct {
 	AmountSatoshis     uint64
 	ClaimableHeight    uint32
 	PaymentHash        PaymentHash
+	OutboundPayment    bool
 }
 
 func (e LightningBalanceMaybeTimeoutClaimableHtlc) Destroy() {
@@ -4444,6 +4633,7 @@ func (e LightningBalanceMaybeTimeoutClaimableHtlc) Destroy() {
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
 	FfiDestroyerUint32{}.Destroy(e.ClaimableHeight)
 	FfiDestroyerTypePaymentHash{}.Destroy(e.PaymentHash)
+	FfiDestroyerBool{}.Destroy(e.OutboundPayment)
 }
 
 type LightningBalanceMaybePreimageClaimableHtlc struct {
@@ -4493,6 +4683,11 @@ func (FfiConverterTypeLightningBalance) Read(reader io.Reader) LightningBalance 
 			FfiConverterTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterTypePublicKeyINSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
+			FfiConverterUint64INSTANCE.Read(reader),
+			FfiConverterUint64INSTANCE.Read(reader),
+			FfiConverterUint64INSTANCE.Read(reader),
+			FfiConverterUint64INSTANCE.Read(reader),
+			FfiConverterUint64INSTANCE.Read(reader),
 		}
 	case 2:
 		return LightningBalanceClaimableAwaitingConfirmations{
@@ -4500,6 +4695,7 @@ func (FfiConverterTypeLightningBalance) Read(reader io.Reader) LightningBalance 
 			FfiConverterTypePublicKeyINSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
 			FfiConverterUint32INSTANCE.Read(reader),
+			FfiConverterTypeBalanceSourceINSTANCE.Read(reader),
 		}
 	case 3:
 		return LightningBalanceContentiousClaimable{
@@ -4517,6 +4713,7 @@ func (FfiConverterTypeLightningBalance) Read(reader io.Reader) LightningBalance 
 			FfiConverterUint64INSTANCE.Read(reader),
 			FfiConverterUint32INSTANCE.Read(reader),
 			FfiConverterTypePaymentHashINSTANCE.Read(reader),
+			FfiConverterBoolINSTANCE.Read(reader),
 		}
 	case 5:
 		return LightningBalanceMaybePreimageClaimableHtlc{
@@ -4544,12 +4741,18 @@ func (FfiConverterTypeLightningBalance) Write(writer io.Writer, value LightningB
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
+		FfiConverterUint64INSTANCE.Write(writer, variant_value.TransactionFeeSatoshis)
+		FfiConverterUint64INSTANCE.Write(writer, variant_value.OutboundPaymentHtlcRoundedMsat)
+		FfiConverterUint64INSTANCE.Write(writer, variant_value.OutboundForwardedHtlcRoundedMsat)
+		FfiConverterUint64INSTANCE.Write(writer, variant_value.InboundClaimingHtlcRoundedMsat)
+		FfiConverterUint64INSTANCE.Write(writer, variant_value.InboundHtlcRoundedMsat)
 	case LightningBalanceClaimableAwaitingConfirmations:
 		writeInt32(writer, 2)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
 		FfiConverterUint32INSTANCE.Write(writer, variant_value.ConfirmationHeight)
+		FfiConverterTypeBalanceSourceINSTANCE.Write(writer, variant_value.Source)
 	case LightningBalanceContentiousClaimable:
 		writeInt32(writer, 3)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
@@ -4565,6 +4768,7 @@ func (FfiConverterTypeLightningBalance) Write(writer io.Writer, value LightningB
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
 		FfiConverterUint32INSTANCE.Write(writer, variant_value.ClaimableHeight)
 		FfiConverterTypePaymentHashINSTANCE.Write(writer, variant_value.PaymentHash)
+		FfiConverterBoolINSTANCE.Write(writer, variant_value.OutboundPayment)
 	case LightningBalanceMaybePreimageClaimableHtlc:
 		writeInt32(writer, 5)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
@@ -4625,6 +4829,133 @@ type FfiDestroyerTypeLogLevel struct{}
 func (_ FfiDestroyerTypeLogLevel) Destroy(value LogLevel) {
 }
 
+type MaxDustHtlcExposure interface {
+	Destroy()
+}
+type MaxDustHtlcExposureFixedLimit struct {
+	LimitMsat uint64
+}
+
+func (e MaxDustHtlcExposureFixedLimit) Destroy() {
+	FfiDestroyerUint64{}.Destroy(e.LimitMsat)
+}
+
+type MaxDustHtlcExposureFeeRateMultiplier struct {
+	Multiplier uint64
+}
+
+func (e MaxDustHtlcExposureFeeRateMultiplier) Destroy() {
+	FfiDestroyerUint64{}.Destroy(e.Multiplier)
+}
+
+type FfiConverterTypeMaxDustHTLCExposure struct{}
+
+var FfiConverterTypeMaxDustHTLCExposureINSTANCE = FfiConverterTypeMaxDustHTLCExposure{}
+
+func (c FfiConverterTypeMaxDustHTLCExposure) Lift(rb RustBufferI) MaxDustHtlcExposure {
+	return LiftFromRustBuffer[MaxDustHtlcExposure](c, rb)
+}
+
+func (c FfiConverterTypeMaxDustHTLCExposure) Lower(value MaxDustHtlcExposure) RustBuffer {
+	return LowerIntoRustBuffer[MaxDustHtlcExposure](c, value)
+}
+func (FfiConverterTypeMaxDustHTLCExposure) Read(reader io.Reader) MaxDustHtlcExposure {
+	id := readInt32(reader)
+	switch id {
+	case 1:
+		return MaxDustHtlcExposureFixedLimit{
+			FfiConverterUint64INSTANCE.Read(reader),
+		}
+	case 2:
+		return MaxDustHtlcExposureFeeRateMultiplier{
+			FfiConverterUint64INSTANCE.Read(reader),
+		}
+	default:
+		panic(fmt.Sprintf("invalid enum value %v in FfiConverterTypeMaxDustHTLCExposure.Read()", id))
+	}
+}
+
+func (FfiConverterTypeMaxDustHTLCExposure) Write(writer io.Writer, value MaxDustHtlcExposure) {
+	switch variant_value := value.(type) {
+	case MaxDustHtlcExposureFixedLimit:
+		writeInt32(writer, 1)
+		FfiConverterUint64INSTANCE.Write(writer, variant_value.LimitMsat)
+	case MaxDustHtlcExposureFeeRateMultiplier:
+		writeInt32(writer, 2)
+		FfiConverterUint64INSTANCE.Write(writer, variant_value.Multiplier)
+	default:
+		_ = variant_value
+		panic(fmt.Sprintf("invalid enum value `%v` in FfiConverterTypeMaxDustHTLCExposure.Write", value))
+	}
+}
+
+type FfiDestroyerTypeMaxDustHtlcExposure struct{}
+
+func (_ FfiDestroyerTypeMaxDustHtlcExposure) Destroy(value MaxDustHtlcExposure) {
+	value.Destroy()
+}
+
+type MaxTotalRoutingFeeLimit interface {
+	Destroy()
+}
+type MaxTotalRoutingFeeLimitNone struct {
+}
+
+func (e MaxTotalRoutingFeeLimitNone) Destroy() {
+}
+
+type MaxTotalRoutingFeeLimitSome struct {
+	AmountMsat uint64
+}
+
+func (e MaxTotalRoutingFeeLimitSome) Destroy() {
+	FfiDestroyerUint64{}.Destroy(e.AmountMsat)
+}
+
+type FfiConverterTypeMaxTotalRoutingFeeLimit struct{}
+
+var FfiConverterTypeMaxTotalRoutingFeeLimitINSTANCE = FfiConverterTypeMaxTotalRoutingFeeLimit{}
+
+func (c FfiConverterTypeMaxTotalRoutingFeeLimit) Lift(rb RustBufferI) MaxTotalRoutingFeeLimit {
+	return LiftFromRustBuffer[MaxTotalRoutingFeeLimit](c, rb)
+}
+
+func (c FfiConverterTypeMaxTotalRoutingFeeLimit) Lower(value MaxTotalRoutingFeeLimit) RustBuffer {
+	return LowerIntoRustBuffer[MaxTotalRoutingFeeLimit](c, value)
+}
+func (FfiConverterTypeMaxTotalRoutingFeeLimit) Read(reader io.Reader) MaxTotalRoutingFeeLimit {
+	id := readInt32(reader)
+	switch id {
+	case 1:
+		return MaxTotalRoutingFeeLimitNone{}
+	case 2:
+		return MaxTotalRoutingFeeLimitSome{
+			FfiConverterUint64INSTANCE.Read(reader),
+		}
+	default:
+		panic(fmt.Sprintf("invalid enum value %v in FfiConverterTypeMaxTotalRoutingFeeLimit.Read()", id))
+	}
+}
+
+func (FfiConverterTypeMaxTotalRoutingFeeLimit) Write(writer io.Writer, value MaxTotalRoutingFeeLimit) {
+	switch variant_value := value.(type) {
+	case MaxTotalRoutingFeeLimitNone:
+		writeInt32(writer, 1)
+	case MaxTotalRoutingFeeLimitSome:
+		writeInt32(writer, 2)
+		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountMsat)
+	default:
+		_ = variant_value
+		panic(fmt.Sprintf("invalid enum value `%v` in FfiConverterTypeMaxTotalRoutingFeeLimit.Write", value))
+	}
+}
+
+type FfiDestroyerTypeMaxTotalRoutingFeeLimit struct{}
+
+func (_ FfiDestroyerTypeMaxTotalRoutingFeeLimit) Destroy(value MaxTotalRoutingFeeLimit) {
+	value.Destroy()
+}
+
 type NodeError struct {
 	err error
 }
@@ -4657,12 +4988,12 @@ var ErrNodeErrorFeerateEstimationUpdateTimeout = fmt.Errorf("NodeErrorFeerateEst
 var ErrNodeErrorWalletOperationFailed = fmt.Errorf("NodeErrorWalletOperationFailed")
 var ErrNodeErrorWalletOperationTimeout = fmt.Errorf("NodeErrorWalletOperationTimeout")
 var ErrNodeErrorOnchainTxSigningFailed = fmt.Errorf("NodeErrorOnchainTxSigningFailed")
-var ErrNodeErrorMessageSigningFailed = fmt.Errorf("NodeErrorMessageSigningFailed")
 var ErrNodeErrorTxSyncFailed = fmt.Errorf("NodeErrorTxSyncFailed")
 var ErrNodeErrorTxSyncTimeout = fmt.Errorf("NodeErrorTxSyncTimeout")
 var ErrNodeErrorGossipUpdateFailed = fmt.Errorf("NodeErrorGossipUpdateFailed")
 var ErrNodeErrorGossipUpdateTimeout = fmt.Errorf("NodeErrorGossipUpdateTimeout")
 var ErrNodeErrorLiquidityRequestFailed = fmt.Errorf("NodeErrorLiquidityRequestFailed")
+var ErrNodeErrorUriParameterParsingFailed = fmt.Errorf("NodeErrorUriParameterParsingFailed")
 var ErrNodeErrorInvalidAddress = fmt.Errorf("NodeErrorInvalidAddress")
 var ErrNodeErrorInvalidSocketAddress = fmt.Errorf("NodeErrorInvalidSocketAddress")
 var ErrNodeErrorInvalidPublicKey = fmt.Errorf("NodeErrorInvalidPublicKey")
@@ -4680,6 +5011,9 @@ var ErrNodeErrorInvalidRefund = fmt.Errorf("NodeErrorInvalidRefund")
 var ErrNodeErrorInvalidChannelId = fmt.Errorf("NodeErrorInvalidChannelId")
 var ErrNodeErrorInvalidNetwork = fmt.Errorf("NodeErrorInvalidNetwork")
 var ErrNodeErrorInvalidCustomTlv = fmt.Errorf("NodeErrorInvalidCustomTlv")
+var ErrNodeErrorInvalidUri = fmt.Errorf("NodeErrorInvalidUri")
+var ErrNodeErrorInvalidQuantity = fmt.Errorf("NodeErrorInvalidQuantity")
+var ErrNodeErrorInvalidNodeAlias = fmt.Errorf("NodeErrorInvalidNodeAlias")
 var ErrNodeErrorDuplicatePayment = fmt.Errorf("NodeErrorDuplicatePayment")
 var ErrNodeErrorUnsupportedCurrency = fmt.Errorf("NodeErrorUnsupportedCurrency")
 var ErrNodeErrorInsufficientFunds = fmt.Errorf("NodeErrorInsufficientFunds")
@@ -5029,24 +5363,6 @@ func (self NodeErrorOnchainTxSigningFailed) Is(target error) bool {
 	return target == ErrNodeErrorOnchainTxSigningFailed
 }
 
-type NodeErrorMessageSigningFailed struct {
-	message string
-}
-
-func NewNodeErrorMessageSigningFailed() *NodeError {
-	return &NodeError{
-		err: &NodeErrorMessageSigningFailed{},
-	}
-}
-
-func (err NodeErrorMessageSigningFailed) Error() string {
-	return fmt.Sprintf("MessageSigningFailed: %s", err.message)
-}
-
-func (self NodeErrorMessageSigningFailed) Is(target error) bool {
-	return target == ErrNodeErrorMessageSigningFailed
-}
-
 type NodeErrorTxSyncFailed struct {
 	message string
 }
@@ -5135,6 +5451,24 @@ func (err NodeErrorLiquidityRequestFailed) Error() string {
 
 func (self NodeErrorLiquidityRequestFailed) Is(target error) bool {
 	return target == ErrNodeErrorLiquidityRequestFailed
+}
+
+type NodeErrorUriParameterParsingFailed struct {
+	message string
+}
+
+func NewNodeErrorUriParameterParsingFailed() *NodeError {
+	return &NodeError{
+		err: &NodeErrorUriParameterParsingFailed{},
+	}
+}
+
+func (err NodeErrorUriParameterParsingFailed) Error() string {
+	return fmt.Sprintf("UriParameterParsingFailed: %s", err.message)
+}
+
+func (self NodeErrorUriParameterParsingFailed) Is(target error) bool {
+	return target == ErrNodeErrorUriParameterParsingFailed
 }
 
 type NodeErrorInvalidAddress struct {
@@ -5443,6 +5777,60 @@ func (self NodeErrorInvalidCustomTlv) Is(target error) bool {
 	return target == ErrNodeErrorInvalidCustomTlv
 }
 
+type NodeErrorInvalidUri struct {
+	message string
+}
+
+func NewNodeErrorInvalidUri() *NodeError {
+	return &NodeError{
+		err: &NodeErrorInvalidUri{},
+	}
+}
+
+func (err NodeErrorInvalidUri) Error() string {
+	return fmt.Sprintf("InvalidUri: %s", err.message)
+}
+
+func (self NodeErrorInvalidUri) Is(target error) bool {
+	return target == ErrNodeErrorInvalidUri
+}
+
+type NodeErrorInvalidQuantity struct {
+	message string
+}
+
+func NewNodeErrorInvalidQuantity() *NodeError {
+	return &NodeError{
+		err: &NodeErrorInvalidQuantity{},
+	}
+}
+
+func (err NodeErrorInvalidQuantity) Error() string {
+	return fmt.Sprintf("InvalidQuantity: %s", err.message)
+}
+
+func (self NodeErrorInvalidQuantity) Is(target error) bool {
+	return target == ErrNodeErrorInvalidQuantity
+}
+
+type NodeErrorInvalidNodeAlias struct {
+	message string
+}
+
+func NewNodeErrorInvalidNodeAlias() *NodeError {
+	return &NodeError{
+		err: &NodeErrorInvalidNodeAlias{},
+	}
+}
+
+func (err NodeErrorInvalidNodeAlias) Error() string {
+	return fmt.Sprintf("InvalidNodeAlias: %s", err.message)
+}
+
+func (self NodeErrorInvalidNodeAlias) Is(target error) bool {
+	return target == ErrNodeErrorInvalidNodeAlias
+}
+
 type NodeErrorDuplicatePayment struct {
 	message string
 }
@@ -5589,17 +5977,17 @@ func (c FfiConverterTypeNodeError) Read(reader io.Reader) error {
 	case 19:
 		return &NodeError{&NodeErrorOnchainTxSigningFailed{message}}
 	case 20:
-		return &NodeError{&NodeErrorMessageSigningFailed{message}}
-	case 21:
 		return &NodeError{&NodeErrorTxSyncFailed{message}}
-	case 22:
+	case 21:
 		return &NodeError{&NodeErrorTxSyncTimeout{message}}
-	case 23:
+	case 22:
 		return &NodeError{&NodeErrorGossipUpdateFailed{message}}
-	case 24:
+	case 23:
 		return &NodeError{&NodeErrorGossipUpdateTimeout{message}}
-	case 25:
+	case 24:
 		return &NodeError{&NodeErrorLiquidityRequestFailed{message}}
+	case 25:
+		return &NodeError{&NodeErrorUriParameterParsingFailed{message}}
 	case 26:
 		return &NodeError{&NodeErrorInvalidAddress{message}}
 	case 27:
@@ -5635,14 +6023,20 @@ func (c FfiConverterTypeNodeError) Read(reader io.Reader) error {
 	case 42:
 		return &NodeError{&NodeErrorInvalidCustomTlv{message}}
 	case 43:
-		return &NodeError{&NodeErrorDuplicatePayment{message}}
+		return &NodeError{&NodeErrorInvalidUri{message}}
 	case 44:
-		return &NodeError{&NodeErrorUnsupportedCurrency{message}}
+		return &NodeError{&NodeErrorInvalidQuantity{message}}
 	case 45:
-		return &NodeError{&NodeErrorInsufficientFunds{message}}
+		return &NodeError{&NodeErrorInvalidNodeAlias{message}}
 	case 46:
-		return &NodeError{&NodeErrorLiquiditySourceUnavailable{message}}
+		return &NodeError{&NodeErrorDuplicatePayment{message}}
 	case 47:
+		return &NodeError{&NodeErrorUnsupportedCurrency{message}}
+	case 48:
+		return &NodeError{&NodeErrorInsufficientFunds{message}}
+	case 49:
+		return &NodeError{&NodeErrorLiquiditySourceUnavailable{message}}
+	case 50:
 		return &NodeError{&NodeErrorLiquidityFeeTooHigh{message}}
 	default:
 		panic(fmt.Sprintf("Unknown error code %d in FfiConverterTypeNodeError.Read()", errorID))
@@ -5690,17 +6084,17 @@ func (c FfiConverterTypeNodeError) Write(writer io.Writer, value *NodeError) {
 		writeInt32(writer, 18)
 	case *NodeErrorOnchainTxSigningFailed:
 		writeInt32(writer, 19)
-	case *NodeErrorMessageSigningFailed:
-		writeInt32(writer, 20)
 	case *NodeErrorTxSyncFailed:
-		writeInt32(writer, 21)
+		writeInt32(writer, 20)
 	case *NodeErrorTxSyncTimeout:
-		writeInt32(writer, 22)
+		writeInt32(writer, 21)
 	case *NodeErrorGossipUpdateFailed:
-		writeInt32(writer, 23)
+		writeInt32(writer, 22)
 	case *NodeErrorGossipUpdateTimeout:
-		writeInt32(writer, 24)
+		writeInt32(writer, 23)
 	case *NodeErrorLiquidityRequestFailed:
+		writeInt32(writer, 24)
+	case *NodeErrorUriParameterParsingFailed:
 		writeInt32(writer, 25)
 	case *NodeErrorInvalidAddress:
 		writeInt32(writer, 26)
@@ -5736,16 +6130,22 @@ func (c FfiConverterTypeNodeError) Write(writer io.Writer, value *NodeError) {
 		writeInt32(writer, 41)
 	case *NodeErrorInvalidCustomTlv:
 		writeInt32(writer, 42)
-	case *NodeErrorDuplicatePayment:
+	case *NodeErrorInvalidUri:
 		writeInt32(writer, 43)
-	case *NodeErrorUnsupportedCurrency:
+	case *NodeErrorInvalidQuantity:
 		writeInt32(writer, 44)
-	case *NodeErrorInsufficientFunds:
+	case *NodeErrorInvalidNodeAlias:
 		writeInt32(writer, 45)
-	case *NodeErrorLiquiditySourceUnavailable:
+	case *NodeErrorDuplicatePayment:
 		writeInt32(writer, 46)
-	case *NodeErrorLiquidityFeeTooHigh:
+	case *NodeErrorUnsupportedCurrency:
 		writeInt32(writer, 47)
+	case *NodeErrorInsufficientFunds:
+		writeInt32(writer, 48)
+	case *NodeErrorLiquiditySourceUnavailable:
+		writeInt32(writer, 49)
+	case *NodeErrorLiquidityFeeTooHigh:
+		writeInt32(writer, 50)
 	default:
 		_ = variantValue
 		panic(fmt.Sprintf("invalid error value `%v` in FfiConverterTypeNodeError.Write", value))
@@ -5787,12 +6187,15 @@ func (_ FfiDestroyerTypePaymentDirection) Destroy(value PaymentDirection) {
 type PaymentFailureReason uint
 
 const (
-	PaymentFailureReasonRecipientRejected PaymentFailureReason = 1
-	PaymentFailureReasonUserAbandoned     PaymentFailureReason = 2
-	PaymentFailureReasonRetriesExhausted  PaymentFailureReason = 3
-	PaymentFailureReasonPaymentExpired    PaymentFailureReason = 4
-	PaymentFailureReasonRouteNotFound     PaymentFailureReason = 5
-	PaymentFailureReasonUnexpectedError   PaymentFailureReason = 6
+	PaymentFailureReasonRecipientRejected       PaymentFailureReason = 1
+	PaymentFailureReasonUserAbandoned           PaymentFailureReason = 2
+	PaymentFailureReasonRetriesExhausted        PaymentFailureReason = 3
+	PaymentFailureReasonPaymentExpired          PaymentFailureReason = 4
+	PaymentFailureReasonRouteNotFound           PaymentFailureReason = 5
+	PaymentFailureReasonUnexpectedError         PaymentFailureReason = 6
+	PaymentFailureReasonUnknownRequiredFeatures PaymentFailureReason = 7
+	PaymentFailureReasonInvoiceRequestExpired   PaymentFailureReason = 8
+	PaymentFailureReasonInvoiceRequestRejected  PaymentFailureReason = 9
 )
 
 type FfiConverterTypePaymentFailureReason struct{}
@@ -5858,10 +6261,12 @@ func (e PaymentKindBolt11Jit) Destroy() {
 }
 
 type PaymentKindBolt12Offer struct {
-	Hash     *PaymentHash
-	Preimage *PaymentPreimage
-	Secret   *PaymentSecret
-	OfferId  OfferId
+	Hash      *PaymentHash
+	Preimage  *PaymentPreimage
+	Secret    *PaymentSecret
+	OfferId   OfferId
+	PayerNote *UntrustedString
+	Quantity  *uint64
 }
 
 func (e PaymentKindBolt12Offer) Destroy() {
@@ -5869,18 +6274,24 @@ func (e PaymentKindBolt12Offer) Destroy() {
 	FfiDestroyerOptionalTypePaymentPreimage{}.Destroy(e.Preimage)
 	FfiDestroyerOptionalTypePaymentSecret{}.Destroy(e.Secret)
 	FfiDestroyerTypeOfferId{}.Destroy(e.OfferId)
+	FfiDestroyerOptionalTypeUntrustedString{}.Destroy(e.PayerNote)
+	FfiDestroyerOptionalUint64{}.Destroy(e.Quantity)
 }
 
 type PaymentKindBolt12Refund struct {
-	Hash     *PaymentHash
-	Preimage *PaymentPreimage
-	Secret   *PaymentSecret
+	Hash      *PaymentHash
+	Preimage  *PaymentPreimage
+	Secret    *PaymentSecret
+	PayerNote *UntrustedString
+	Quantity  *uint64
 }
 
 func (e PaymentKindBolt12Refund) Destroy() {
 	FfiDestroyerOptionalTypePaymentHash{}.Destroy(e.Hash)
 	FfiDestroyerOptionalTypePaymentPreimage{}.Destroy(e.Preimage)
 	FfiDestroyerOptionalTypePaymentSecret{}.Destroy(e.Secret)
+	FfiDestroyerOptionalTypeUntrustedString{}.Destroy(e.PayerNote)
+	FfiDestroyerOptionalUint64{}.Destroy(e.Quantity)
 }
 
 type PaymentKindSpontaneous struct {
@@ -5931,12 +6342,16 @@ func (FfiConverterTypePaymentKind) Read(reader io.Reader) PaymentKind {
 			FfiConverterOptionalTypePaymentPreimageINSTANCE.Read(reader),
 			FfiConverterOptionalTypePaymentSecretINSTANCE.Read(reader),
 			FfiConverterTypeOfferIdINSTANCE.Read(reader),
+			FfiConverterOptionalTypeUntrustedStringINSTANCE.Read(reader),
+			FfiConverterOptionalUint64INSTANCE.Read(reader),
 		}
 	case 5:
 		return PaymentKindBolt12Refund{
 			FfiConverterOptionalTypePaymentHashINSTANCE.Read(reader),
 			FfiConverterOptionalTypePaymentPreimageINSTANCE.Read(reader),
 			FfiConverterOptionalTypePaymentSecretINSTANCE.Read(reader),
+			FfiConverterOptionalTypeUntrustedStringINSTANCE.Read(reader),
+			FfiConverterOptionalUint64INSTANCE.Read(reader),
 		}
 	case 6:
 		return PaymentKindSpontaneous{
@@ -5971,11 +6386,15 @@ func (FfiConverterTypePaymentKind) Write(writer io.Writer, value PaymentKind) {
 		FfiConverterOptionalTypePaymentPreimageINSTANCE.Write(writer, variant_value.Preimage)
 		FfiConverterOptionalTypePaymentSecretINSTANCE.Write(writer, variant_value.Secret)
 		FfiConverterTypeOfferIdINSTANCE.Write(writer, variant_value.OfferId)
+		FfiConverterOptionalTypeUntrustedStringINSTANCE.Write(writer, variant_value.PayerNote)
+		FfiConverterOptionalUint64INSTANCE.Write(writer, variant_value.Quantity)
 	case PaymentKindBolt12Refund:
 		writeInt32(writer, 5)
 		FfiConverterOptionalTypePaymentHashINSTANCE.Write(writer, variant_value.Hash)
 		FfiConverterOptionalTypePaymentPreimageINSTANCE.Write(writer, variant_value.Preimage)
 		FfiConverterOptionalTypePaymentSecretINSTANCE.Write(writer, variant_value.Secret)
+		FfiConverterOptionalTypeUntrustedStringINSTANCE.Write(writer, variant_value.PayerNote)
+		FfiConverterOptionalUint64INSTANCE.Write(writer, variant_value.Quantity)
 	case PaymentKindSpontaneous:
 		writeInt32(writer, 6)
 		FfiConverterTypePaymentHashINSTANCE.Write(writer, variant_value.Hash)
@@ -6139,6 +6558,262 @@ func (_ FfiDestroyerTypePendingSweepBalance) Destroy(value PendingSweepBalance) 
 	value.Destroy()
 }
 
+type QrPaymentResult interface {
+	Destroy()
+}
+type QrPaymentResultOnchain struct {
+	Txid Txid
+}
+
+func (e QrPaymentResultOnchain) Destroy() {
+	FfiDestroyerTypeTxid{}.Destroy(e.Txid)
+}
+
+type QrPaymentResultBolt11 struct {
+	PaymentId PaymentId
+}
+
+func (e QrPaymentResultBolt11) Destroy() {
+	FfiDestroyerTypePaymentId{}.Destroy(e.PaymentId)
+}
+
+type QrPaymentResultBolt12 struct {
+	PaymentId PaymentId
+}
+
+func (e QrPaymentResultBolt12) Destroy() {
+	FfiDestroyerTypePaymentId{}.Destroy(e.PaymentId)
+}
+
+type FfiConverterTypeQrPaymentResult struct{}
+
+var FfiConverterTypeQrPaymentResultINSTANCE = FfiConverterTypeQrPaymentResult{}
+
+func (c FfiConverterTypeQrPaymentResult) Lift(rb RustBufferI) QrPaymentResult {
+	return LiftFromRustBuffer[QrPaymentResult](c, rb)
+}
+
+func (c FfiConverterTypeQrPaymentResult) Lower(value QrPaymentResult) RustBuffer {
+	return LowerIntoRustBuffer[QrPaymentResult](c, value)
+}
+func (FfiConverterTypeQrPaymentResult) Read(reader io.Reader) QrPaymentResult {
+	id := readInt32(reader)
+	switch id {
+	case 1:
+		return QrPaymentResultOnchain{
+			FfiConverterTypeTxidINSTANCE.Read(reader),
+		}
+	case 2:
+		return QrPaymentResultBolt11{
+			FfiConverterTypePaymentIdINSTANCE.Read(reader),
+		}
+	case 3:
+		return QrPaymentResultBolt12{
+			FfiConverterTypePaymentIdINSTANCE.Read(reader),
+		}
+	default:
+		panic(fmt.Sprintf("invalid enum value %v in FfiConverterTypeQrPaymentResult.Read()", id))
+	}
+}
+
+func (FfiConverterTypeQrPaymentResult) Write(writer io.Writer, value QrPaymentResult) {
+	switch variant_value := value.(type) {
+	case QrPaymentResultOnchain:
+		writeInt32(writer, 1)
+		FfiConverterTypeTxidINSTANCE.Write(writer, variant_value.Txid)
+	case QrPaymentResultBolt11:
+		writeInt32(writer, 2)
+		FfiConverterTypePaymentIdINSTANCE.Write(writer, variant_value.PaymentId)
+	case QrPaymentResultBolt12:
+		writeInt32(writer, 3)
+		FfiConverterTypePaymentIdINSTANCE.Write(writer, variant_value.PaymentId)
+	default:
+		_ = variant_value
+		panic(fmt.Sprintf("invalid enum value `%v` in FfiConverterTypeQrPaymentResult.Write", value))
+	}
+}
+
+type FfiDestroyerTypeQrPaymentResult struct{}
+
+func (_ FfiDestroyerTypeQrPaymentResult) Destroy(value QrPaymentResult) {
+	value.Destroy()
+}
+
+type VssHeaderProviderError struct {
+	err error
+}
+
+func (err VssHeaderProviderError) Error() string {
+	return fmt.Sprintf("VssHeaderProviderError: %s", err.err.Error())
+}
+
+func (err VssHeaderProviderError) Unwrap() error {
+	return err.err
+}
+
+// Err* are used for checking error type with `errors.Is`
+var ErrVssHeaderProviderErrorInvalidData = fmt.Errorf("VssHeaderProviderErrorInvalidData")
+var ErrVssHeaderProviderErrorRequestError = fmt.Errorf("VssHeaderProviderErrorRequestError")
+var ErrVssHeaderProviderErrorAuthorizationError = fmt.Errorf("VssHeaderProviderErrorAuthorizationError")
+var ErrVssHeaderProviderErrorInternalError = fmt.Errorf("VssHeaderProviderErrorInternalError")
+
+// Variant structs
+type VssHeaderProviderErrorInvalidData struct {
+	message string
+}
+
+func NewVssHeaderProviderErrorInvalidData() *VssHeaderProviderError {
+	return &VssHeaderProviderError{
+		err: &VssHeaderProviderErrorInvalidData{},
+	}
+}
+
+func (err VssHeaderProviderErrorInvalidData) Error() string {
+	return fmt.Sprintf("InvalidData: %s", err.message)
+}
+
+func (self VssHeaderProviderErrorInvalidData) Is(target error) bool {
+	return target == ErrVssHeaderProviderErrorInvalidData
+}
+
+type VssHeaderProviderErrorRequestError struct {
+	message string
+}
+
+func NewVssHeaderProviderErrorRequestError() *VssHeaderProviderError {
+	return &VssHeaderProviderError{
+		err: &VssHeaderProviderErrorRequestError{},
+	}
+}
+
+func (err VssHeaderProviderErrorRequestError) Error() string {
+	return fmt.Sprintf("RequestError: %s", err.message)
+}
+
+func (self VssHeaderProviderErrorRequestError) Is(target error) bool {
+	return target == ErrVssHeaderProviderErrorRequestError
+}
+
+type VssHeaderProviderErrorAuthorizationError struct {
+	message string
+}
+
+func NewVssHeaderProviderErrorAuthorizationError() *VssHeaderProviderError {
+	return &VssHeaderProviderError{
+		err: &VssHeaderProviderErrorAuthorizationError{},
+	}
+}
+
+func (err VssHeaderProviderErrorAuthorizationError) Error() string {
+	return fmt.Sprintf("AuthorizationError: %s", err.message)
+}
+
+func (self VssHeaderProviderErrorAuthorizationError) Is(target error) bool {
+	return target == ErrVssHeaderProviderErrorAuthorizationError
+}
+
+type VssHeaderProviderErrorInternalError struct {
+	message string
+}
+
+func NewVssHeaderProviderErrorInternalError() *VssHeaderProviderError {
+	return &VssHeaderProviderError{
+		err: &VssHeaderProviderErrorInternalError{},
+	}
+}
+
+func (err VssHeaderProviderErrorInternalError) Error() string {
+	return fmt.Sprintf("InternalError: %s", err.message)
+}
+
+func (self VssHeaderProviderErrorInternalError) Is(target error) bool {
+	return target == ErrVssHeaderProviderErrorInternalError
+}
+
+type FfiConverterTypeVssHeaderProviderError struct{}
+
+var FfiConverterTypeVssHeaderProviderErrorINSTANCE = FfiConverterTypeVssHeaderProviderError{}
+
+func (c FfiConverterTypeVssHeaderProviderError) Lift(eb RustBufferI) error {
+	return LiftFromRustBuffer[error](c, eb)
+}
+
+func (c FfiConverterTypeVssHeaderProviderError) Lower(value *VssHeaderProviderError) RustBuffer {
+	return LowerIntoRustBuffer[*VssHeaderProviderError](c, value)
+}
+
+func (c FfiConverterTypeVssHeaderProviderError) Read(reader io.Reader) error {
+	errorID := readUint32(reader)
+
+	message := FfiConverterStringINSTANCE.Read(reader)
+	switch errorID {
+	case 1:
+		return &VssHeaderProviderError{&VssHeaderProviderErrorInvalidData{message}}
+	case 2:
+		return &VssHeaderProviderError{&VssHeaderProviderErrorRequestError{message}}
+	case 3:
+		return &VssHeaderProviderError{&VssHeaderProviderErrorAuthorizationError{message}}
+	case 4:
+		return &VssHeaderProviderError{&VssHeaderProviderErrorInternalError{message}}
+	default:
+		panic(fmt.Sprintf("Unknown error code %d in FfiConverterTypeVssHeaderProviderError.Read()", errorID))
+	}
+
+}
+
+func (c FfiConverterTypeVssHeaderProviderError) Write(writer io.Writer, value *VssHeaderProviderError) {
+	switch variantValue := value.err.(type) {
+	case *VssHeaderProviderErrorInvalidData:
+		writeInt32(writer, 1)
+	case *VssHeaderProviderErrorRequestError:
+		writeInt32(writer, 2)
+	case *VssHeaderProviderErrorAuthorizationError:
+		writeInt32(writer, 3)
+	case *VssHeaderProviderErrorInternalError:
+		writeInt32(writer, 4)
+	default:
+		_ = variantValue
+		panic(fmt.Sprintf("invalid error value `%v` in FfiConverterTypeVssHeaderProviderError.Write", value))
+	}
+}
+
+type FfiConverterOptionalUint8 struct{}
+
+var FfiConverterOptionalUint8INSTANCE = FfiConverterOptionalUint8{}
+
+func (c FfiConverterOptionalUint8) Lift(rb RustBufferI) *uint8 {
+	return LiftFromRustBuffer[*uint8](c, rb)
+}
+
+func (_ FfiConverterOptionalUint8) Read(reader io.Reader) *uint8 {
+	if readInt8(reader) == 0 {
+		return nil
+	}
+	temp := FfiConverterUint8INSTANCE.Read(reader)
+	return &temp
+}
+
+func (c FfiConverterOptionalUint8) Lower(value *uint8) RustBuffer {
+	return LowerIntoRustBuffer[*uint8](c, value)
+}
+
+func (_ FfiConverterOptionalUint8) Write(writer io.Writer, value *uint8) {
+	if value == nil {
+		writeInt8(writer, 0)
+	} else {
+		writeInt8(writer, 1)
+		FfiConverterUint8INSTANCE.Write(writer, *value)
+	}
+}
+
+type FfiDestroyerOptionalUint8 struct{}
+
+func (_ FfiDestroyerOptionalUint8) Destroy(value *uint8) {
+	if value != nil {
+		FfiDestroyerUint8{}.Destroy(*value)
+	}
+}
+
 type FfiConverterOptionalUint16 struct{}
 
 var FfiConverterOptionalUint16INSTANCE = FfiConverterOptionalUint16{}
@@ -6250,6 +6925,43 @@ func (_ FfiDestroyerOptionalUint64) Destroy(value *uint64) {
 	}
 }
 
+type FfiConverterOptionalBool struct{}
+
+var FfiConverterOptionalBoolINSTANCE = FfiConverterOptionalBool{}
+
+func (c FfiConverterOptionalBool) Lift(rb RustBufferI) *bool {
+	return LiftFromRustBuffer[*bool](c, rb)
+}
+
+func (_ FfiConverterOptionalBool) Read(reader io.Reader) *bool {
+	if readInt8(reader) == 0 {
+		return nil
+	}
+	temp := FfiConverterBoolINSTANCE.Read(reader)
+	return &temp
+}
+
+func (c FfiConverterOptionalBool) Lower(value *bool) RustBuffer {
+	return LowerIntoRustBuffer[*bool](c, value)
+}
+
+func (_ FfiConverterOptionalBool) Write(writer io.Writer, value *bool) {
+	if value == nil {
+		writeInt8(writer, 0)
+	} else {
+		writeInt8(writer, 1)
+		FfiConverterBoolINSTANCE.Write(writer, *value)
+	}
+}
+
+type FfiDestroyerOptionalBool struct{}
+
+func (_ FfiDestroyerOptionalBool) Destroy(value *bool) {
+	if value != nil {
+		FfiDestroyerBool{}.Destroy(*value)
+	}
+}
+
 type FfiConverterOptionalString struct{}
 
 var FfiConverterOptionalStringINSTANCE = FfiConverterOptionalString{}
@@ -6287,43 +6999,6 @@ func (_ FfiDestroyerOptionalString) Destroy(value *string) {
 	}
 }
 
-type FfiConverterOptionalChannelConfig struct{}
-
-var FfiConverterOptionalChannelConfigINSTANCE = FfiConverterOptionalChannelConfig{}
-
-func (c FfiConverterOptionalChannelConfig) Lift(rb RustBufferI) **ChannelConfig {
-	return LiftFromRustBuffer[**ChannelConfig](c, rb)
-}
-
-func (_ FfiConverterOptionalChannelConfig) Read(reader io.Reader) **ChannelConfig {
-	if readInt8(reader) == 0 {
-		return nil
-	}
-	temp := FfiConverterChannelConfigINSTANCE.Read(reader)
-	return &temp
-}
-
-func (c FfiConverterOptionalChannelConfig) Lower(value **ChannelConfig) RustBuffer {
-	return LowerIntoRustBuffer[**ChannelConfig](c, value)
-}
-
-func (_ FfiConverterOptionalChannelConfig) Write(writer io.Writer, value **ChannelConfig) {
-	if value == nil {
-		writeInt8(writer, 0)
-	} else {
-		writeInt8(writer, 1)
-		FfiConverterChannelConfigINSTANCE.Write(writer, *value)
-	}
-}
-
-type FfiDestroyerOptionalChannelConfig struct{}
-
-func (_ FfiDestroyerOptionalChannelConfig) Destroy(value **ChannelConfig) {
-	if value != nil {
-		FfiDestroyerChannelConfig{}.Destroy(*value)
-	}
-}
-
 type FfiConverterOptionalTypeAnchorChannelsConfig struct{}
 
 var FfiConverterOptionalTypeAnchorChannelsConfigINSTANCE = FfiConverterOptionalTypeAnchorChannelsConfig{}
@@ -6358,6 +7033,43 @@ type FfiDestroyerOptionalTypeAnchorChannelsConfig struct{}
 func (_ FfiDestroyerOptionalTypeAnchorChannelsConfig) Destroy(value *AnchorChannelsConfig) {
 	if value != nil {
 		FfiDestroyerTypeAnchorChannelsConfig{}.Destroy(*value)
+	}
+}
+
+type FfiConverterOptionalTypeChannelConfig struct{}
+
+var FfiConverterOptionalTypeChannelConfigINSTANCE = FfiConverterOptionalTypeChannelConfig{}
+
+func (c FfiConverterOptionalTypeChannelConfig) Lift(rb RustBufferI) *ChannelConfig {
+	return LiftFromRustBuffer[*ChannelConfig](c, rb)
+}
+
+func (_ FfiConverterOptionalTypeChannelConfig) Read(reader io.Reader) *ChannelConfig {
+	if readInt8(reader) == 0 {
+		return nil
+	}
+	temp := FfiConverterTypeChannelConfigINSTANCE.Read(reader)
+	return &temp
+}
+
+func (c FfiConverterOptionalTypeChannelConfig) Lower(value *ChannelConfig) RustBuffer {
+	return LowerIntoRustBuffer[*ChannelConfig](c, value)
+}
+
+func (_ FfiConverterOptionalTypeChannelConfig) Write(writer io.Writer, value *ChannelConfig) {
+	if value == nil {
+		writeInt8(writer, 0)
+	} else {
+		writeInt8(writer, 1)
+		FfiConverterTypeChannelConfigINSTANCE.Write(writer, *value)
+	}
+}
+
+type FfiDestroyerOptionalTypeChannelConfig struct{}
+
+func (_ FfiDestroyerOptionalTypeChannelConfig) Destroy(value *ChannelConfig) {
+	if value != nil {
+		FfiDestroyerTypeChannelConfig{}.Destroy(*value)
 	}
 }
 
@@ -6432,6 +7144,43 @@ type FfiDestroyerOptionalTypeChannelUpdateInfo struct{}
 func (_ FfiDestroyerOptionalTypeChannelUpdateInfo) Destroy(value *ChannelUpdateInfo) {
 	if value != nil {
 		FfiDestroyerTypeChannelUpdateInfo{}.Destroy(*value)
+	}
+}
+
+type FfiConverterOptionalTypeEsploraSyncConfig struct{}
+
+var FfiConverterOptionalTypeEsploraSyncConfigINSTANCE = FfiConverterOptionalTypeEsploraSyncConfig{}
+
+func (c FfiConverterOptionalTypeEsploraSyncConfig) Lift(rb RustBufferI) *EsploraSyncConfig {
+	return LiftFromRustBuffer[*EsploraSyncConfig](c, rb)
+}
+
+func (_ FfiConverterOptionalTypeEsploraSyncConfig) Read(reader io.Reader) *EsploraSyncConfig {
+	if readInt8(reader) == 0 {
+		return nil
+	}
+	temp := FfiConverterTypeEsploraSyncConfigINSTANCE.Read(reader)
+	return &temp
+}
+
+func (c FfiConverterOptionalTypeEsploraSyncConfig) Lower(value *EsploraSyncConfig) RustBuffer {
+	return LowerIntoRustBuffer[*EsploraSyncConfig](c, value)
+}
+
+func (_ FfiConverterOptionalTypeEsploraSyncConfig) Write(writer io.Writer, value *EsploraSyncConfig) {
+	if value == nil {
+		writeInt8(writer, 0)
+	} else {
+		writeInt8(writer, 1)
+		FfiConverterTypeEsploraSyncConfigINSTANCE.Write(writer, *value)
+	}
+}
+
+type FfiDestroyerOptionalTypeEsploraSyncConfig struct{}
+
+func (_ FfiDestroyerOptionalTypeEsploraSyncConfig) Destroy(value *EsploraSyncConfig) {
+	if value != nil {
+		FfiDestroyerTypeEsploraSyncConfig{}.Destroy(*value)
 	}
 }
 
@@ -6583,6 +7332,43 @@ func (_ FfiDestroyerOptionalTypePaymentDetails) Destroy(value *PaymentDetails) {
 	}
 }
 
+type FfiConverterOptionalTypeSendingParameters struct{}
+
+var FfiConverterOptionalTypeSendingParametersINSTANCE = FfiConverterOptionalTypeSendingParameters{}
+
+func (c FfiConverterOptionalTypeSendingParameters) Lift(rb RustBufferI) *SendingParameters {
+	return LiftFromRustBuffer[*SendingParameters](c, rb)
+}
+
+func (_ FfiConverterOptionalTypeSendingParameters) Read(reader io.Reader) *SendingParameters {
+	if readInt8(reader) == 0 {
+		return nil
+	}
+	temp := FfiConverterTypeSendingParametersINSTANCE.Read(reader)
+	return &temp
+}
+
+func (c FfiConverterOptionalTypeSendingParameters) Lower(value *SendingParameters) RustBuffer {
+	return LowerIntoRustBuffer[*SendingParameters](c, value)
+}
+
+func (_ FfiConverterOptionalTypeSendingParameters) Write(writer io.Writer, value *SendingParameters) {
+	if value == nil {
+		writeInt8(writer, 0)
+	} else {
+		writeInt8(writer, 1)
+		FfiConverterTypeSendingParametersINSTANCE.Write(writer, *value)
+	}
+}
+
+type FfiDestroyerOptionalTypeSendingParameters struct{}
+
+func (_ FfiDestroyerOptionalTypeSendingParameters) Destroy(value *SendingParameters) {
+	if value != nil {
+		FfiDestroyerTypeSendingParameters{}.Destroy(*value)
+	}
+}
+
 type FfiConverterOptionalTypeChannelType struct{}
 
 var FfiConverterOptionalTypeChannelTypeINSTANCE = FfiConverterOptionalTypeChannelType{}
@@ -6694,6 +7480,43 @@ func (_ FfiDestroyerOptionalTypeEvent) Destroy(value *Event) {
 	}
 }
 
+type FfiConverterOptionalTypeMaxTotalRoutingFeeLimit struct{}
+
+var FfiConverterOptionalTypeMaxTotalRoutingFeeLimitINSTANCE = FfiConverterOptionalTypeMaxTotalRoutingFeeLimit{}
+
+func (c FfiConverterOptionalTypeMaxTotalRoutingFeeLimit) Lift(rb RustBufferI) *MaxTotalRoutingFeeLimit {
+	return LiftFromRustBuffer[*MaxTotalRoutingFeeLimit](c, rb)
+}
+
+func (_ FfiConverterOptionalTypeMaxTotalRoutingFeeLimit) Read(reader io.Reader) *MaxTotalRoutingFeeLimit {
+	if readInt8(reader) == 0 {
+		return nil
+	}
+	temp := FfiConverterTypeMaxTotalRoutingFeeLimitINSTANCE.Read(reader)
+	return &temp
+}
+
+func (c FfiConverterOptionalTypeMaxTotalRoutingFeeLimit) Lower(value *MaxTotalRoutingFeeLimit) RustBuffer {
+	return LowerIntoRustBuffer[*MaxTotalRoutingFeeLimit](c, value)
+}
+
+func (_ FfiConverterOptionalTypeMaxTotalRoutingFeeLimit) Write(writer io.Writer, value *MaxTotalRoutingFeeLimit) {
+	if value == nil {
+		writeInt8(writer, 0)
+	} else {
+		writeInt8(writer, 1)
+		FfiConverterTypeMaxTotalRoutingFeeLimitINSTANCE.Write(writer, *value)
+	}
+}
+
+type FfiDestroyerOptionalTypeMaxTotalRoutingFeeLimit struct{}
+
+func (_ FfiDestroyerOptionalTypeMaxTotalRoutingFeeLimit) Destroy(value *MaxTotalRoutingFeeLimit) {
+	if value != nil {
+		FfiDestroyerTypeMaxTotalRoutingFeeLimit{}.Destroy(*value)
+	}
+}
+
 type FfiConverterOptionalTypePaymentFailureReason struct{}
 
 var FfiConverterOptionalTypePaymentFailureReasonINSTANCE = FfiConverterOptionalTypePaymentFailureReason{}
@@ -6802,6 +7625,43 @@ type FfiDestroyerOptionalTypeChannelId struct{}
 func (_ FfiDestroyerOptionalTypeChannelId) Destroy(value *ChannelId) {
 	if value != nil {
 		FfiDestroyerTypeChannelId{}.Destroy(*value)
+	}
+}
+
+type FfiConverterOptionalTypeNodeAlias struct{}
+
+var FfiConverterOptionalTypeNodeAliasINSTANCE = FfiConverterOptionalTypeNodeAlias{}
+
+func (c FfiConverterOptionalTypeNodeAlias) Lift(rb RustBufferI) *NodeAlias {
+	return LiftFromRustBuffer[*NodeAlias](c, rb)
+}
+
+func (_ FfiConverterOptionalTypeNodeAlias) Read(reader io.Reader) *NodeAlias {
+	if readInt8(reader) == 0 {
+		return nil
+	}
+	temp := FfiConverterTypeNodeAliasINSTANCE.Read(reader)
+	return &temp
+}
+
+func (c FfiConverterOptionalTypeNodeAlias) Lower(value *NodeAlias) RustBuffer {
+	return LowerIntoRustBuffer[*NodeAlias](c, value)
+}
+
+func (_ FfiConverterOptionalTypeNodeAlias) Write(writer io.Writer, value *NodeAlias) {
+	if value == nil {
+		writeInt8(writer, 0)
+	} else {
+		writeInt8(writer, 1)
+		FfiConverterTypeNodeAliasINSTANCE.Write(writer, *value)
+	}
+}
+
+type FfiDestroyerOptionalTypeNodeAlias struct{}
+
+func (_ FfiDestroyerOptionalTypeNodeAlias) Destroy(value *NodeAlias) {
+	if value != nil {
+		FfiDestroyerTypeNodeAlias{}.Destroy(*value)
 	}
 }
 
@@ -6987,6 +7847,43 @@ type FfiDestroyerOptionalTypePublicKey struct{}
 func (_ FfiDestroyerOptionalTypePublicKey) Destroy(value *PublicKey) {
 	if value != nil {
 		FfiDestroyerTypePublicKey{}.Destroy(*value)
+	}
+}
+
+type FfiConverterOptionalTypeUntrustedString struct{}
+
+var FfiConverterOptionalTypeUntrustedStringINSTANCE = FfiConverterOptionalTypeUntrustedString{}
+
+func (c FfiConverterOptionalTypeUntrustedString) Lift(rb RustBufferI) *UntrustedString {
+	return LiftFromRustBuffer[*UntrustedString](c, rb)
+}
+
+func (_ FfiConverterOptionalTypeUntrustedString) Read(reader io.Reader) *UntrustedString {
+	if readInt8(reader) == 0 {
+		return nil
+	}
+	temp := FfiConverterTypeUntrustedStringINSTANCE.Read(reader)
+	return &temp
+}
+
+func (c FfiConverterOptionalTypeUntrustedString) Lower(value *UntrustedString) RustBuffer {
+	return LowerIntoRustBuffer[*UntrustedString](c, value)
+}
+
+func (_ FfiConverterOptionalTypeUntrustedString) Write(writer io.Writer, value *UntrustedString) {
+	if value == nil {
+		writeInt8(writer, 0)
+	} else {
+		writeInt8(writer, 1)
+		FfiConverterTypeUntrustedStringINSTANCE.Write(writer, *value)
+	}
+}
+
+type FfiDestroyerOptionalTypeUntrustedString struct{}
+
+func (_ FfiDestroyerOptionalTypeUntrustedString) Destroy(value *UntrustedString) {
+	if value != nil {
+		FfiDestroyerTypeUntrustedString{}.Destroy(*value)
 	}
 }
 
@@ -7506,6 +8403,50 @@ func (FfiDestroyerSequenceTypeSocketAddress) Destroy(sequence []SocketAddress) {
 	}
 }
 
+type FfiConverterMapStringString struct{}
+
+var FfiConverterMapStringStringINSTANCE = FfiConverterMapStringString{}
+
+func (c FfiConverterMapStringString) Lift(rb RustBufferI) map[string]string {
+	return LiftFromRustBuffer[map[string]string](c, rb)
+}
+
+func (_ FfiConverterMapStringString) Read(reader io.Reader) map[string]string {
+	result := make(map[string]string)
+	length := readInt32(reader)
+	for i := int32(0); i < length; i++ {
+		key := FfiConverterStringINSTANCE.Read(reader)
+		value := FfiConverterStringINSTANCE.Read(reader)
+		result[key] = value
+	}
+	return result
+}
+
+func (c FfiConverterMapStringString) Lower(value map[string]string) RustBuffer {
+	return LowerIntoRustBuffer[map[string]string](c, value)
+}
+
+func (_ FfiConverterMapStringString) Write(writer io.Writer, mapValue map[string]string) {
+	if len(mapValue) > math.MaxInt32 {
+		panic("map[string]string is too large to fit into Int32")
+	}
+
+	writeInt32(writer, int32(len(mapValue)))
+	for key, value := range mapValue {
+		FfiConverterStringINSTANCE.Write(writer, key)
+		FfiConverterStringINSTANCE.Write(writer, value)
+	}
+}
+
+type FfiDestroyerMapStringString struct{}
+
+func (_ FfiDestroyerMapStringString) Destroy(mapValue map[string]string) {
+	for key, value := range mapValue {
+		FfiDestroyerString{}.Destroy(key)
+		FfiDestroyerString{}.Destroy(value)
+	}
+}
+
 /**
  * Typealias from the type name used in the UDL file to the builtin type.  This
  * is needed because the UDL type name is used in function/method signatures.
@@ -7582,6 +8523,17 @@ type FfiConverterTypeNetwork = FfiConverterString
 type FfiDestroyerTypeNetwork = FfiDestroyerString
 
 var FfiConverterTypeNetworkINSTANCE = FfiConverterString{}
+
+/**
+ * Typealias from the type name used in the UDL file to the builtin type.  This
+ * is needed because the UDL type name is used in function/method signatures.
+ * It's also what we have an external type that references a custom type.
+ */
+type NodeAlias = string
+type FfiConverterTypeNodeAlias = FfiConverterString
+type FfiDestroyerTypeNodeAlias = FfiDestroyerString
+
+var FfiConverterTypeNodeAliasINSTANCE = FfiConverterString{}
 
 /**
  * Typealias from the type name used in the UDL file to the builtin type.  This

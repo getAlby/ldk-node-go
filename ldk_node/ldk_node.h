@@ -139,6 +139,7 @@ RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_via_jit_channel(
 RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send(
 	void* ptr,
 	RustBuffer invoice,
+	RustBuffer sending_parameters,
 	RustCallStatus* out_status
 );
 
@@ -159,6 +160,7 @@ RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send_using_amount(
 	void* ptr,
 	RustBuffer invoice,
 	uint64_t amount_msat,
+	RustBuffer sending_parameters,
 	RustCallStatus* out_status
 );
 
@@ -171,6 +173,8 @@ RustBuffer uniffi_ldk_node_fn_method_bolt12payment_initiate_refund(
 	void* ptr,
 	uint64_t amount_msat,
 	uint32_t expiry_secs,
+	RustBuffer quantity,
+	RustBuffer payer_note,
 	RustCallStatus* out_status
 );
 
@@ -178,12 +182,15 @@ RustBuffer uniffi_ldk_node_fn_method_bolt12payment_receive(
 	void* ptr,
 	uint64_t amount_msat,
 	RustBuffer description,
+	RustBuffer expiry_secs,
+	RustBuffer quantity,
 	RustCallStatus* out_status
 );
 
 RustBuffer uniffi_ldk_node_fn_method_bolt12payment_receive_variable_amount(
 	void* ptr,
 	RustBuffer description,
+	RustBuffer expiry_secs,
 	RustCallStatus* out_status
 );
 
@@ -196,6 +203,7 @@ RustBuffer uniffi_ldk_node_fn_method_bolt12payment_request_refund_payment(
 RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send(
 	void* ptr,
 	RustBuffer offer,
+	RustBuffer quantity,
 	RustBuffer payer_note,
 	RustCallStatus* out_status
 );
@@ -203,8 +211,9 @@ RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send(
 RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send_using_amount(
 	void* ptr,
 	RustBuffer offer,
-	RustBuffer payer_note,
 	uint64_t amount_msat,
+	RustBuffer quantity,
+	RustBuffer payer_note,
 	RustCallStatus* out_status
 );
 
@@ -232,9 +241,42 @@ void* uniffi_ldk_node_fn_method_builder_build_with_fs_store(
 	RustCallStatus* out_status
 );
 
+void* uniffi_ldk_node_fn_method_builder_build_with_vss_store(
+	void* ptr,
+	RustBuffer vss_url,
+	RustBuffer store_id,
+	RustBuffer lnurl_auth_server_url,
+	RustBuffer fixed_headers,
+	RustCallStatus* out_status
+);
+
+void* uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_fixed_headers(
+	void* ptr,
+	RustBuffer vss_url,
+	RustBuffer store_id,
+	RustBuffer fixed_headers,
+	RustCallStatus* out_status
+);
+
 void uniffi_ldk_node_fn_method_builder_restore_encoded_channel_monitors(
 	void* ptr,
 	RustBuffer monitors,
+	RustCallStatus* out_status
+);
+
+void uniffi_ldk_node_fn_method_builder_set_chain_source_bitcoind_rpc(
+	void* ptr,
+	RustBuffer rpc_host,
+	uint16_t rpc_port,
+	RustBuffer rpc_user,
+	RustBuffer rpc_password,
+	RustCallStatus* out_status
+);
+
+void uniffi_ldk_node_fn_method_builder_set_chain_source_esplora(
+	void* ptr,
+	RustBuffer server_url,
+	RustBuffer config,
 	RustCallStatus* out_status
 );
 
@@ -254,12 +296,6 @@ void uniffi_ldk_node_fn_method_builder_set_entropy_seed_bytes(
 void uniffi_ldk_node_fn_method_builder_set_entropy_seed_path(
 	void* ptr,
 	RustBuffer seed_path,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_esplora_server(
-	void* ptr,
-	RustBuffer esplora_server_url,
 	RustCallStatus* out_status
 );
 
@@ -294,85 +330,15 @@ void uniffi_ldk_node_fn_method_builder_set_network(
 	RustCallStatus* out_status
 );
 
+void uniffi_ldk_node_fn_method_builder_set_node_alias(
+	void* ptr,
+	RustBuffer node_alias,
+	RustCallStatus* out_status
+);
+
 void uniffi_ldk_node_fn_method_builder_set_storage_dir_path(
 	void* ptr,
 	RustBuffer storage_dir_path,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_free_channelconfig(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_constructor_channelconfig_new(
-	RustCallStatus* out_status
-);
-
-int8_t uniffi_ldk_node_fn_method_channelconfig_accept_underpaying_htlcs(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_fn_method_channelconfig_cltv_expiry_delta(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-uint64_t uniffi_ldk_node_fn_method_channelconfig_force_close_avoidance_max_fee_satoshis(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-uint32_t uniffi_ldk_node_fn_method_channelconfig_forwarding_fee_base_msat(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-uint32_t uniffi_ldk_node_fn_method_channelconfig_forwarding_fee_proportional_millionths(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_channelconfig_set_accept_underpaying_htlcs(
-	void* ptr,
-	int8_t value,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_channelconfig_set_cltv_expiry_delta(
-	void* ptr,
-	uint16_t value,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_channelconfig_set_force_close_avoidance_max_fee_satoshis(
-	void* ptr,
-	uint64_t value_sat,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_channelconfig_set_forwarding_fee_base_msat(
-	void* ptr,
-	uint32_t fee_msat,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_channelconfig_set_forwarding_fee_proportional_millionths(
-	void* ptr,
-	uint32_t value,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_channelconfig_set_max_dust_htlc_exposure_from_fee_rate_multiplier(
-	void* ptr,
-	uint64_t multiplier,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_channelconfig_set_max_dust_htlc_exposure_from_fixed_limit(
-	void* ptr,
-	uint64_t limit_msat,
 	RustCallStatus* out_status
 );
 
@@ -438,17 +404,6 @@ void uniffi_ldk_node_fn_method_node_connect(
 	RustCallStatus* out_status
 );
 
-RustBuffer uniffi_ldk_node_fn_method_node_connect_open_channel(
-	void* ptr,
-	RustBuffer node_id,
-	RustBuffer address,
-	uint64_t channel_amount_sats,
-	RustBuffer push_to_counterparty_msat,
-	RustBuffer channel_config,
-	int8_t announce_channel,
-	RustCallStatus* out_status
-);
-
 void uniffi_ldk_node_fn_method_node_disconnect(
 	void* ptr,
 	RustBuffer node_id,
@@ -469,6 +424,7 @@ void uniffi_ldk_node_fn_method_node_force_close_channel(
 	void* ptr,
 	RustBuffer user_channel_id,
 	RustBuffer counterparty_node_id,
+	RustBuffer reason,
 	RustCallStatus* out_status
 );
 
@@ -512,6 +468,11 @@ RustBuffer uniffi_ldk_node_fn_method_node_next_event(
 	RustCallStatus* out_status
 );
 
+RustBuffer uniffi_ldk_node_fn_method_node_node_alias(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
 RustBuffer uniffi_ldk_node_fn_method_node_node_id(
 	void* ptr,
 	RustCallStatus* out_status
@@ -519,6 +480,26 @@ RustBuffer uniffi_ldk_node_fn_method_node_node_id(
 
 void* uniffi_ldk_node_fn_method_node_onchain_payment(
 	void* ptr,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_node_open_announced_channel(
+	void* ptr,
+	RustBuffer node_id,
+	RustBuffer address,
+	uint64_t channel_amount_sats,
+	RustBuffer push_to_counterparty_msat,
+	RustBuffer channel_config,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_node_open_channel(
+	void* ptr,
+	RustBuffer node_id,
+	RustBuffer address,
+	uint64_t channel_amount_sats,
+	RustBuffer push_to_counterparty_msat,
+	RustBuffer channel_config,
 	RustCallStatus* out_status
 );
 
@@ -565,11 +546,16 @@ void uniffi_ldk_node_fn_method_node_sync_wallets(
 	RustCallStatus* out_status
 );
 
+void* uniffi_ldk_node_fn_method_node_unified_qr_payment(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
 void uniffi_ldk_node_fn_method_node_update_channel_config(
 	void* ptr,
 	RustBuffer user_channel_id,
 	RustBuffer counterparty_node_id,
-	void* channel_config,
+	RustBuffer channel_config,
 	RustCallStatus* out_status
 );
 
@@ -623,6 +609,7 @@ RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send(
 	void* ptr,
 	uint64_t amount_msat,
 	RustBuffer node_id,
+	RustBuffer sending_parameters,
 	RustBuffer custom_tlvs,
 	RustBuffer preimage,
 	RustCallStatus* out_status
@@ -632,6 +619,25 @@ void uniffi_ldk_node_fn_method_spontaneouspayment_send_probes(
 	void* ptr,
 	uint64_t amount_msat,
 	RustBuffer node_id,
+	RustCallStatus* out_status
+);
+
+void uniffi_ldk_node_fn_free_unifiedqrpayment(
+	void* ptr,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_unifiedqrpayment_receive(
+	void* ptr,
+	uint64_t amount_sats,
+	RustBuffer message,
+	uint32_t expiry_sec,
+	RustCallStatus* out_status
+);
+
+RustBuffer uniffi_ldk_node_fn_method_unifiedqrpayment_send(
+	void* ptr,
+	RustBuffer uri_str,
 	RustCallStatus* out_status
 );
 
@@ -1030,7 +1036,23 @@ uint16_t uniffi_ldk_node_checksum_method_builder_build_with_fs_store(
 	RustCallStatus* out_status
 );
 
+uint16_t uniffi_ldk_node_checksum_method_builder_build_with_vss_store(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_builder_build_with_vss_store_and_fixed_headers(
+	RustCallStatus* out_status
+);
+
 uint16_t uniffi_ldk_node_checksum_method_builder_restore_encoded_channel_monitors(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_builder_set_chain_source_bitcoind_rpc(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_builder_set_chain_source_esplora(
 	RustCallStatus* out_status
 );
 
@@ -1043,10 +1065,6 @@ uint16_t uniffi_ldk_node_checksum_method_builder_set_entropy_seed_bytes(
 );
 
 uint16_t uniffi_ldk_node_checksum_method_builder_set_entropy_seed_path(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_esplora_server(
 	RustCallStatus* out_status
 );
 
@@ -1070,55 +1088,11 @@ uint16_t uniffi_ldk_node_checksum_method_builder_set_network(
 	RustCallStatus* out_status
 );
 
+uint16_t uniffi_ldk_node_checksum_method_builder_set_node_alias(
+	RustCallStatus* out_status
+);
+
 uint16_t uniffi_ldk_node_checksum_method_builder_set_storage_dir_path(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_accept_underpaying_htlcs(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_cltv_expiry_delta(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_force_close_avoidance_max_fee_satoshis(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_forwarding_fee_base_msat(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_forwarding_fee_proportional_millionths(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_set_accept_underpaying_htlcs(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_set_cltv_expiry_delta(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_set_force_close_avoidance_max_fee_satoshis(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_set_forwarding_fee_base_msat(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_set_forwarding_fee_proportional_millionths(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_set_max_dust_htlc_exposure_from_fee_rate_multiplier(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_channelconfig_set_max_dust_htlc_exposure_from_fixed_limit(
 	RustCallStatus* out_status
 );
 
@@ -1155,10 +1129,6 @@ uint16_t uniffi_ldk_node_checksum_method_node_config(
 );
 
 uint16_t uniffi_ldk_node_checksum_method_node_connect(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_connect_open_channel(
 	RustCallStatus* out_status
 );
 
@@ -1210,11 +1180,23 @@ uint16_t uniffi_ldk_node_checksum_method_node_next_event(
 	RustCallStatus* out_status
 );
 
+uint16_t uniffi_ldk_node_checksum_method_node_node_alias(
+	RustCallStatus* out_status
+);
+
 uint16_t uniffi_ldk_node_checksum_method_node_node_id(
 	RustCallStatus* out_status
 );
 
 uint16_t uniffi_ldk_node_checksum_method_node_onchain_payment(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_node_open_announced_channel(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_node_open_channel(
 	RustCallStatus* out_status
 );
 
@@ -1247,6 +1229,10 @@ uint16_t uniffi_ldk_node_checksum_method_node_stop(
 );
 
 uint16_t uniffi_ldk_node_checksum_method_node_sync_wallets(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_node_unified_qr_payment(
 	RustCallStatus* out_status
 );
 
@@ -1286,15 +1272,19 @@ uint16_t uniffi_ldk_node_checksum_method_spontaneouspayment_send_probes(
 	RustCallStatus* out_status
 );
 
+uint16_t uniffi_ldk_node_checksum_method_unifiedqrpayment_receive(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_unifiedqrpayment_send(
+	RustCallStatus* out_status
+);
+
 uint16_t uniffi_ldk_node_checksum_constructor_builder_from_config(
 	RustCallStatus* out_status
 );
 
 uint16_t uniffi_ldk_node_checksum_constructor_builder_new(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_constructor_channelconfig_new(
 	RustCallStatus* out_status
 );
 
