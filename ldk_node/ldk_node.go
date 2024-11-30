@@ -562,6 +562,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_builder_reset_state(uniffiStatus)
+		})
+		if checksum != 15117 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_reset_state: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_builder_restore_encoded_channel_monitors(uniffiStatus)
 		})
 		if checksum != 34188 {
@@ -1767,6 +1776,16 @@ func (_self *Builder) BuildWithVssStoreAndFixedHeaders(vssUrl string, storeId st
 	} else {
 		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), _uniffiErr
 	}
+}
+
+func (_self *Builder) ResetState(what ResetState) {
+	_pointer := _self.ffiObject.incrementPointer("*Builder")
+	defer _self.ffiObject.decrementPointer()
+	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_builder_reset_state(
+			_pointer, FfiConverterTypeResetStateINSTANCE.Lower(what), _uniffiStatus)
+		return false
+	})
 }
 
 func (_self *Builder) RestoreEncodedChannelMonitors(monitors []KeyValue) {
@@ -6637,6 +6656,40 @@ type FfiDestroyerTypeQrPaymentResult struct{}
 
 func (_ FfiDestroyerTypeQrPaymentResult) Destroy(value QrPaymentResult) {
 	value.Destroy()
+}
+
+type ResetState uint
+
+const (
+	ResetStateNodeMetrics  ResetState = 1
+	ResetStateScorer       ResetState = 2
+	ResetStateNetworkGraph ResetState = 3
+	ResetStateAll          ResetState = 4
+)
+
+type FfiConverterTypeResetState struct{}
+
+var FfiConverterTypeResetStateINSTANCE = FfiConverterTypeResetState{}
+
+func (c FfiConverterTypeResetState) Lift(rb RustBufferI) ResetState {
+	return LiftFromRustBuffer[ResetState](c, rb)
+}
+
+func (c FfiConverterTypeResetState) Lower(value ResetState) RustBuffer {
+	return LowerIntoRustBuffer[ResetState](c, value)
+}
+func (FfiConverterTypeResetState) Read(reader io.Reader) ResetState {
+	id := readInt32(reader)
+	return ResetState(id)
+}
+
+func (FfiConverterTypeResetState) Write(writer io.Writer, value ResetState) {
+	writeInt32(writer, int32(value))
+}
+
+type FfiDestroyerTypeResetState struct{}
+
+func (_ FfiDestroyerTypeResetState) Destroy(value ResetState) {
 }
 
 type VssHeaderProviderError struct {
