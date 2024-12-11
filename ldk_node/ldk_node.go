@@ -562,6 +562,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_builder_migrate_storage(uniffiStatus)
+		})
+		if checksum != 57962 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_migrate_storage: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_builder_reset_state(uniffiStatus)
 		})
 		if checksum != 15117 {
@@ -1776,6 +1785,16 @@ func (_self *Builder) BuildWithVssStoreAndFixedHeaders(vssUrl string, storeId st
 	} else {
 		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), _uniffiErr
 	}
+}
+
+func (_self *Builder) MigrateStorage(what MigrateStorage) {
+	_pointer := _self.ffiObject.incrementPointer("*Builder")
+	defer _self.ffiObject.decrementPointer()
+	rustCall(func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_builder_migrate_storage(
+			_pointer, FfiConverterTypeMigrateStorageINSTANCE.Lower(what), _uniffiStatus)
+		return false
+	})
 }
 
 func (_self *Builder) ResetState(what ResetState) {
@@ -4973,6 +4992,37 @@ type FfiDestroyerTypeMaxTotalRoutingFeeLimit struct{}
 
 func (_ FfiDestroyerTypeMaxTotalRoutingFeeLimit) Destroy(value MaxTotalRoutingFeeLimit) {
 	value.Destroy()
+}
+
+type MigrateStorage uint
+
+const (
+	MigrateStorageVss MigrateStorage = 1
+)
+
+type FfiConverterTypeMigrateStorage struct{}
+
+var FfiConverterTypeMigrateStorageINSTANCE = FfiConverterTypeMigrateStorage{}
+
+func (c FfiConverterTypeMigrateStorage) Lift(rb RustBufferI) MigrateStorage {
+	return LiftFromRustBuffer[MigrateStorage](c, rb)
+}
+
+func (c FfiConverterTypeMigrateStorage) Lower(value MigrateStorage) RustBuffer {
+	return LowerIntoRustBuffer[MigrateStorage](c, value)
+}
+func (FfiConverterTypeMigrateStorage) Read(reader io.Reader) MigrateStorage {
+	id := readInt32(reader)
+	return MigrateStorage(id)
+}
+
+func (FfiConverterTypeMigrateStorage) Write(writer io.Writer, value MigrateStorage) {
+	writeInt32(writer, int32(value))
+}
+
+type FfiDestroyerTypeMigrateStorage struct{}
+
+func (_ FfiDestroyerTypeMigrateStorage) Destroy(value MigrateStorage) {
 }
 
 type NodeError struct {

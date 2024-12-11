@@ -258,6 +258,12 @@ void* uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_fixed_headers(
 	RustCallStatus* out_status
 );
 
+void uniffi_ldk_node_fn_method_builder_migrate_storage(
+	void* ptr,
+	RustBuffer what,
+	RustCallStatus* out_status
+);
+
 void uniffi_ldk_node_fn_method_builder_reset_state(
 	void* ptr,
 	RustBuffer what,
@@ -1047,6 +1053,10 @@ uint16_t uniffi_ldk_node_checksum_method_builder_build_with_vss_store(
 );
 
 uint16_t uniffi_ldk_node_checksum_method_builder_build_with_vss_store_and_fixed_headers(
+	RustCallStatus* out_status
+);
+
+uint16_t uniffi_ldk_node_checksum_method_builder_migrate_storage(
 	RustCallStatus* out_status
 );
 
