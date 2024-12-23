@@ -3175,6 +3175,7 @@ type Config struct {
 	LogLevel                        LogLevel
 	AnchorChannelsConfig            *AnchorChannelsConfig
 	SendingParameters               *SendingParameters
+	TransientNetworkGraph           bool
 }
 
 func (r *Config) Destroy() {
@@ -3188,6 +3189,7 @@ func (r *Config) Destroy() {
 	FfiDestroyerTypeLogLevel{}.Destroy(r.LogLevel)
 	FfiDestroyerOptionalTypeAnchorChannelsConfig{}.Destroy(r.AnchorChannelsConfig)
 	FfiDestroyerOptionalTypeSendingParameters{}.Destroy(r.SendingParameters)
+	FfiDestroyerBool{}.Destroy(r.TransientNetworkGraph)
 }
 
 type FfiConverterTypeConfig struct{}
@@ -3210,6 +3212,7 @@ func (c FfiConverterTypeConfig) Read(reader io.Reader) Config {
 		FfiConverterTypeLogLevelINSTANCE.Read(reader),
 		FfiConverterOptionalTypeAnchorChannelsConfigINSTANCE.Read(reader),
 		FfiConverterOptionalTypeSendingParametersINSTANCE.Read(reader),
+		FfiConverterBoolINSTANCE.Read(reader),
 	}
 }
 
@@ -3228,6 +3231,7 @@ func (c FfiConverterTypeConfig) Write(writer io.Writer, value Config) {
 	FfiConverterTypeLogLevelINSTANCE.Write(writer, value.LogLevel)
 	FfiConverterOptionalTypeAnchorChannelsConfigINSTANCE.Write(writer, value.AnchorChannelsConfig)
 	FfiConverterOptionalTypeSendingParametersINSTANCE.Write(writer, value.SendingParameters)
+	FfiConverterBoolINSTANCE.Write(writer, value.TransientNetworkGraph)
 }
 
 type FfiDestroyerTypeConfig struct{}
