@@ -4607,6 +4607,8 @@ type LightningBalance interface {
 type LightningBalanceClaimableOnChannelClose struct {
 	ChannelId                        ChannelId
 	CounterpartyNodeId               PublicKey
+	FundingTxId                      Txid
+	FundingTxIndex                   uint16
 	AmountSatoshis                   uint64
 	TransactionFeeSatoshis           uint64
 	OutboundPaymentHtlcRoundedMsat   uint64
@@ -4618,6 +4620,8 @@ type LightningBalanceClaimableOnChannelClose struct {
 func (e LightningBalanceClaimableOnChannelClose) Destroy() {
 	FfiDestroyerTypeChannelId{}.Destroy(e.ChannelId)
 	FfiDestroyerTypePublicKey{}.Destroy(e.CounterpartyNodeId)
+	FfiDestroyerTypeTxid{}.Destroy(e.FundingTxId)
+	FfiDestroyerUint16{}.Destroy(e.FundingTxIndex)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
 	FfiDestroyerUint64{}.Destroy(e.TransactionFeeSatoshis)
 	FfiDestroyerUint64{}.Destroy(e.OutboundPaymentHtlcRoundedMsat)
@@ -4629,6 +4633,8 @@ func (e LightningBalanceClaimableOnChannelClose) Destroy() {
 type LightningBalanceClaimableAwaitingConfirmations struct {
 	ChannelId          ChannelId
 	CounterpartyNodeId PublicKey
+	FundingTxId        Txid
+	FundingTxIndex     uint16
 	AmountSatoshis     uint64
 	ConfirmationHeight uint32
 	Source             BalanceSource
@@ -4637,6 +4643,8 @@ type LightningBalanceClaimableAwaitingConfirmations struct {
 func (e LightningBalanceClaimableAwaitingConfirmations) Destroy() {
 	FfiDestroyerTypeChannelId{}.Destroy(e.ChannelId)
 	FfiDestroyerTypePublicKey{}.Destroy(e.CounterpartyNodeId)
+	FfiDestroyerTypeTxid{}.Destroy(e.FundingTxId)
+	FfiDestroyerUint16{}.Destroy(e.FundingTxIndex)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
 	FfiDestroyerUint32{}.Destroy(e.ConfirmationHeight)
 	FfiDestroyerTypeBalanceSource{}.Destroy(e.Source)
@@ -4645,6 +4653,8 @@ func (e LightningBalanceClaimableAwaitingConfirmations) Destroy() {
 type LightningBalanceContentiousClaimable struct {
 	ChannelId          ChannelId
 	CounterpartyNodeId PublicKey
+	FundingTxId        Txid
+	FundingTxIndex     uint16
 	AmountSatoshis     uint64
 	TimeoutHeight      uint32
 	PaymentHash        PaymentHash
@@ -4654,6 +4664,8 @@ type LightningBalanceContentiousClaimable struct {
 func (e LightningBalanceContentiousClaimable) Destroy() {
 	FfiDestroyerTypeChannelId{}.Destroy(e.ChannelId)
 	FfiDestroyerTypePublicKey{}.Destroy(e.CounterpartyNodeId)
+	FfiDestroyerTypeTxid{}.Destroy(e.FundingTxId)
+	FfiDestroyerUint16{}.Destroy(e.FundingTxIndex)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
 	FfiDestroyerUint32{}.Destroy(e.TimeoutHeight)
 	FfiDestroyerTypePaymentHash{}.Destroy(e.PaymentHash)
@@ -4663,6 +4675,8 @@ func (e LightningBalanceContentiousClaimable) Destroy() {
 type LightningBalanceMaybeTimeoutClaimableHtlc struct {
 	ChannelId          ChannelId
 	CounterpartyNodeId PublicKey
+	FundingTxId        Txid
+	FundingTxIndex     uint16
 	AmountSatoshis     uint64
 	ClaimableHeight    uint32
 	PaymentHash        PaymentHash
@@ -4672,6 +4686,8 @@ type LightningBalanceMaybeTimeoutClaimableHtlc struct {
 func (e LightningBalanceMaybeTimeoutClaimableHtlc) Destroy() {
 	FfiDestroyerTypeChannelId{}.Destroy(e.ChannelId)
 	FfiDestroyerTypePublicKey{}.Destroy(e.CounterpartyNodeId)
+	FfiDestroyerTypeTxid{}.Destroy(e.FundingTxId)
+	FfiDestroyerUint16{}.Destroy(e.FundingTxIndex)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
 	FfiDestroyerUint32{}.Destroy(e.ClaimableHeight)
 	FfiDestroyerTypePaymentHash{}.Destroy(e.PaymentHash)
@@ -4681,6 +4697,8 @@ func (e LightningBalanceMaybeTimeoutClaimableHtlc) Destroy() {
 type LightningBalanceMaybePreimageClaimableHtlc struct {
 	ChannelId          ChannelId
 	CounterpartyNodeId PublicKey
+	FundingTxId        Txid
+	FundingTxIndex     uint16
 	AmountSatoshis     uint64
 	ExpiryHeight       uint32
 	PaymentHash        PaymentHash
@@ -4689,6 +4707,8 @@ type LightningBalanceMaybePreimageClaimableHtlc struct {
 func (e LightningBalanceMaybePreimageClaimableHtlc) Destroy() {
 	FfiDestroyerTypeChannelId{}.Destroy(e.ChannelId)
 	FfiDestroyerTypePublicKey{}.Destroy(e.CounterpartyNodeId)
+	FfiDestroyerTypeTxid{}.Destroy(e.FundingTxId)
+	FfiDestroyerUint16{}.Destroy(e.FundingTxIndex)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
 	FfiDestroyerUint32{}.Destroy(e.ExpiryHeight)
 	FfiDestroyerTypePaymentHash{}.Destroy(e.PaymentHash)
@@ -4697,12 +4717,16 @@ func (e LightningBalanceMaybePreimageClaimableHtlc) Destroy() {
 type LightningBalanceCounterpartyRevokedOutputClaimable struct {
 	ChannelId          ChannelId
 	CounterpartyNodeId PublicKey
+	FundingTxId        Txid
+	FundingTxIndex     uint16
 	AmountSatoshis     uint64
 }
 
 func (e LightningBalanceCounterpartyRevokedOutputClaimable) Destroy() {
 	FfiDestroyerTypeChannelId{}.Destroy(e.ChannelId)
 	FfiDestroyerTypePublicKey{}.Destroy(e.CounterpartyNodeId)
+	FfiDestroyerTypeTxid{}.Destroy(e.FundingTxId)
+	FfiDestroyerUint16{}.Destroy(e.FundingTxIndex)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
 }
 
@@ -4724,6 +4748,8 @@ func (FfiConverterTypeLightningBalance) Read(reader io.Reader) LightningBalance 
 		return LightningBalanceClaimableOnChannelClose{
 			FfiConverterTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterTypePublicKeyINSTANCE.Read(reader),
+			FfiConverterTypeTxidINSTANCE.Read(reader),
+			FfiConverterUint16INSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
@@ -4735,6 +4761,8 @@ func (FfiConverterTypeLightningBalance) Read(reader io.Reader) LightningBalance 
 		return LightningBalanceClaimableAwaitingConfirmations{
 			FfiConverterTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterTypePublicKeyINSTANCE.Read(reader),
+			FfiConverterTypeTxidINSTANCE.Read(reader),
+			FfiConverterUint16INSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
 			FfiConverterUint32INSTANCE.Read(reader),
 			FfiConverterTypeBalanceSourceINSTANCE.Read(reader),
@@ -4743,6 +4771,8 @@ func (FfiConverterTypeLightningBalance) Read(reader io.Reader) LightningBalance 
 		return LightningBalanceContentiousClaimable{
 			FfiConverterTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterTypePublicKeyINSTANCE.Read(reader),
+			FfiConverterTypeTxidINSTANCE.Read(reader),
+			FfiConverterUint16INSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
 			FfiConverterUint32INSTANCE.Read(reader),
 			FfiConverterTypePaymentHashINSTANCE.Read(reader),
@@ -4752,6 +4782,8 @@ func (FfiConverterTypeLightningBalance) Read(reader io.Reader) LightningBalance 
 		return LightningBalanceMaybeTimeoutClaimableHtlc{
 			FfiConverterTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterTypePublicKeyINSTANCE.Read(reader),
+			FfiConverterTypeTxidINSTANCE.Read(reader),
+			FfiConverterUint16INSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
 			FfiConverterUint32INSTANCE.Read(reader),
 			FfiConverterTypePaymentHashINSTANCE.Read(reader),
@@ -4761,6 +4793,8 @@ func (FfiConverterTypeLightningBalance) Read(reader io.Reader) LightningBalance 
 		return LightningBalanceMaybePreimageClaimableHtlc{
 			FfiConverterTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterTypePublicKeyINSTANCE.Read(reader),
+			FfiConverterTypeTxidINSTANCE.Read(reader),
+			FfiConverterUint16INSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
 			FfiConverterUint32INSTANCE.Read(reader),
 			FfiConverterTypePaymentHashINSTANCE.Read(reader),
@@ -4769,6 +4803,8 @@ func (FfiConverterTypeLightningBalance) Read(reader io.Reader) LightningBalance 
 		return LightningBalanceCounterpartyRevokedOutputClaimable{
 			FfiConverterTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterTypePublicKeyINSTANCE.Read(reader),
+			FfiConverterTypeTxidINSTANCE.Read(reader),
+			FfiConverterUint16INSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
 		}
 	default:
@@ -4782,6 +4818,8 @@ func (FfiConverterTypeLightningBalance) Write(writer io.Writer, value LightningB
 		writeInt32(writer, 1)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
+		FfiConverterTypeTxidINSTANCE.Write(writer, variant_value.FundingTxId)
+		FfiConverterUint16INSTANCE.Write(writer, variant_value.FundingTxIndex)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.TransactionFeeSatoshis)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.OutboundPaymentHtlcRoundedMsat)
@@ -4792,6 +4830,8 @@ func (FfiConverterTypeLightningBalance) Write(writer io.Writer, value LightningB
 		writeInt32(writer, 2)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
+		FfiConverterTypeTxidINSTANCE.Write(writer, variant_value.FundingTxId)
+		FfiConverterUint16INSTANCE.Write(writer, variant_value.FundingTxIndex)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
 		FfiConverterUint32INSTANCE.Write(writer, variant_value.ConfirmationHeight)
 		FfiConverterTypeBalanceSourceINSTANCE.Write(writer, variant_value.Source)
@@ -4799,6 +4839,8 @@ func (FfiConverterTypeLightningBalance) Write(writer io.Writer, value LightningB
 		writeInt32(writer, 3)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
+		FfiConverterTypeTxidINSTANCE.Write(writer, variant_value.FundingTxId)
+		FfiConverterUint16INSTANCE.Write(writer, variant_value.FundingTxIndex)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
 		FfiConverterUint32INSTANCE.Write(writer, variant_value.TimeoutHeight)
 		FfiConverterTypePaymentHashINSTANCE.Write(writer, variant_value.PaymentHash)
@@ -4807,6 +4849,8 @@ func (FfiConverterTypeLightningBalance) Write(writer io.Writer, value LightningB
 		writeInt32(writer, 4)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
+		FfiConverterTypeTxidINSTANCE.Write(writer, variant_value.FundingTxId)
+		FfiConverterUint16INSTANCE.Write(writer, variant_value.FundingTxIndex)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
 		FfiConverterUint32INSTANCE.Write(writer, variant_value.ClaimableHeight)
 		FfiConverterTypePaymentHashINSTANCE.Write(writer, variant_value.PaymentHash)
@@ -4815,6 +4859,8 @@ func (FfiConverterTypeLightningBalance) Write(writer io.Writer, value LightningB
 		writeInt32(writer, 5)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
+		FfiConverterTypeTxidINSTANCE.Write(writer, variant_value.FundingTxId)
+		FfiConverterUint16INSTANCE.Write(writer, variant_value.FundingTxIndex)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
 		FfiConverterUint32INSTANCE.Write(writer, variant_value.ExpiryHeight)
 		FfiConverterTypePaymentHashINSTANCE.Write(writer, variant_value.PaymentHash)
@@ -4822,6 +4868,8 @@ func (FfiConverterTypeLightningBalance) Write(writer io.Writer, value LightningB
 		writeInt32(writer, 6)
 		FfiConverterTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
+		FfiConverterTypeTxidINSTANCE.Write(writer, variant_value.FundingTxId)
+		FfiConverterUint16INSTANCE.Write(writer, variant_value.FundingTxIndex)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
 	default:
 		_ = variant_value
