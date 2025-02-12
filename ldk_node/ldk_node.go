@@ -6570,13 +6570,19 @@ type PendingSweepBalance interface {
 	Destroy()
 }
 type PendingSweepBalancePendingBroadcast struct {
-	ChannelId      *ChannelId
-	AmountSatoshis uint64
+	ChannelId          *ChannelId
+	AmountSatoshis     uint64
+	CounterpartyNodeId *PublicKey
+	FundingTxId        *Txid
+	FundingTxIndex     *uint16
 }
 
 func (e PendingSweepBalancePendingBroadcast) Destroy() {
 	FfiDestroyerOptionalTypeChannelId{}.Destroy(e.ChannelId)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
+	FfiDestroyerOptionalTypePublicKey{}.Destroy(e.CounterpartyNodeId)
+	FfiDestroyerOptionalTypeTxid{}.Destroy(e.FundingTxId)
+	FfiDestroyerOptionalUint16{}.Destroy(e.FundingTxIndex)
 }
 
 type PendingSweepBalanceBroadcastAwaitingConfirmation struct {
@@ -6584,6 +6590,9 @@ type PendingSweepBalanceBroadcastAwaitingConfirmation struct {
 	LatestBroadcastHeight uint32
 	LatestSpendingTxid    Txid
 	AmountSatoshis        uint64
+	CounterpartyNodeId    *PublicKey
+	FundingTxId           *Txid
+	FundingTxIndex        *uint16
 }
 
 func (e PendingSweepBalanceBroadcastAwaitingConfirmation) Destroy() {
@@ -6591,6 +6600,9 @@ func (e PendingSweepBalanceBroadcastAwaitingConfirmation) Destroy() {
 	FfiDestroyerUint32{}.Destroy(e.LatestBroadcastHeight)
 	FfiDestroyerTypeTxid{}.Destroy(e.LatestSpendingTxid)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
+	FfiDestroyerOptionalTypePublicKey{}.Destroy(e.CounterpartyNodeId)
+	FfiDestroyerOptionalTypeTxid{}.Destroy(e.FundingTxId)
+	FfiDestroyerOptionalUint16{}.Destroy(e.FundingTxIndex)
 }
 
 type PendingSweepBalanceAwaitingThresholdConfirmations struct {
@@ -6599,6 +6611,9 @@ type PendingSweepBalanceAwaitingThresholdConfirmations struct {
 	ConfirmationHash   BlockHash
 	ConfirmationHeight uint32
 	AmountSatoshis     uint64
+	CounterpartyNodeId *PublicKey
+	FundingTxId        *Txid
+	FundingTxIndex     *uint16
 }
 
 func (e PendingSweepBalanceAwaitingThresholdConfirmations) Destroy() {
@@ -6607,6 +6622,9 @@ func (e PendingSweepBalanceAwaitingThresholdConfirmations) Destroy() {
 	FfiDestroyerTypeBlockHash{}.Destroy(e.ConfirmationHash)
 	FfiDestroyerUint32{}.Destroy(e.ConfirmationHeight)
 	FfiDestroyerUint64{}.Destroy(e.AmountSatoshis)
+	FfiDestroyerOptionalTypePublicKey{}.Destroy(e.CounterpartyNodeId)
+	FfiDestroyerOptionalTypeTxid{}.Destroy(e.FundingTxId)
+	FfiDestroyerOptionalUint16{}.Destroy(e.FundingTxIndex)
 }
 
 type FfiConverterTypePendingSweepBalance struct{}
@@ -6627,6 +6645,9 @@ func (FfiConverterTypePendingSweepBalance) Read(reader io.Reader) PendingSweepBa
 		return PendingSweepBalancePendingBroadcast{
 			FfiConverterOptionalTypeChannelIdINSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
+			FfiConverterOptionalTypePublicKeyINSTANCE.Read(reader),
+			FfiConverterOptionalTypeTxidINSTANCE.Read(reader),
+			FfiConverterOptionalUint16INSTANCE.Read(reader),
 		}
 	case 2:
 		return PendingSweepBalanceBroadcastAwaitingConfirmation{
@@ -6634,6 +6655,9 @@ func (FfiConverterTypePendingSweepBalance) Read(reader io.Reader) PendingSweepBa
 			FfiConverterUint32INSTANCE.Read(reader),
 			FfiConverterTypeTxidINSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
+			FfiConverterOptionalTypePublicKeyINSTANCE.Read(reader),
+			FfiConverterOptionalTypeTxidINSTANCE.Read(reader),
+			FfiConverterOptionalUint16INSTANCE.Read(reader),
 		}
 	case 3:
 		return PendingSweepBalanceAwaitingThresholdConfirmations{
@@ -6642,6 +6666,9 @@ func (FfiConverterTypePendingSweepBalance) Read(reader io.Reader) PendingSweepBa
 			FfiConverterTypeBlockHashINSTANCE.Read(reader),
 			FfiConverterUint32INSTANCE.Read(reader),
 			FfiConverterUint64INSTANCE.Read(reader),
+			FfiConverterOptionalTypePublicKeyINSTANCE.Read(reader),
+			FfiConverterOptionalTypeTxidINSTANCE.Read(reader),
+			FfiConverterOptionalUint16INSTANCE.Read(reader),
 		}
 	default:
 		panic(fmt.Sprintf("invalid enum value %v in FfiConverterTypePendingSweepBalance.Read()", id))
@@ -6654,12 +6681,18 @@ func (FfiConverterTypePendingSweepBalance) Write(writer io.Writer, value Pending
 		writeInt32(writer, 1)
 		FfiConverterOptionalTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
+		FfiConverterOptionalTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
+		FfiConverterOptionalTypeTxidINSTANCE.Write(writer, variant_value.FundingTxId)
+		FfiConverterOptionalUint16INSTANCE.Write(writer, variant_value.FundingTxIndex)
 	case PendingSweepBalanceBroadcastAwaitingConfirmation:
 		writeInt32(writer, 2)
 		FfiConverterOptionalTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
 		FfiConverterUint32INSTANCE.Write(writer, variant_value.LatestBroadcastHeight)
 		FfiConverterTypeTxidINSTANCE.Write(writer, variant_value.LatestSpendingTxid)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
+		FfiConverterOptionalTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
+		FfiConverterOptionalTypeTxidINSTANCE.Write(writer, variant_value.FundingTxId)
+		FfiConverterOptionalUint16INSTANCE.Write(writer, variant_value.FundingTxIndex)
 	case PendingSweepBalanceAwaitingThresholdConfirmations:
 		writeInt32(writer, 3)
 		FfiConverterOptionalTypeChannelIdINSTANCE.Write(writer, variant_value.ChannelId)
@@ -6667,6 +6700,9 @@ func (FfiConverterTypePendingSweepBalance) Write(writer io.Writer, value Pending
 		FfiConverterTypeBlockHashINSTANCE.Write(writer, variant_value.ConfirmationHash)
 		FfiConverterUint32INSTANCE.Write(writer, variant_value.ConfirmationHeight)
 		FfiConverterUint64INSTANCE.Write(writer, variant_value.AmountSatoshis)
+		FfiConverterOptionalTypePublicKeyINSTANCE.Write(writer, variant_value.CounterpartyNodeId)
+		FfiConverterOptionalTypeTxidINSTANCE.Write(writer, variant_value.FundingTxId)
+		FfiConverterOptionalUint16INSTANCE.Write(writer, variant_value.FundingTxIndex)
 	default:
 		_ = variant_value
 		panic(fmt.Sprintf("invalid enum value `%v` in FfiConverterTypePendingSweepBalance.Write", value))
@@ -8002,6 +8038,43 @@ type FfiDestroyerOptionalTypePublicKey struct{}
 func (_ FfiDestroyerOptionalTypePublicKey) Destroy(value *PublicKey) {
 	if value != nil {
 		FfiDestroyerTypePublicKey{}.Destroy(*value)
+	}
+}
+
+type FfiConverterOptionalTypeTxid struct{}
+
+var FfiConverterOptionalTypeTxidINSTANCE = FfiConverterOptionalTypeTxid{}
+
+func (c FfiConverterOptionalTypeTxid) Lift(rb RustBufferI) *Txid {
+	return LiftFromRustBuffer[*Txid](c, rb)
+}
+
+func (_ FfiConverterOptionalTypeTxid) Read(reader io.Reader) *Txid {
+	if readInt8(reader) == 0 {
+		return nil
+	}
+	temp := FfiConverterTypeTxidINSTANCE.Read(reader)
+	return &temp
+}
+
+func (c FfiConverterOptionalTypeTxid) Lower(value *Txid) RustBuffer {
+	return LowerIntoRustBuffer[*Txid](c, value)
+}
+
+func (_ FfiConverterOptionalTypeTxid) Write(writer io.Writer, value *Txid) {
+	if value == nil {
+		writeInt8(writer, 0)
+	} else {
+		writeInt8(writer, 1)
+		FfiConverterTypeTxidINSTANCE.Write(writer, *value)
+	}
+}
+
+type FfiDestroyerOptionalTypeTxid struct{}
+
+func (_ FfiDestroyerOptionalTypeTxid) Destroy(value *Txid) {
+	if value != nil {
+		FfiDestroyerTypeTxid{}.Destroy(*value)
 	}
 }
 
