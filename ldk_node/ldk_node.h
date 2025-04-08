@@ -24,24 +24,10 @@
 // ⚠️ increment the version suffix in all instances of UNIFFI_SHARED_HEADER_V6 in this file.           ⚠️
 
 typedef struct RustBuffer {
-	int32_t capacity;
-	int32_t len;
+	uint64_t capacity;
+	uint64_t len;
 	uint8_t *data;
 } RustBuffer;
-
-typedef int32_t (*ForeignCallback)(uint64_t, int32_t, uint8_t *, int32_t, RustBuffer *);
-
-// Task defined in Rust that Go executes
-typedef void (*RustTaskCallback)(const void *, int8_t);
-
-// Callback to execute Rust tasks using a Go routine
-//
-// Args:
-//   executor: ForeignExecutor lowered into a uint64_t value
-//   delay: Delay in MS
-//   task: RustTaskCallback to call
-//   task_data: data to pass the task callback
-typedef int8_t (*ForeignExecutorCallback)(uint64_t, uint32_t, RustTaskCallback, void *);
 
 typedef struct ForeignBytes {
 	int32_t len;
@@ -54,1263 +40,1668 @@ typedef struct RustCallStatus {
 	RustBuffer errorBuf;
 } RustCallStatus;
 
-// Continuation callback for UniFFI Futures
-typedef void (*RustFutureContinuation)(void * , int8_t);
-
-// ⚠️ Attention: If you change this #else block (ending in `#endif // def UNIFFI_SHARED_H`) you *must* ⚠️
-// ⚠️ increment the version suffix in all instances of UNIFFI_SHARED_HEADER_V6 in this file.           ⚠️
-#endif // def UNIFFI_SHARED_H
-
-// Needed because we can't execute the callback directly from go.
-void cgo_rust_task_callback_bridge_ldk_node(RustTaskCallback, const void *, int8_t);
-
-int8_t uniffiForeignExecutorCallbackldk_node(uint64_t, uint32_t, RustTaskCallback, void*);
-
-void uniffiFutureContinuationCallbackldk_node(void*, int8_t);
-
-void uniffi_ldk_node_fn_free_bolt11payment(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_bolt11payment_claim_for_hash(
-	void* ptr,
-	RustBuffer payment_hash,
-	uint64_t claimable_amount_msat,
-	RustBuffer preimage,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_bolt11payment_fail_for_hash(
-	void* ptr,
-	RustBuffer payment_hash,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive(
-	void* ptr,
-	uint64_t amount_msat,
-	RustBuffer description,
-	uint32_t expiry_secs,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_for_hash(
-	void* ptr,
-	uint64_t amount_msat,
-	RustBuffer description,
-	uint32_t expiry_secs,
-	RustBuffer payment_hash,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount(
-	void* ptr,
-	RustBuffer description,
-	uint32_t expiry_secs,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_for_hash(
-	void* ptr,
-	RustBuffer description,
-	uint32_t expiry_secs,
-	RustBuffer payment_hash,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_via_jit_channel(
-	void* ptr,
-	RustBuffer description,
-	uint32_t expiry_secs,
-	RustBuffer max_proportional_lsp_fee_limit_ppm_msat,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_via_jit_channel(
-	void* ptr,
-	uint64_t amount_msat,
-	RustBuffer description,
-	uint32_t expiry_secs,
-	RustBuffer max_lsp_fee_limit_msat,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send(
-	void* ptr,
-	RustBuffer invoice,
-	RustBuffer sending_parameters,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_bolt11payment_send_probes(
-	void* ptr,
-	RustBuffer invoice,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_bolt11payment_send_probes_using_amount(
-	void* ptr,
-	RustBuffer invoice,
-	uint64_t amount_msat,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send_using_amount(
-	void* ptr,
-	RustBuffer invoice,
-	uint64_t amount_msat,
-	RustBuffer sending_parameters,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_free_bolt12payment(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt12payment_initiate_refund(
-	void* ptr,
-	uint64_t amount_msat,
-	uint32_t expiry_secs,
-	RustBuffer quantity,
-	RustBuffer payer_note,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt12payment_receive(
-	void* ptr,
-	uint64_t amount_msat,
-	RustBuffer description,
-	RustBuffer expiry_secs,
-	RustBuffer quantity,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt12payment_receive_variable_amount(
-	void* ptr,
-	RustBuffer description,
-	RustBuffer expiry_secs,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt12payment_request_refund_payment(
-	void* ptr,
-	RustBuffer refund,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send(
-	void* ptr,
-	RustBuffer offer,
-	RustBuffer quantity,
-	RustBuffer payer_note,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send_using_amount(
-	void* ptr,
-	RustBuffer offer,
-	uint64_t amount_msat,
-	RustBuffer quantity,
-	RustBuffer payer_note,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_free_builder(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_constructor_builder_from_config(
-	RustBuffer config,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_constructor_builder_new(
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_method_builder_build(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_method_builder_build_with_fs_store(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_method_builder_build_with_vss_store(
-	void* ptr,
-	RustBuffer vss_url,
-	RustBuffer store_id,
-	RustBuffer lnurl_auth_server_url,
-	RustBuffer fixed_headers,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_fixed_headers(
-	void* ptr,
-	RustBuffer vss_url,
-	RustBuffer store_id,
-	RustBuffer fixed_headers,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_migrate_storage(
-	void* ptr,
-	RustBuffer what,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_reset_state(
-	void* ptr,
-	RustBuffer what,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_restore_encoded_channel_monitors(
-	void* ptr,
-	RustBuffer monitors,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_chain_source_bitcoind_rpc(
-	void* ptr,
-	RustBuffer rpc_host,
-	uint16_t rpc_port,
-	RustBuffer rpc_user,
-	RustBuffer rpc_password,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_chain_source_esplora(
-	void* ptr,
-	RustBuffer server_url,
-	RustBuffer config,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_entropy_bip39_mnemonic(
-	void* ptr,
-	RustBuffer mnemonic,
-	RustBuffer passphrase,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_entropy_seed_bytes(
-	void* ptr,
-	RustBuffer seed_bytes,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_entropy_seed_path(
-	void* ptr,
-	RustBuffer seed_path,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_gossip_source_p2p(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_gossip_source_rgs(
-	void* ptr,
-	RustBuffer rgs_server_url,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_liquidity_source_lsps2(
-	void* ptr,
-	RustBuffer address,
-	RustBuffer node_id,
-	RustBuffer token,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_listening_addresses(
-	void* ptr,
-	RustBuffer listening_addresses,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_network(
-	void* ptr,
-	RustBuffer network,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_node_alias(
-	void* ptr,
-	RustBuffer node_alias,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_builder_set_storage_dir_path(
-	void* ptr,
-	RustBuffer storage_dir_path,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_free_networkgraph(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_networkgraph_channel(
-	void* ptr,
-	uint64_t short_channel_id,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_networkgraph_list_channels(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_networkgraph_list_nodes(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_networkgraph_node(
-	void* ptr,
-	RustBuffer node_id,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_free_node(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_method_node_bolt11_payment(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_method_node_bolt12_payment(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_close_channel(
-	void* ptr,
-	RustBuffer user_channel_id,
-	RustBuffer counterparty_node_id,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_config(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_connect(
-	void* ptr,
-	RustBuffer node_id,
-	RustBuffer address,
-	int8_t persist,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_disconnect(
-	void* ptr,
-	RustBuffer node_id,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_event_handled(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_force_close_all_channels_without_broadcasting_txn(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_force_close_channel(
-	void* ptr,
-	RustBuffer user_channel_id,
-	RustBuffer counterparty_node_id,
-	RustBuffer reason,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_get_encoded_channel_monitors(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_list_balances(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_list_channels(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_list_payments(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_list_peers(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_listening_addresses(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_method_node_network_graph(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_next_event(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_node_alias(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_node_id(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_method_node_onchain_payment(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_open_announced_channel(
-	void* ptr,
-	RustBuffer node_id,
-	RustBuffer address,
-	uint64_t channel_amount_sats,
-	RustBuffer push_to_counterparty_msat,
-	RustBuffer channel_config,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_open_channel(
-	void* ptr,
-	RustBuffer node_id,
-	RustBuffer address,
-	uint64_t channel_amount_sats,
-	RustBuffer push_to_counterparty_msat,
-	RustBuffer channel_config,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_payment(
-	void* ptr,
-	RustBuffer payment_id,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_remove_payment(
-	void* ptr,
-	RustBuffer payment_id,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_sign_message(
-	void* ptr,
-	RustBuffer msg,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_method_node_spontaneous_payment(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_start(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_status(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_stop(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_sync_wallets(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void* uniffi_ldk_node_fn_method_node_unified_qr_payment(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_update_channel_config(
-	void* ptr,
-	RustBuffer user_channel_id,
-	RustBuffer counterparty_node_id,
-	RustBuffer channel_config,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_node_update_fee_estimates(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-int8_t uniffi_ldk_node_fn_method_node_verify_signature(
-	void* ptr,
-	RustBuffer msg,
-	RustBuffer sig,
-	RustBuffer pkey,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_node_wait_next_event(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_free_onchainpayment(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_onchainpayment_new_address(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_all_to_address(
-	void* ptr,
-	RustBuffer address,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_to_address(
-	void* ptr,
-	RustBuffer address,
-	uint64_t amount_sats,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_free_spontaneouspayment(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send(
-	void* ptr,
-	uint64_t amount_msat,
-	RustBuffer node_id,
-	RustBuffer sending_parameters,
-	RustBuffer custom_tlvs,
-	RustBuffer preimage,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_method_spontaneouspayment_send_probes(
-	void* ptr,
-	uint64_t amount_msat,
-	RustBuffer node_id,
-	RustCallStatus* out_status
-);
-
-void uniffi_ldk_node_fn_free_unifiedqrpayment(
-	void* ptr,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_unifiedqrpayment_receive(
-	void* ptr,
-	uint64_t amount_sats,
-	RustBuffer message,
-	uint32_t expiry_sec,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_method_unifiedqrpayment_send(
-	void* ptr,
-	RustBuffer uri_str,
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_func_default_config(
-	RustCallStatus* out_status
-);
-
-RustBuffer uniffi_ldk_node_fn_func_generate_entropy_mnemonic(
-	RustCallStatus* out_status
-);
-
-RustBuffer ffi_ldk_node_rustbuffer_alloc(
-	int32_t size,
-	RustCallStatus* out_status
-);
-
-RustBuffer ffi_ldk_node_rustbuffer_from_bytes(
-	ForeignBytes bytes,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rustbuffer_free(
-	RustBuffer buf,
-	RustCallStatus* out_status
-);
-
-RustBuffer ffi_ldk_node_rustbuffer_reserve(
-	RustBuffer buf,
-	int32_t additional,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_continuation_callback_set(
-	RustFutureContinuation callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_u8(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_u8(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_u8(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-uint8_t ffi_ldk_node_rust_future_complete_u8(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_i8(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_i8(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_i8(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-int8_t ffi_ldk_node_rust_future_complete_i8(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_u16(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_u16(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_u16(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-uint16_t ffi_ldk_node_rust_future_complete_u16(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_i16(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_i16(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_i16(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-int16_t ffi_ldk_node_rust_future_complete_i16(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_u32(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_u32(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_u32(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-uint32_t ffi_ldk_node_rust_future_complete_u32(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_i32(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_i32(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_i32(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-int32_t ffi_ldk_node_rust_future_complete_i32(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_u64(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_u64(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_u64(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-uint64_t ffi_ldk_node_rust_future_complete_u64(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_i64(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_i64(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_i64(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-int64_t ffi_ldk_node_rust_future_complete_i64(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_f32(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_f32(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_f32(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-float ffi_ldk_node_rust_future_complete_f32(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_f64(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_f64(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_f64(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-double ffi_ldk_node_rust_future_complete_f64(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_pointer(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_pointer(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_pointer(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void* ffi_ldk_node_rust_future_complete_pointer(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_rust_buffer(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_rust_buffer(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_rust_buffer(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-RustBuffer ffi_ldk_node_rust_future_complete_rust_buffer(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_poll_void(
-	void* handle,
-	void* uniffi_callback,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_cancel_void(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_free_void(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-void ffi_ldk_node_rust_future_complete_void(
-	void* handle,
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_func_default_config(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_func_generate_entropy_mnemonic(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_claim_for_hash(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_fail_for_hash(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_for_hash(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_for_hash(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_via_jit_channel(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_via_jit_channel(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_send(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_send_probes(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_send_probes_using_amount(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt11payment_send_using_amount(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt12payment_initiate_refund(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt12payment_receive(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt12payment_receive_variable_amount(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt12payment_request_refund_payment(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt12payment_send(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_bolt12payment_send_using_amount(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_build(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_build_with_fs_store(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_build_with_vss_store(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_build_with_vss_store_and_fixed_headers(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_migrate_storage(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_reset_state(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_restore_encoded_channel_monitors(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_chain_source_bitcoind_rpc(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_chain_source_esplora(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_entropy_bip39_mnemonic(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_entropy_seed_bytes(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_entropy_seed_path(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_gossip_source_p2p(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_gossip_source_rgs(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_liquidity_source_lsps2(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_listening_addresses(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_network(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_node_alias(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_builder_set_storage_dir_path(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_networkgraph_channel(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_networkgraph_list_channels(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_networkgraph_list_nodes(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_networkgraph_node(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_bolt11_payment(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_bolt12_payment(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_close_channel(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_config(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_connect(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_disconnect(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_event_handled(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_force_close_all_channels_without_broadcasting_txn(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_force_close_channel(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_get_encoded_channel_monitors(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_list_balances(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_list_channels(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_list_payments(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_list_peers(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_listening_addresses(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_network_graph(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_next_event(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_node_alias(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_node_id(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_onchain_payment(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_open_announced_channel(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_open_channel(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_payment(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_remove_payment(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_sign_message(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_spontaneous_payment(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_start(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_status(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_stop(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_sync_wallets(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_unified_qr_payment(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_update_channel_config(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_update_fee_estimates(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_verify_signature(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_node_wait_next_event(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_onchainpayment_new_address(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_onchainpayment_send_all_to_address(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_onchainpayment_send_to_address(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_spontaneouspayment_send(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_spontaneouspayment_send_probes(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_unifiedqrpayment_receive(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_method_unifiedqrpayment_send(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_constructor_builder_from_config(
-	RustCallStatus* out_status
-);
-
-uint16_t uniffi_ldk_node_checksum_constructor_builder_new(
-	RustCallStatus* out_status
-);
-
-uint32_t ffi_ldk_node_uniffi_contract_version(
-	RustCallStatus* out_status
-);
-
-
+#endif // UNIFFI_SHARED_H
+
+
+#ifndef UNIFFI_FFIDEF_RUST_FUTURE_CONTINUATION_CALLBACK
+#define UNIFFI_FFIDEF_RUST_FUTURE_CONTINUATION_CALLBACK
+typedef void (*UniffiRustFutureContinuationCallback)(uint64_t data, int8_t poll_result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiRustFutureContinuationCallback(
+				UniffiRustFutureContinuationCallback cb, uint64_t data, int8_t poll_result)
+{
+	return cb(data, poll_result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_FREE
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_FREE
+typedef void (*UniffiForeignFutureFree)(uint64_t handle);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureFree(
+				UniffiForeignFutureFree cb, uint64_t handle)
+{
+	return cb(handle);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_CALLBACK_INTERFACE_FREE
+#define UNIFFI_FFIDEF_CALLBACK_INTERFACE_FREE
+typedef void (*UniffiCallbackInterfaceFree)(uint64_t handle);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiCallbackInterfaceFree(
+				UniffiCallbackInterfaceFree cb, uint64_t handle)
+{
+	return cb(handle);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE
+typedef struct UniffiForeignFuture {
+    uint64_t handle;
+    UniffiForeignFutureFree free;
+} UniffiForeignFuture;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U8
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U8
+typedef struct UniffiForeignFutureStructU8 {
+    uint8_t returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructU8;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U8
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U8
+typedef void (*UniffiForeignFutureCompleteU8)(uint64_t callback_data, UniffiForeignFutureStructU8 result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteU8(
+				UniffiForeignFutureCompleteU8 cb, uint64_t callback_data, UniffiForeignFutureStructU8 result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I8
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I8
+typedef struct UniffiForeignFutureStructI8 {
+    int8_t returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructI8;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I8
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I8
+typedef void (*UniffiForeignFutureCompleteI8)(uint64_t callback_data, UniffiForeignFutureStructI8 result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteI8(
+				UniffiForeignFutureCompleteI8 cb, uint64_t callback_data, UniffiForeignFutureStructI8 result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U16
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U16
+typedef struct UniffiForeignFutureStructU16 {
+    uint16_t returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructU16;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U16
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U16
+typedef void (*UniffiForeignFutureCompleteU16)(uint64_t callback_data, UniffiForeignFutureStructU16 result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteU16(
+				UniffiForeignFutureCompleteU16 cb, uint64_t callback_data, UniffiForeignFutureStructU16 result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I16
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I16
+typedef struct UniffiForeignFutureStructI16 {
+    int16_t returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructI16;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I16
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I16
+typedef void (*UniffiForeignFutureCompleteI16)(uint64_t callback_data, UniffiForeignFutureStructI16 result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteI16(
+				UniffiForeignFutureCompleteI16 cb, uint64_t callback_data, UniffiForeignFutureStructI16 result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U32
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U32
+typedef struct UniffiForeignFutureStructU32 {
+    uint32_t returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructU32;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U32
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U32
+typedef void (*UniffiForeignFutureCompleteU32)(uint64_t callback_data, UniffiForeignFutureStructU32 result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteU32(
+				UniffiForeignFutureCompleteU32 cb, uint64_t callback_data, UniffiForeignFutureStructU32 result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I32
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I32
+typedef struct UniffiForeignFutureStructI32 {
+    int32_t returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructI32;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I32
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I32
+typedef void (*UniffiForeignFutureCompleteI32)(uint64_t callback_data, UniffiForeignFutureStructI32 result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteI32(
+				UniffiForeignFutureCompleteI32 cb, uint64_t callback_data, UniffiForeignFutureStructI32 result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U64
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U64
+typedef struct UniffiForeignFutureStructU64 {
+    uint64_t returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructU64;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U64
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U64
+typedef void (*UniffiForeignFutureCompleteU64)(uint64_t callback_data, UniffiForeignFutureStructU64 result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteU64(
+				UniffiForeignFutureCompleteU64 cb, uint64_t callback_data, UniffiForeignFutureStructU64 result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I64
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I64
+typedef struct UniffiForeignFutureStructI64 {
+    int64_t returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructI64;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I64
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I64
+typedef void (*UniffiForeignFutureCompleteI64)(uint64_t callback_data, UniffiForeignFutureStructI64 result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteI64(
+				UniffiForeignFutureCompleteI64 cb, uint64_t callback_data, UniffiForeignFutureStructI64 result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_F32
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_F32
+typedef struct UniffiForeignFutureStructF32 {
+    float returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructF32;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_F32
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_F32
+typedef void (*UniffiForeignFutureCompleteF32)(uint64_t callback_data, UniffiForeignFutureStructF32 result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteF32(
+				UniffiForeignFutureCompleteF32 cb, uint64_t callback_data, UniffiForeignFutureStructF32 result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_F64
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_F64
+typedef struct UniffiForeignFutureStructF64 {
+    double returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructF64;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_F64
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_F64
+typedef void (*UniffiForeignFutureCompleteF64)(uint64_t callback_data, UniffiForeignFutureStructF64 result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteF64(
+				UniffiForeignFutureCompleteF64 cb, uint64_t callback_data, UniffiForeignFutureStructF64 result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_POINTER
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_POINTER
+typedef struct UniffiForeignFutureStructPointer {
+    void* returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructPointer;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_POINTER
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_POINTER
+typedef void (*UniffiForeignFutureCompletePointer)(uint64_t callback_data, UniffiForeignFutureStructPointer result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompletePointer(
+				UniffiForeignFutureCompletePointer cb, uint64_t callback_data, UniffiForeignFutureStructPointer result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_RUST_BUFFER
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_RUST_BUFFER
+typedef struct UniffiForeignFutureStructRustBuffer {
+    RustBuffer returnValue;
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructRustBuffer;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_RUST_BUFFER
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_RUST_BUFFER
+typedef void (*UniffiForeignFutureCompleteRustBuffer)(uint64_t callback_data, UniffiForeignFutureStructRustBuffer result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteRustBuffer(
+				UniffiForeignFutureCompleteRustBuffer cb, uint64_t callback_data, UniffiForeignFutureStructRustBuffer result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_VOID
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_VOID
+typedef struct UniffiForeignFutureStructVoid {
+    RustCallStatus callStatus;
+} UniffiForeignFutureStructVoid;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_VOID
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_VOID
+typedef void (*UniffiForeignFutureCompleteVoid)(uint64_t callback_data, UniffiForeignFutureStructVoid result);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiForeignFutureCompleteVoid(
+				UniffiForeignFutureCompleteVoid cb, uint64_t callback_data, UniffiForeignFutureStructVoid result)
+{
+	return cb(callback_data, result);
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT11PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT11PAYMENT
+void* uniffi_ldk_node_fn_clone_bolt11payment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT11PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT11PAYMENT
+void uniffi_ldk_node_fn_free_bolt11payment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_CLAIM_FOR_HASH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_CLAIM_FOR_HASH
+void uniffi_ldk_node_fn_method_bolt11payment_claim_for_hash(void* ptr, RustBuffer payment_hash, uint64_t claimable_amount_msat, RustBuffer preimage, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_FAIL_FOR_HASH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_FAIL_FOR_HASH
+void uniffi_ldk_node_fn_method_bolt11payment_fail_for_hash(void* ptr, RustBuffer payment_hash, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive(void* ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_FOR_HASH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_FOR_HASH
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_for_hash(void* ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustBuffer payment_hash, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount(void* ptr, RustBuffer description, uint32_t expiry_secs, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_FOR_HASH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_FOR_HASH
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_for_hash(void* ptr, RustBuffer description, uint32_t expiry_secs, RustBuffer payment_hash, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_VIA_JIT_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_VIA_JIT_CHANNEL
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_via_jit_channel(void* ptr, RustBuffer description, uint32_t expiry_secs, RustBuffer max_proportional_lsp_fee_limit_ppm_msat, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VIA_JIT_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VIA_JIT_CHANNEL
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_receive_via_jit_channel(void* ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustBuffer max_lsp_fee_limit_msat, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send(void* ptr, RustBuffer invoice, RustBuffer sending_parameters, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_PROBES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_PROBES
+void uniffi_ldk_node_fn_method_bolt11payment_send_probes(void* ptr, RustBuffer invoice, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_PROBES_USING_AMOUNT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_PROBES_USING_AMOUNT
+void uniffi_ldk_node_fn_method_bolt11payment_send_probes_using_amount(void* ptr, RustBuffer invoice, uint64_t amount_msat, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_USING_AMOUNT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_USING_AMOUNT
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send_using_amount(void* ptr, RustBuffer invoice, uint64_t amount_msat, RustBuffer sending_parameters, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT12PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT12PAYMENT
+void* uniffi_ldk_node_fn_clone_bolt12payment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT12PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT12PAYMENT
+void uniffi_ldk_node_fn_free_bolt12payment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_INITIATE_REFUND
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_INITIATE_REFUND
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_initiate_refund(void* ptr, uint64_t amount_msat, uint32_t expiry_secs, RustBuffer quantity, RustBuffer payer_note, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_RECEIVE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_RECEIVE
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_receive(void* ptr, uint64_t amount_msat, RustBuffer description, RustBuffer expiry_secs, RustBuffer quantity, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_RECEIVE_VARIABLE_AMOUNT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_RECEIVE_VARIABLE_AMOUNT
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_receive_variable_amount(void* ptr, RustBuffer description, RustBuffer expiry_secs, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_REQUEST_REFUND_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_REQUEST_REFUND_PAYMENT
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_request_refund_payment(void* ptr, RustBuffer refund, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_SEND
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_SEND
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send(void* ptr, RustBuffer offer, RustBuffer quantity, RustBuffer payer_note, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_SEND_USING_AMOUNT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_SEND_USING_AMOUNT
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send_using_amount(void* ptr, RustBuffer offer, uint64_t amount_msat, RustBuffer quantity, RustBuffer payer_note, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BUILDER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BUILDER
+void* uniffi_ldk_node_fn_clone_builder(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BUILDER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BUILDER
+void uniffi_ldk_node_fn_free_builder(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BUILDER_FROM_CONFIG
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BUILDER_FROM_CONFIG
+void* uniffi_ldk_node_fn_constructor_builder_from_config(RustBuffer config, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BUILDER_NEW
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BUILDER_NEW
+void* uniffi_ldk_node_fn_constructor_builder_new(RustCallStatus *out_status
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD
+void* uniffi_ldk_node_fn_method_builder_build(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_FS_STORE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_FS_STORE
+void* uniffi_ldk_node_fn_method_builder_build_with_fs_store(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE
+void* uniffi_ldk_node_fn_method_builder_build_with_vss_store(void* ptr, RustBuffer vss_url, RustBuffer store_id, RustBuffer lnurl_auth_server_url, RustBuffer fixed_headers, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE_AND_FIXED_HEADERS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE_AND_FIXED_HEADERS
+void* uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_fixed_headers(void* ptr, RustBuffer vss_url, RustBuffer store_id, RustBuffer fixed_headers, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_MIGRATE_STORAGE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_MIGRATE_STORAGE
+void uniffi_ldk_node_fn_method_builder_migrate_storage(void* ptr, RustBuffer what, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_RESET_STATE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_RESET_STATE
+void uniffi_ldk_node_fn_method_builder_reset_state(void* ptr, RustBuffer what, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_RESTORE_ENCODED_CHANNEL_MONITORS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_RESTORE_ENCODED_CHANNEL_MONITORS
+void uniffi_ldk_node_fn_method_builder_restore_encoded_channel_monitors(void* ptr, RustBuffer monitors, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_RPC
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_RPC
+void uniffi_ldk_node_fn_method_builder_set_chain_source_bitcoind_rpc(void* ptr, RustBuffer rpc_host, uint16_t rpc_port, RustBuffer rpc_user, RustBuffer rpc_password, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_ESPLORA
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_ESPLORA
+void uniffi_ldk_node_fn_method_builder_set_chain_source_esplora(void* ptr, RustBuffer server_url, RustBuffer config, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ENTROPY_BIP39_MNEMONIC
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ENTROPY_BIP39_MNEMONIC
+void uniffi_ldk_node_fn_method_builder_set_entropy_bip39_mnemonic(void* ptr, RustBuffer mnemonic, RustBuffer passphrase, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ENTROPY_SEED_BYTES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ENTROPY_SEED_BYTES
+void uniffi_ldk_node_fn_method_builder_set_entropy_seed_bytes(void* ptr, RustBuffer seed_bytes, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ENTROPY_SEED_PATH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ENTROPY_SEED_PATH
+void uniffi_ldk_node_fn_method_builder_set_entropy_seed_path(void* ptr, RustBuffer seed_path, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_GOSSIP_SOURCE_P2P
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_GOSSIP_SOURCE_P2P
+void uniffi_ldk_node_fn_method_builder_set_gossip_source_p2p(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_GOSSIP_SOURCE_RGS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_GOSSIP_SOURCE_RGS
+void uniffi_ldk_node_fn_method_builder_set_gossip_source_rgs(void* ptr, RustBuffer rgs_server_url, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS2
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS2
+void uniffi_ldk_node_fn_method_builder_set_liquidity_source_lsps2(void* ptr, RustBuffer address, RustBuffer node_id, RustBuffer token, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LISTENING_ADDRESSES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LISTENING_ADDRESSES
+void uniffi_ldk_node_fn_method_builder_set_listening_addresses(void* ptr, RustBuffer listening_addresses, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_NETWORK
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_NETWORK
+void uniffi_ldk_node_fn_method_builder_set_network(void* ptr, RustBuffer network, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_NODE_ALIAS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_NODE_ALIAS
+void uniffi_ldk_node_fn_method_builder_set_node_alias(void* ptr, RustBuffer node_alias, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_STORAGE_DIR_PATH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_STORAGE_DIR_PATH
+void uniffi_ldk_node_fn_method_builder_set_storage_dir_path(void* ptr, RustBuffer storage_dir_path, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NETWORKGRAPH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NETWORKGRAPH
+void* uniffi_ldk_node_fn_clone_networkgraph(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_NETWORKGRAPH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_NETWORKGRAPH
+void uniffi_ldk_node_fn_free_networkgraph(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_CHANNEL
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_channel(void* ptr, uint64_t short_channel_id, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_LIST_CHANNELS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_LIST_CHANNELS
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_list_channels(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_LIST_NODES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_LIST_NODES
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_list_nodes(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_NODE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_NODE
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_node(void* ptr, RustBuffer node_id, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NODE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NODE
+void* uniffi_ldk_node_fn_clone_node(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_NODE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_NODE
+void uniffi_ldk_node_fn_free_node(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_BOLT11_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_BOLT11_PAYMENT
+void* uniffi_ldk_node_fn_method_node_bolt11_payment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_BOLT12_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_BOLT12_PAYMENT
+void* uniffi_ldk_node_fn_method_node_bolt12_payment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CLOSE_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CLOSE_CHANNEL
+void uniffi_ldk_node_fn_method_node_close_channel(void* ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CONFIG
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CONFIG
+RustBuffer uniffi_ldk_node_fn_method_node_config(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CONNECT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CONNECT
+void uniffi_ldk_node_fn_method_node_connect(void* ptr, RustBuffer node_id, RustBuffer address, int8_t persist, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_DISCONNECT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_DISCONNECT
+void uniffi_ldk_node_fn_method_node_disconnect(void* ptr, RustBuffer node_id, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_EVENT_HANDLED
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_EVENT_HANDLED
+void uniffi_ldk_node_fn_method_node_event_handled(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_FORCE_CLOSE_ALL_CHANNELS_WITHOUT_BROADCASTING_TXN
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_FORCE_CLOSE_ALL_CHANNELS_WITHOUT_BROADCASTING_TXN
+void uniffi_ldk_node_fn_method_node_force_close_all_channels_without_broadcasting_txn(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_FORCE_CLOSE_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_FORCE_CLOSE_CHANNEL
+void uniffi_ldk_node_fn_method_node_force_close_channel(void* ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustBuffer reason, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_GET_ENCODED_CHANNEL_MONITORS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_GET_ENCODED_CHANNEL_MONITORS
+RustBuffer uniffi_ldk_node_fn_method_node_get_encoded_channel_monitors(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_BALANCES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_BALANCES
+RustBuffer uniffi_ldk_node_fn_method_node_list_balances(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_CHANNELS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_CHANNELS
+RustBuffer uniffi_ldk_node_fn_method_node_list_channels(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_PAYMENTS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_PAYMENTS
+RustBuffer uniffi_ldk_node_fn_method_node_list_payments(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_PEERS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_PEERS
+RustBuffer uniffi_ldk_node_fn_method_node_list_peers(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LISTENING_ADDRESSES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LISTENING_ADDRESSES
+RustBuffer uniffi_ldk_node_fn_method_node_listening_addresses(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NETWORK_GRAPH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NETWORK_GRAPH
+void* uniffi_ldk_node_fn_method_node_network_graph(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NEXT_EVENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NEXT_EVENT
+RustBuffer uniffi_ldk_node_fn_method_node_next_event(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NODE_ALIAS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NODE_ALIAS
+RustBuffer uniffi_ldk_node_fn_method_node_node_alias(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NODE_ID
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NODE_ID
+RustBuffer uniffi_ldk_node_fn_method_node_node_id(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_ONCHAIN_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_ONCHAIN_PAYMENT
+void* uniffi_ldk_node_fn_method_node_onchain_payment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_ANNOUNCED_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_ANNOUNCED_CHANNEL
+RustBuffer uniffi_ldk_node_fn_method_node_open_announced_channel(void* ptr, RustBuffer node_id, RustBuffer address, uint64_t channel_amount_sats, RustBuffer push_to_counterparty_msat, RustBuffer channel_config, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_CHANNEL
+RustBuffer uniffi_ldk_node_fn_method_node_open_channel(void* ptr, RustBuffer node_id, RustBuffer address, uint64_t channel_amount_sats, RustBuffer push_to_counterparty_msat, RustBuffer channel_config, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_PAYMENT
+RustBuffer uniffi_ldk_node_fn_method_node_payment(void* ptr, RustBuffer payment_id, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_REMOVE_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_REMOVE_PAYMENT
+void uniffi_ldk_node_fn_method_node_remove_payment(void* ptr, RustBuffer payment_id, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SIGN_MESSAGE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SIGN_MESSAGE
+RustBuffer uniffi_ldk_node_fn_method_node_sign_message(void* ptr, RustBuffer msg, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SPONTANEOUS_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SPONTANEOUS_PAYMENT
+void* uniffi_ldk_node_fn_method_node_spontaneous_payment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_START
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_START
+void uniffi_ldk_node_fn_method_node_start(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_STATUS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_STATUS
+RustBuffer uniffi_ldk_node_fn_method_node_status(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_STOP
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_STOP
+void uniffi_ldk_node_fn_method_node_stop(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SYNC_WALLETS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SYNC_WALLETS
+void uniffi_ldk_node_fn_method_node_sync_wallets(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_UNIFIED_QR_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_UNIFIED_QR_PAYMENT
+void* uniffi_ldk_node_fn_method_node_unified_qr_payment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_UPDATE_CHANNEL_CONFIG
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_UPDATE_CHANNEL_CONFIG
+void uniffi_ldk_node_fn_method_node_update_channel_config(void* ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustBuffer channel_config, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_UPDATE_FEE_ESTIMATES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_UPDATE_FEE_ESTIMATES
+void uniffi_ldk_node_fn_method_node_update_fee_estimates(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_VERIFY_SIGNATURE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_VERIFY_SIGNATURE
+int8_t uniffi_ldk_node_fn_method_node_verify_signature(void* ptr, RustBuffer msg, RustBuffer sig, RustBuffer pkey, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_WAIT_NEXT_EVENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_WAIT_NEXT_EVENT
+RustBuffer uniffi_ldk_node_fn_method_node_wait_next_event(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_ONCHAINPAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_ONCHAINPAYMENT
+void* uniffi_ldk_node_fn_clone_onchainpayment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_ONCHAINPAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_ONCHAINPAYMENT
+void uniffi_ldk_node_fn_free_onchainpayment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_NEW_ADDRESS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_NEW_ADDRESS
+RustBuffer uniffi_ldk_node_fn_method_onchainpayment_new_address(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_ALL_TO_ADDRESS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_ALL_TO_ADDRESS
+RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_all_to_address(void* ptr, RustBuffer address, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_TO_ADDRESS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_TO_ADDRESS
+RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_to_address(void* ptr, RustBuffer address, uint64_t amount_sats, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_SPONTANEOUSPAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_SPONTANEOUSPAYMENT
+void* uniffi_ldk_node_fn_clone_spontaneouspayment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_SPONTANEOUSPAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_SPONTANEOUSPAYMENT
+void uniffi_ldk_node_fn_free_spontaneouspayment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND
+RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send(void* ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer sending_parameters, RustBuffer custom_tlvs, RustBuffer preimage, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_PROBES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_PROBES
+void uniffi_ldk_node_fn_method_spontaneouspayment_send_probes(void* ptr, uint64_t amount_msat, RustBuffer node_id, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_UNIFIEDQRPAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_UNIFIEDQRPAYMENT
+void* uniffi_ldk_node_fn_clone_unifiedqrpayment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_UNIFIEDQRPAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_UNIFIEDQRPAYMENT
+void uniffi_ldk_node_fn_free_unifiedqrpayment(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_UNIFIEDQRPAYMENT_RECEIVE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_UNIFIEDQRPAYMENT_RECEIVE
+RustBuffer uniffi_ldk_node_fn_method_unifiedqrpayment_receive(void* ptr, uint64_t amount_sats, RustBuffer message, uint32_t expiry_sec, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_UNIFIEDQRPAYMENT_SEND
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_UNIFIEDQRPAYMENT_SEND
+RustBuffer uniffi_ldk_node_fn_method_unifiedqrpayment_send(void* ptr, RustBuffer uri_str, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FUNC_DEFAULT_CONFIG
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FUNC_DEFAULT_CONFIG
+RustBuffer uniffi_ldk_node_fn_func_default_config(RustCallStatus *out_status
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FUNC_GENERATE_ENTROPY_MNEMONIC
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FUNC_GENERATE_ENTROPY_MNEMONIC
+RustBuffer uniffi_ldk_node_fn_func_generate_entropy_mnemonic(RustCallStatus *out_status
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUSTBUFFER_ALLOC
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUSTBUFFER_ALLOC
+RustBuffer ffi_ldk_node_rustbuffer_alloc(uint64_t size, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUSTBUFFER_FROM_BYTES
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUSTBUFFER_FROM_BYTES
+RustBuffer ffi_ldk_node_rustbuffer_from_bytes(ForeignBytes bytes, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUSTBUFFER_FREE
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUSTBUFFER_FREE
+void ffi_ldk_node_rustbuffer_free(RustBuffer buf, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUSTBUFFER_RESERVE
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUSTBUFFER_RESERVE
+RustBuffer ffi_ldk_node_rustbuffer_reserve(RustBuffer buf, uint64_t additional, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_U8
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_U8
+void ffi_ldk_node_rust_future_poll_u8(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_U8
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_U8
+void ffi_ldk_node_rust_future_cancel_u8(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_U8
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_U8
+void ffi_ldk_node_rust_future_free_u8(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_U8
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_U8
+uint8_t ffi_ldk_node_rust_future_complete_u8(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_I8
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_I8
+void ffi_ldk_node_rust_future_poll_i8(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_I8
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_I8
+void ffi_ldk_node_rust_future_cancel_i8(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_I8
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_I8
+void ffi_ldk_node_rust_future_free_i8(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_I8
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_I8
+int8_t ffi_ldk_node_rust_future_complete_i8(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_U16
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_U16
+void ffi_ldk_node_rust_future_poll_u16(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_U16
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_U16
+void ffi_ldk_node_rust_future_cancel_u16(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_U16
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_U16
+void ffi_ldk_node_rust_future_free_u16(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_U16
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_U16
+uint16_t ffi_ldk_node_rust_future_complete_u16(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_I16
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_I16
+void ffi_ldk_node_rust_future_poll_i16(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_I16
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_I16
+void ffi_ldk_node_rust_future_cancel_i16(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_I16
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_I16
+void ffi_ldk_node_rust_future_free_i16(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_I16
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_I16
+int16_t ffi_ldk_node_rust_future_complete_i16(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_U32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_U32
+void ffi_ldk_node_rust_future_poll_u32(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_U32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_U32
+void ffi_ldk_node_rust_future_cancel_u32(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_U32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_U32
+void ffi_ldk_node_rust_future_free_u32(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_U32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_U32
+uint32_t ffi_ldk_node_rust_future_complete_u32(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_I32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_I32
+void ffi_ldk_node_rust_future_poll_i32(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_I32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_I32
+void ffi_ldk_node_rust_future_cancel_i32(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_I32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_I32
+void ffi_ldk_node_rust_future_free_i32(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_I32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_I32
+int32_t ffi_ldk_node_rust_future_complete_i32(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_U64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_U64
+void ffi_ldk_node_rust_future_poll_u64(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_U64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_U64
+void ffi_ldk_node_rust_future_cancel_u64(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_U64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_U64
+void ffi_ldk_node_rust_future_free_u64(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_U64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_U64
+uint64_t ffi_ldk_node_rust_future_complete_u64(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_I64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_I64
+void ffi_ldk_node_rust_future_poll_i64(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_I64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_I64
+void ffi_ldk_node_rust_future_cancel_i64(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_I64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_I64
+void ffi_ldk_node_rust_future_free_i64(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_I64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_I64
+int64_t ffi_ldk_node_rust_future_complete_i64(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_F32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_F32
+void ffi_ldk_node_rust_future_poll_f32(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_F32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_F32
+void ffi_ldk_node_rust_future_cancel_f32(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_F32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_F32
+void ffi_ldk_node_rust_future_free_f32(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_F32
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_F32
+float ffi_ldk_node_rust_future_complete_f32(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_F64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_F64
+void ffi_ldk_node_rust_future_poll_f64(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_F64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_F64
+void ffi_ldk_node_rust_future_cancel_f64(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_F64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_F64
+void ffi_ldk_node_rust_future_free_f64(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_F64
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_F64
+double ffi_ldk_node_rust_future_complete_f64(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_POINTER
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_POINTER
+void ffi_ldk_node_rust_future_poll_pointer(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_POINTER
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_POINTER
+void ffi_ldk_node_rust_future_cancel_pointer(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_POINTER
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_POINTER
+void ffi_ldk_node_rust_future_free_pointer(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_POINTER
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_POINTER
+void* ffi_ldk_node_rust_future_complete_pointer(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_RUST_BUFFER
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_RUST_BUFFER
+void ffi_ldk_node_rust_future_poll_rust_buffer(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_RUST_BUFFER
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_RUST_BUFFER
+void ffi_ldk_node_rust_future_cancel_rust_buffer(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_RUST_BUFFER
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_RUST_BUFFER
+void ffi_ldk_node_rust_future_free_rust_buffer(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_RUST_BUFFER
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_RUST_BUFFER
+RustBuffer ffi_ldk_node_rust_future_complete_rust_buffer(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_VOID
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_VOID
+void ffi_ldk_node_rust_future_poll_void(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_VOID
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_VOID
+void ffi_ldk_node_rust_future_cancel_void(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_VOID
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_VOID
+void ffi_ldk_node_rust_future_free_void(uint64_t handle
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_VOID
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_VOID
+void ffi_ldk_node_rust_future_complete_void(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_FUNC_DEFAULT_CONFIG
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_FUNC_DEFAULT_CONFIG
+uint16_t uniffi_ldk_node_checksum_func_default_config(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_FUNC_GENERATE_ENTROPY_MNEMONIC
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_FUNC_GENERATE_ENTROPY_MNEMONIC
+uint16_t uniffi_ldk_node_checksum_func_generate_entropy_mnemonic(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_CLAIM_FOR_HASH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_CLAIM_FOR_HASH
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_claim_for_hash(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_FAIL_FOR_HASH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_FAIL_FOR_HASH
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_fail_for_hash(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE_FOR_HASH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE_FOR_HASH
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_for_hash(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_FOR_HASH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_FOR_HASH
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_for_hash(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_VIA_JIT_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_VIA_JIT_CHANNEL
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_via_jit_channel(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE_VIA_JIT_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_RECEIVE_VIA_JIT_CHANNEL
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_receive_via_jit_channel(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_SEND
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_SEND
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_send(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_SEND_PROBES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_SEND_PROBES
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_send_probes(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_SEND_PROBES_USING_AMOUNT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_SEND_PROBES_USING_AMOUNT
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_send_probes_using_amount(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_SEND_USING_AMOUNT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT11PAYMENT_SEND_USING_AMOUNT
+uint16_t uniffi_ldk_node_checksum_method_bolt11payment_send_using_amount(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_INITIATE_REFUND
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_INITIATE_REFUND
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_initiate_refund(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_RECEIVE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_RECEIVE
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_receive(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_RECEIVE_VARIABLE_AMOUNT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_RECEIVE_VARIABLE_AMOUNT
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_receive_variable_amount(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_REQUEST_REFUND_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_REQUEST_REFUND_PAYMENT
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_request_refund_payment(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_SEND
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_SEND
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_send(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_SEND_USING_AMOUNT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BOLT12PAYMENT_SEND_USING_AMOUNT
+uint16_t uniffi_ldk_node_checksum_method_bolt12payment_send_using_amount(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_BUILD
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_BUILD
+uint16_t uniffi_ldk_node_checksum_method_builder_build(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_BUILD_WITH_FS_STORE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_BUILD_WITH_FS_STORE
+uint16_t uniffi_ldk_node_checksum_method_builder_build_with_fs_store(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_BUILD_WITH_VSS_STORE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_BUILD_WITH_VSS_STORE
+uint16_t uniffi_ldk_node_checksum_method_builder_build_with_vss_store(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_BUILD_WITH_VSS_STORE_AND_FIXED_HEADERS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_BUILD_WITH_VSS_STORE_AND_FIXED_HEADERS
+uint16_t uniffi_ldk_node_checksum_method_builder_build_with_vss_store_and_fixed_headers(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_MIGRATE_STORAGE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_MIGRATE_STORAGE
+uint16_t uniffi_ldk_node_checksum_method_builder_migrate_storage(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_RESET_STATE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_RESET_STATE
+uint16_t uniffi_ldk_node_checksum_method_builder_reset_state(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_RESTORE_ENCODED_CHANNEL_MONITORS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_RESTORE_ENCODED_CHANNEL_MONITORS
+uint16_t uniffi_ldk_node_checksum_method_builder_restore_encoded_channel_monitors(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_RPC
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_RPC
+uint16_t uniffi_ldk_node_checksum_method_builder_set_chain_source_bitcoind_rpc(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CHAIN_SOURCE_ESPLORA
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CHAIN_SOURCE_ESPLORA
+uint16_t uniffi_ldk_node_checksum_method_builder_set_chain_source_esplora(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_ENTROPY_BIP39_MNEMONIC
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_ENTROPY_BIP39_MNEMONIC
+uint16_t uniffi_ldk_node_checksum_method_builder_set_entropy_bip39_mnemonic(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_ENTROPY_SEED_BYTES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_ENTROPY_SEED_BYTES
+uint16_t uniffi_ldk_node_checksum_method_builder_set_entropy_seed_bytes(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_ENTROPY_SEED_PATH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_ENTROPY_SEED_PATH
+uint16_t uniffi_ldk_node_checksum_method_builder_set_entropy_seed_path(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_GOSSIP_SOURCE_P2P
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_GOSSIP_SOURCE_P2P
+uint16_t uniffi_ldk_node_checksum_method_builder_set_gossip_source_p2p(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_GOSSIP_SOURCE_RGS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_GOSSIP_SOURCE_RGS
+uint16_t uniffi_ldk_node_checksum_method_builder_set_gossip_source_rgs(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS2
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS2
+uint16_t uniffi_ldk_node_checksum_method_builder_set_liquidity_source_lsps2(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LISTENING_ADDRESSES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LISTENING_ADDRESSES
+uint16_t uniffi_ldk_node_checksum_method_builder_set_listening_addresses(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_NETWORK
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_NETWORK
+uint16_t uniffi_ldk_node_checksum_method_builder_set_network(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_NODE_ALIAS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_NODE_ALIAS
+uint16_t uniffi_ldk_node_checksum_method_builder_set_node_alias(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_STORAGE_DIR_PATH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_STORAGE_DIR_PATH
+uint16_t uniffi_ldk_node_checksum_method_builder_set_storage_dir_path(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NETWORKGRAPH_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NETWORKGRAPH_CHANNEL
+uint16_t uniffi_ldk_node_checksum_method_networkgraph_channel(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NETWORKGRAPH_LIST_CHANNELS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NETWORKGRAPH_LIST_CHANNELS
+uint16_t uniffi_ldk_node_checksum_method_networkgraph_list_channels(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NETWORKGRAPH_LIST_NODES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NETWORKGRAPH_LIST_NODES
+uint16_t uniffi_ldk_node_checksum_method_networkgraph_list_nodes(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NETWORKGRAPH_NODE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NETWORKGRAPH_NODE
+uint16_t uniffi_ldk_node_checksum_method_networkgraph_node(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_BOLT11_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_BOLT11_PAYMENT
+uint16_t uniffi_ldk_node_checksum_method_node_bolt11_payment(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_BOLT12_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_BOLT12_PAYMENT
+uint16_t uniffi_ldk_node_checksum_method_node_bolt12_payment(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_CLOSE_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_CLOSE_CHANNEL
+uint16_t uniffi_ldk_node_checksum_method_node_close_channel(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_CONFIG
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_CONFIG
+uint16_t uniffi_ldk_node_checksum_method_node_config(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_CONNECT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_CONNECT
+uint16_t uniffi_ldk_node_checksum_method_node_connect(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_DISCONNECT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_DISCONNECT
+uint16_t uniffi_ldk_node_checksum_method_node_disconnect(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_EVENT_HANDLED
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_EVENT_HANDLED
+uint16_t uniffi_ldk_node_checksum_method_node_event_handled(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_FORCE_CLOSE_ALL_CHANNELS_WITHOUT_BROADCASTING_TXN
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_FORCE_CLOSE_ALL_CHANNELS_WITHOUT_BROADCASTING_TXN
+uint16_t uniffi_ldk_node_checksum_method_node_force_close_all_channels_without_broadcasting_txn(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_FORCE_CLOSE_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_FORCE_CLOSE_CHANNEL
+uint16_t uniffi_ldk_node_checksum_method_node_force_close_channel(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_GET_ENCODED_CHANNEL_MONITORS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_GET_ENCODED_CHANNEL_MONITORS
+uint16_t uniffi_ldk_node_checksum_method_node_get_encoded_channel_monitors(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_BALANCES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_BALANCES
+uint16_t uniffi_ldk_node_checksum_method_node_list_balances(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_CHANNELS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_CHANNELS
+uint16_t uniffi_ldk_node_checksum_method_node_list_channels(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_PAYMENTS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_PAYMENTS
+uint16_t uniffi_ldk_node_checksum_method_node_list_payments(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_PEERS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_PEERS
+uint16_t uniffi_ldk_node_checksum_method_node_list_peers(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LISTENING_ADDRESSES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LISTENING_ADDRESSES
+uint16_t uniffi_ldk_node_checksum_method_node_listening_addresses(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NETWORK_GRAPH
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NETWORK_GRAPH
+uint16_t uniffi_ldk_node_checksum_method_node_network_graph(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NEXT_EVENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NEXT_EVENT
+uint16_t uniffi_ldk_node_checksum_method_node_next_event(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NODE_ALIAS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NODE_ALIAS
+uint16_t uniffi_ldk_node_checksum_method_node_node_alias(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NODE_ID
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NODE_ID
+uint16_t uniffi_ldk_node_checksum_method_node_node_id(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_ONCHAIN_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_ONCHAIN_PAYMENT
+uint16_t uniffi_ldk_node_checksum_method_node_onchain_payment(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_OPEN_ANNOUNCED_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_OPEN_ANNOUNCED_CHANNEL
+uint16_t uniffi_ldk_node_checksum_method_node_open_announced_channel(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_OPEN_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_OPEN_CHANNEL
+uint16_t uniffi_ldk_node_checksum_method_node_open_channel(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_PAYMENT
+uint16_t uniffi_ldk_node_checksum_method_node_payment(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_REMOVE_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_REMOVE_PAYMENT
+uint16_t uniffi_ldk_node_checksum_method_node_remove_payment(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_SIGN_MESSAGE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_SIGN_MESSAGE
+uint16_t uniffi_ldk_node_checksum_method_node_sign_message(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_SPONTANEOUS_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_SPONTANEOUS_PAYMENT
+uint16_t uniffi_ldk_node_checksum_method_node_spontaneous_payment(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_START
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_START
+uint16_t uniffi_ldk_node_checksum_method_node_start(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_STATUS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_STATUS
+uint16_t uniffi_ldk_node_checksum_method_node_status(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_STOP
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_STOP
+uint16_t uniffi_ldk_node_checksum_method_node_stop(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_SYNC_WALLETS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_SYNC_WALLETS
+uint16_t uniffi_ldk_node_checksum_method_node_sync_wallets(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_UNIFIED_QR_PAYMENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_UNIFIED_QR_PAYMENT
+uint16_t uniffi_ldk_node_checksum_method_node_unified_qr_payment(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_UPDATE_CHANNEL_CONFIG
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_UPDATE_CHANNEL_CONFIG
+uint16_t uniffi_ldk_node_checksum_method_node_update_channel_config(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_UPDATE_FEE_ESTIMATES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_UPDATE_FEE_ESTIMATES
+uint16_t uniffi_ldk_node_checksum_method_node_update_fee_estimates(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_VERIFY_SIGNATURE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_VERIFY_SIGNATURE
+uint16_t uniffi_ldk_node_checksum_method_node_verify_signature(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_WAIT_NEXT_EVENT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_WAIT_NEXT_EVENT
+uint16_t uniffi_ldk_node_checksum_method_node_wait_next_event(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_ONCHAINPAYMENT_NEW_ADDRESS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_ONCHAINPAYMENT_NEW_ADDRESS
+uint16_t uniffi_ldk_node_checksum_method_onchainpayment_new_address(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_ONCHAINPAYMENT_SEND_ALL_TO_ADDRESS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_ONCHAINPAYMENT_SEND_ALL_TO_ADDRESS
+uint16_t uniffi_ldk_node_checksum_method_onchainpayment_send_all_to_address(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_ONCHAINPAYMENT_SEND_TO_ADDRESS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_ONCHAINPAYMENT_SEND_TO_ADDRESS
+uint16_t uniffi_ldk_node_checksum_method_onchainpayment_send_to_address(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_SPONTANEOUSPAYMENT_SEND
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_SPONTANEOUSPAYMENT_SEND
+uint16_t uniffi_ldk_node_checksum_method_spontaneouspayment_send(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_SPONTANEOUSPAYMENT_SEND_PROBES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_SPONTANEOUSPAYMENT_SEND_PROBES
+uint16_t uniffi_ldk_node_checksum_method_spontaneouspayment_send_probes(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_UNIFIEDQRPAYMENT_RECEIVE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_UNIFIEDQRPAYMENT_RECEIVE
+uint16_t uniffi_ldk_node_checksum_method_unifiedqrpayment_receive(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_UNIFIEDQRPAYMENT_SEND
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_UNIFIEDQRPAYMENT_SEND
+uint16_t uniffi_ldk_node_checksum_method_unifiedqrpayment_send(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_CONSTRUCTOR_BUILDER_FROM_CONFIG
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_CONSTRUCTOR_BUILDER_FROM_CONFIG
+uint16_t uniffi_ldk_node_checksum_constructor_builder_from_config(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_CONSTRUCTOR_BUILDER_NEW
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_CONSTRUCTOR_BUILDER_NEW
+uint16_t uniffi_ldk_node_checksum_constructor_builder_new(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_UNIFFI_CONTRACT_VERSION
+#define UNIFFI_FFIDEF_FFI_LDK_NODE_UNIFFI_CONTRACT_VERSION
+uint32_t ffi_ldk_node_uniffi_contract_version(void
+    
+);
+#endif
 
