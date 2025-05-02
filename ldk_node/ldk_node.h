@@ -378,6 +378,28 @@ static void call_UniffiForeignFutureCompleteVoid(
 
 
 #endif
+#ifndef UNIFFI_FFIDEF_CALLBACK_INTERFACE_LOG_WRITER_METHOD0
+#define UNIFFI_FFIDEF_CALLBACK_INTERFACE_LOG_WRITER_METHOD0
+typedef void (*UniffiCallbackInterfaceLogWriterMethod0)(uint64_t uniffi_handle, RustBuffer record, void* uniffi_out_return, RustCallStatus* callStatus );
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static void call_UniffiCallbackInterfaceLogWriterMethod0(
+				UniffiCallbackInterfaceLogWriterMethod0 cb, uint64_t uniffi_handle, RustBuffer record, void* uniffi_out_return, RustCallStatus* callStatus )
+{
+	return cb(uniffi_handle, record, uniffi_out_return, callStatus );
+}
+
+
+#endif
+#ifndef UNIFFI_FFIDEF_V_TABLE_CALLBACK_INTERFACE_LOG_WRITER
+#define UNIFFI_FFIDEF_V_TABLE_CALLBACK_INTERFACE_LOG_WRITER
+typedef struct UniffiVTableCallbackInterfaceLogWriter {
+    UniffiCallbackInterfaceLogWriterMethod0 log;
+    UniffiCallbackInterfaceFree uniffiFree;
+} UniffiVTableCallbackInterfaceLogWriter;
+
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT11PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT11PAYMENT
 void* uniffi_ldk_node_fn_clone_bolt11payment(void* ptr, RustCallStatus *out_status
@@ -544,14 +566,29 @@ void uniffi_ldk_node_fn_method_builder_reset_state(void* ptr, RustBuffer what, R
 void uniffi_ldk_node_fn_method_builder_restore_encoded_channel_monitors(void* ptr, RustBuffer monitors, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ANNOUNCEMENT_ADDRESSES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ANNOUNCEMENT_ADDRESSES
+void uniffi_ldk_node_fn_method_builder_set_announcement_addresses(void* ptr, RustBuffer announcement_addresses, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_RPC
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_RPC
 void uniffi_ldk_node_fn_method_builder_set_chain_source_bitcoind_rpc(void* ptr, RustBuffer rpc_host, uint16_t rpc_port, RustBuffer rpc_user, RustBuffer rpc_password, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_ELECTRUM
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_ELECTRUM
+void uniffi_ldk_node_fn_method_builder_set_chain_source_electrum(void* ptr, RustBuffer server_url, RustBuffer config, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_ESPLORA
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_ESPLORA
 void uniffi_ldk_node_fn_method_builder_set_chain_source_esplora(void* ptr, RustBuffer server_url, RustBuffer config, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CUSTOM_LOGGER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CUSTOM_LOGGER
+void uniffi_ldk_node_fn_method_builder_set_custom_logger(void* ptr, void* log_writer, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ENTROPY_BIP39_MNEMONIC
@@ -569,6 +606,11 @@ void uniffi_ldk_node_fn_method_builder_set_entropy_seed_bytes(void* ptr, RustBuf
 void uniffi_ldk_node_fn_method_builder_set_entropy_seed_path(void* ptr, RustBuffer seed_path, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_FILESYSTEM_LOGGER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_FILESYSTEM_LOGGER
+void uniffi_ldk_node_fn_method_builder_set_filesystem_logger(void* ptr, RustBuffer log_file_path, RustBuffer max_log_level, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_GOSSIP_SOURCE_P2P
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_GOSSIP_SOURCE_P2P
 void uniffi_ldk_node_fn_method_builder_set_gossip_source_p2p(void* ptr, RustCallStatus *out_status
@@ -579,14 +621,24 @@ void uniffi_ldk_node_fn_method_builder_set_gossip_source_p2p(void* ptr, RustCall
 void uniffi_ldk_node_fn_method_builder_set_gossip_source_rgs(void* ptr, RustBuffer rgs_server_url, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS1
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS1
+void uniffi_ldk_node_fn_method_builder_set_liquidity_source_lsps1(void* ptr, RustBuffer node_id, RustBuffer address, RustBuffer token, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS2
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS2
-void uniffi_ldk_node_fn_method_builder_set_liquidity_source_lsps2(void* ptr, RustBuffer address, RustBuffer node_id, RustBuffer token, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_liquidity_source_lsps2(void* ptr, RustBuffer node_id, RustBuffer address, RustBuffer token, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LISTENING_ADDRESSES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LISTENING_ADDRESSES
 void uniffi_ldk_node_fn_method_builder_set_listening_addresses(void* ptr, RustBuffer listening_addresses, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LOG_FACADE_LOGGER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LOG_FACADE_LOGGER
+void uniffi_ldk_node_fn_method_builder_set_log_facade_logger(void* ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_NETWORK
@@ -602,6 +654,81 @@ void uniffi_ldk_node_fn_method_builder_set_node_alias(void* ptr, RustBuffer node
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_STORAGE_DIR_PATH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_STORAGE_DIR_PATH
 void uniffi_ldk_node_fn_method_builder_set_storage_dir_path(void* ptr, RustBuffer storage_dir_path, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_FEERATE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_FEERATE
+void* uniffi_ldk_node_fn_clone_feerate(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_FEERATE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_FEERATE
+void uniffi_ldk_node_fn_free_feerate(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_FEERATE_FROM_SAT_PER_KWU
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_FEERATE_FROM_SAT_PER_KWU
+void* uniffi_ldk_node_fn_constructor_feerate_from_sat_per_kwu(uint64_t sat_kwu, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_FEERATE_FROM_SAT_PER_VB_UNCHECKED
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_FEERATE_FROM_SAT_PER_VB_UNCHECKED
+void* uniffi_ldk_node_fn_constructor_feerate_from_sat_per_vb_unchecked(uint64_t sat_vb, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_KWU
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_KWU
+uint64_t uniffi_ldk_node_fn_method_feerate_to_sat_per_kwu(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_VB_CEIL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_VB_CEIL
+uint64_t uniffi_ldk_node_fn_method_feerate_to_sat_per_vb_ceil(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_VB_FLOOR
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_VB_FLOOR
+uint64_t uniffi_ldk_node_fn_method_feerate_to_sat_per_vb_floor(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LSPS1LIQUIDITY
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LSPS1LIQUIDITY
+void* uniffi_ldk_node_fn_clone_lsps1liquidity(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_LSPS1LIQUIDITY
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_LSPS1LIQUIDITY
+void uniffi_ldk_node_fn_free_lsps1liquidity(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LSPS1LIQUIDITY_CHECK_ORDER_STATUS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LSPS1LIQUIDITY_CHECK_ORDER_STATUS
+RustBuffer uniffi_ldk_node_fn_method_lsps1liquidity_check_order_status(void* ptr, RustBuffer order_id, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LSPS1LIQUIDITY_REQUEST_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LSPS1LIQUIDITY_REQUEST_CHANNEL
+RustBuffer uniffi_ldk_node_fn_method_lsps1liquidity_request_channel(void* ptr, uint64_t lsp_balance_sat, uint64_t client_balance_sat, uint32_t channel_expiry_blocks, int8_t announce_channel, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LOGWRITER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LOGWRITER
+void* uniffi_ldk_node_fn_clone_logwriter(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_LOGWRITER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_LOGWRITER
+void uniffi_ldk_node_fn_free_logwriter(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_INIT_CALLBACK_VTABLE_LOGWRITER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_INIT_CALLBACK_VTABLE_LOGWRITER
+void uniffi_ldk_node_fn_init_callback_vtable_logwriter(UniffiVTableCallbackInterfaceLogWriter* vtable
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LOGWRITER_LOG
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LOGWRITER_LOG
+void uniffi_ldk_node_fn_method_logwriter_log(void* ptr, RustBuffer record, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NETWORKGRAPH
@@ -644,6 +771,11 @@ void* uniffi_ldk_node_fn_clone_node(void* ptr, RustCallStatus *out_status
 void uniffi_ldk_node_fn_free_node(void* ptr, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_ANNOUNCEMENT_ADDRESSES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_ANNOUNCEMENT_ADDRESSES
+RustBuffer uniffi_ldk_node_fn_method_node_announcement_addresses(void* ptr, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_BOLT11_PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_BOLT11_PAYMENT
 void* uniffi_ldk_node_fn_method_node_bolt11_payment(void* ptr, RustCallStatus *out_status
@@ -679,9 +811,9 @@ void uniffi_ldk_node_fn_method_node_disconnect(void* ptr, RustBuffer node_id, Ru
 void uniffi_ldk_node_fn_method_node_event_handled(void* ptr, RustCallStatus *out_status
 );
 #endif
-#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_FORCE_CLOSE_ALL_CHANNELS_WITHOUT_BROADCASTING_TXN
-#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_FORCE_CLOSE_ALL_CHANNELS_WITHOUT_BROADCASTING_TXN
-void uniffi_ldk_node_fn_method_node_force_close_all_channels_without_broadcasting_txn(void* ptr, RustCallStatus *out_status
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_EXPORT_PATHFINDING_SCORES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_EXPORT_PATHFINDING_SCORES
+RustBuffer uniffi_ldk_node_fn_method_node_export_pathfinding_scores(void* ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_FORCE_CLOSE_CHANNEL
@@ -717,6 +849,11 @@ RustBuffer uniffi_ldk_node_fn_method_node_list_peers(void* ptr, RustCallStatus *
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LISTENING_ADDRESSES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LISTENING_ADDRESSES
 RustBuffer uniffi_ldk_node_fn_method_node_listening_addresses(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LSPS1_LIQUIDITY
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LSPS1_LIQUIDITY
+void* uniffi_ldk_node_fn_method_node_lsps1_liquidity(void* ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NETWORK_GRAPH
@@ -836,12 +973,12 @@ RustBuffer uniffi_ldk_node_fn_method_onchainpayment_new_address(void* ptr, RustC
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_ALL_TO_ADDRESS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_ALL_TO_ADDRESS
-RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_all_to_address(void* ptr, RustBuffer address, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_all_to_address(void* ptr, RustBuffer address, int8_t retain_reserve, RustBuffer fee_rate, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_TO_ADDRESS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_TO_ADDRESS
-RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_to_address(void* ptr, RustBuffer address, uint64_t amount_sats, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_to_address(void* ptr, RustBuffer address, uint64_t amount_sats, RustBuffer fee_rate, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_SPONTANEOUSPAYMENT
@@ -854,14 +991,14 @@ void* uniffi_ldk_node_fn_clone_spontaneouspayment(void* ptr, RustCallStatus *out
 void uniffi_ldk_node_fn_free_spontaneouspayment(void* ptr, RustCallStatus *out_status
 );
 #endif
-#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND
-#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND
-RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send(void* ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer sending_parameters, RustBuffer custom_tlvs, RustBuffer preimage, RustCallStatus *out_status
-);
-#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_PROBES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_PROBES
 void uniffi_ldk_node_fn_method_spontaneouspayment_send_probes(void* ptr, uint64_t amount_msat, RustBuffer node_id, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_WITH_TLVS_AND_PREIMAGE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_WITH_TLVS_AND_PREIMAGE
+RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send_with_tlvs_and_preimage(void* ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer sending_parameters, RustBuffer custom_tlvs, RustBuffer preimage, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_UNIFIEDQRPAYMENT
@@ -1338,15 +1475,33 @@ uint16_t uniffi_ldk_node_checksum_method_builder_restore_encoded_channel_monitor
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_ANNOUNCEMENT_ADDRESSES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_ANNOUNCEMENT_ADDRESSES
+uint16_t uniffi_ldk_node_checksum_method_builder_set_announcement_addresses(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_RPC
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_RPC
 uint16_t uniffi_ldk_node_checksum_method_builder_set_chain_source_bitcoind_rpc(void
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CHAIN_SOURCE_ELECTRUM
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CHAIN_SOURCE_ELECTRUM
+uint16_t uniffi_ldk_node_checksum_method_builder_set_chain_source_electrum(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CHAIN_SOURCE_ESPLORA
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CHAIN_SOURCE_ESPLORA
 uint16_t uniffi_ldk_node_checksum_method_builder_set_chain_source_esplora(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CUSTOM_LOGGER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_CUSTOM_LOGGER
+uint16_t uniffi_ldk_node_checksum_method_builder_set_custom_logger(void
     
 );
 #endif
@@ -1368,6 +1523,12 @@ uint16_t uniffi_ldk_node_checksum_method_builder_set_entropy_seed_path(void
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_FILESYSTEM_LOGGER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_FILESYSTEM_LOGGER
+uint16_t uniffi_ldk_node_checksum_method_builder_set_filesystem_logger(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_GOSSIP_SOURCE_P2P
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_GOSSIP_SOURCE_P2P
 uint16_t uniffi_ldk_node_checksum_method_builder_set_gossip_source_p2p(void
@@ -1380,6 +1541,12 @@ uint16_t uniffi_ldk_node_checksum_method_builder_set_gossip_source_rgs(void
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS1
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS1
+uint16_t uniffi_ldk_node_checksum_method_builder_set_liquidity_source_lsps1(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS2
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS2
 uint16_t uniffi_ldk_node_checksum_method_builder_set_liquidity_source_lsps2(void
@@ -1389,6 +1556,12 @@ uint16_t uniffi_ldk_node_checksum_method_builder_set_liquidity_source_lsps2(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LISTENING_ADDRESSES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LISTENING_ADDRESSES
 uint16_t uniffi_ldk_node_checksum_method_builder_set_listening_addresses(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LOG_FACADE_LOGGER
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_LOG_FACADE_LOGGER
+uint16_t uniffi_ldk_node_checksum_method_builder_set_log_facade_logger(void
     
 );
 #endif
@@ -1407,6 +1580,42 @@ uint16_t uniffi_ldk_node_checksum_method_builder_set_node_alias(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_STORAGE_DIR_PATH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_STORAGE_DIR_PATH
 uint16_t uniffi_ldk_node_checksum_method_builder_set_storage_dir_path(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_FEERATE_TO_SAT_PER_KWU
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_FEERATE_TO_SAT_PER_KWU
+uint16_t uniffi_ldk_node_checksum_method_feerate_to_sat_per_kwu(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_FEERATE_TO_SAT_PER_VB_CEIL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_FEERATE_TO_SAT_PER_VB_CEIL
+uint16_t uniffi_ldk_node_checksum_method_feerate_to_sat_per_vb_ceil(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_FEERATE_TO_SAT_PER_VB_FLOOR
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_FEERATE_TO_SAT_PER_VB_FLOOR
+uint16_t uniffi_ldk_node_checksum_method_feerate_to_sat_per_vb_floor(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_LSPS1LIQUIDITY_CHECK_ORDER_STATUS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_LSPS1LIQUIDITY_CHECK_ORDER_STATUS
+uint16_t uniffi_ldk_node_checksum_method_lsps1liquidity_check_order_status(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_LSPS1LIQUIDITY_REQUEST_CHANNEL
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_LSPS1LIQUIDITY_REQUEST_CHANNEL
+uint16_t uniffi_ldk_node_checksum_method_lsps1liquidity_request_channel(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_LOGWRITER_LOG
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_LOGWRITER_LOG
+uint16_t uniffi_ldk_node_checksum_method_logwriter_log(void
     
 );
 #endif
@@ -1431,6 +1640,12 @@ uint16_t uniffi_ldk_node_checksum_method_networkgraph_list_nodes(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NETWORKGRAPH_NODE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NETWORKGRAPH_NODE
 uint16_t uniffi_ldk_node_checksum_method_networkgraph_node(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_ANNOUNCEMENT_ADDRESSES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_ANNOUNCEMENT_ADDRESSES
+uint16_t uniffi_ldk_node_checksum_method_node_announcement_addresses(void
     
 );
 #endif
@@ -1476,9 +1691,9 @@ uint16_t uniffi_ldk_node_checksum_method_node_event_handled(void
     
 );
 #endif
-#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_FORCE_CLOSE_ALL_CHANNELS_WITHOUT_BROADCASTING_TXN
-#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_FORCE_CLOSE_ALL_CHANNELS_WITHOUT_BROADCASTING_TXN
-uint16_t uniffi_ldk_node_checksum_method_node_force_close_all_channels_without_broadcasting_txn(void
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_EXPORT_PATHFINDING_SCORES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_EXPORT_PATHFINDING_SCORES
+uint16_t uniffi_ldk_node_checksum_method_node_export_pathfinding_scores(void
     
 );
 #endif
@@ -1521,6 +1736,12 @@ uint16_t uniffi_ldk_node_checksum_method_node_list_peers(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LISTENING_ADDRESSES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LISTENING_ADDRESSES
 uint16_t uniffi_ldk_node_checksum_method_node_listening_addresses(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LSPS1_LIQUIDITY
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LSPS1_LIQUIDITY
+uint16_t uniffi_ldk_node_checksum_method_node_lsps1_liquidity(void
     
 );
 #endif
@@ -1662,15 +1883,15 @@ uint16_t uniffi_ldk_node_checksum_method_onchainpayment_send_to_address(void
     
 );
 #endif
-#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_SPONTANEOUSPAYMENT_SEND
-#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_SPONTANEOUSPAYMENT_SEND
-uint16_t uniffi_ldk_node_checksum_method_spontaneouspayment_send(void
-    
-);
-#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_SPONTANEOUSPAYMENT_SEND_PROBES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_SPONTANEOUSPAYMENT_SEND_PROBES
 uint16_t uniffi_ldk_node_checksum_method_spontaneouspayment_send_probes(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_SPONTANEOUSPAYMENT_SEND_WITH_TLVS_AND_PREIMAGE
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_SPONTANEOUSPAYMENT_SEND_WITH_TLVS_AND_PREIMAGE
+uint16_t uniffi_ldk_node_checksum_method_spontaneouspayment_send_with_tlvs_and_preimage(void
     
 );
 #endif
@@ -1698,6 +1919,18 @@ uint16_t uniffi_ldk_node_checksum_constructor_builder_new(void
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_CONSTRUCTOR_FEERATE_FROM_SAT_PER_KWU
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_CONSTRUCTOR_FEERATE_FROM_SAT_PER_KWU
+uint16_t uniffi_ldk_node_checksum_constructor_feerate_from_sat_per_kwu(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_CONSTRUCTOR_FEERATE_FROM_SAT_PER_VB_UNCHECKED
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_CONSTRUCTOR_FEERATE_FROM_SAT_PER_VB_UNCHECKED
+uint16_t uniffi_ldk_node_checksum_constructor_feerate_from_sat_per_vb_unchecked(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_UNIFFI_CONTRACT_VERSION
 #define UNIFFI_FFIDEF_FFI_LDK_NODE_UNIFFI_CONTRACT_VERSION
 uint32_t ffi_ldk_node_uniffi_contract_version(void
@@ -1705,3 +1938,5 @@ uint32_t ffi_ldk_node_uniffi_contract_version(void
 );
 #endif
 
+ void ldk_node_cgo_dispatchCallbackInterfaceLogWriterMethod0(uint64_t uniffi_handle, RustBuffer record, void* uniffi_out_return, RustCallStatus* callStatus );
+ void ldk_node_cgo_dispatchCallbackInterfaceLogWriterFree(uint64_t handle);
