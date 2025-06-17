@@ -368,6 +368,150 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_amount_milli_satoshis()
+		})
+		if checksum != 50823 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_amount_milli_satoshis: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_currency()
+		})
+		if checksum != 32179 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_currency: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_description()
+		})
+		if checksum != 9887 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_description: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_expiry_time_seconds()
+		})
+		if checksum != 23625 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_expiry_time_seconds: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_fallback_addresses()
+		})
+		if checksum != 55276 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_fallback_addresses: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_is_expired()
+		})
+		if checksum != 15932 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_is_expired: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_min_final_cltv_expiry_delta()
+		})
+		if checksum != 8855 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_min_final_cltv_expiry_delta: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_network()
+		})
+		if checksum != 12849 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_network: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_payment_hash()
+		})
+		if checksum != 42571 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_payment_hash: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_payment_secret()
+		})
+		if checksum != 26081 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_payment_secret: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_recover_payee_pub_key()
+		})
+		if checksum != 18874 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_recover_payee_pub_key: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_route_hints()
+		})
+		if checksum != 63051 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_route_hints: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_seconds_since_epoch()
+		})
+		if checksum != 53979 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_seconds_since_epoch: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_seconds_until_expiry()
+		})
+		if checksum != 64193 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_seconds_until_expiry: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_signable_hash()
+		})
+		if checksum != 30910 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_signable_hash: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_would_expire()
+		})
+		if checksum != 30331 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_would_expire: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_claim_for_hash()
 		})
 		if checksum != 52848 {
@@ -388,7 +532,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive()
 		})
-		if checksum != 47624 {
+		if checksum != 6073 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive: UniFFI API checksum mismatch")
 		}
@@ -397,7 +541,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_for_hash()
 		})
-		if checksum != 36395 {
+		if checksum != 27050 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_for_hash: UniFFI API checksum mismatch")
 		}
@@ -406,7 +550,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount()
 		})
-		if checksum != 38916 {
+		if checksum != 4893 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount: UniFFI API checksum mismatch")
 		}
@@ -415,7 +559,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_for_hash()
 		})
-		if checksum != 9075 {
+		if checksum != 1402 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_for_hash: UniFFI API checksum mismatch")
 		}
@@ -424,7 +568,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_via_jit_channel()
 		})
-		if checksum != 58805 {
+		if checksum != 24506 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_via_jit_channel: UniFFI API checksum mismatch")
 		}
@@ -433,7 +577,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_via_jit_channel()
 		})
-		if checksum != 30211 {
+		if checksum != 16532 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_via_jit_channel: UniFFI API checksum mismatch")
 		}
@@ -442,7 +586,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_send()
 		})
-		if checksum != 39133 {
+		if checksum != 63952 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_send: UniFFI API checksum mismatch")
 		}
@@ -451,7 +595,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_send_probes()
 		})
-		if checksum != 39625 {
+		if checksum != 969 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_send_probes: UniFFI API checksum mismatch")
 		}
@@ -460,7 +604,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_send_probes_using_amount()
 		})
-		if checksum != 25010 {
+		if checksum != 50136 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_send_probes_using_amount: UniFFI API checksum mismatch")
 		}
@@ -469,7 +613,7 @@ func uniffiCheckChecksums() {
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_send_using_amount()
 		})
-		if checksum != 19557 {
+		if checksum != 36530 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_send_using_amount: UniFFI API checksum mismatch")
 		}
@@ -1241,6 +1385,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_constructor_bolt11invoice_from_str()
+		})
+		if checksum != 349 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_constructor_bolt11invoice_from_str: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_constructor_builder_from_config()
 		})
 		if checksum != 994 {
@@ -1561,19 +1714,265 @@ func (ffiObject *FfiObject) freeRustArcPtr() {
 	})
 }
 
+type Bolt11InvoiceInterface interface {
+	AmountMilliSatoshis() *uint64
+	Currency() Currency
+	Description() Bolt11InvoiceDescription
+	ExpiryTimeSeconds() uint64
+	FallbackAddresses() []Address
+	IsExpired() bool
+	MinFinalCltvExpiryDelta() uint64
+	Network() Network
+	PaymentHash() PaymentHash
+	PaymentSecret() PaymentSecret
+	RecoverPayeePubKey() PublicKey
+	RouteHints() [][]RouteHintHop
+	SecondsSinceEpoch() uint64
+	SecondsUntilExpiry() uint64
+	SignableHash() []uint8
+	WouldExpire(atTimeSeconds uint64) bool
+}
+type Bolt11Invoice struct {
+	ffiObject FfiObject
+}
+
+func Bolt11InvoiceFromStr(invoiceStr string) (*Bolt11Invoice, *NodeError) {
+	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_constructor_bolt11invoice_from_str(FfiConverterStringINSTANCE.Lower(invoiceStr), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue *Bolt11Invoice
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+	}
+}
+
+func (_self *Bolt11Invoice) AmountMilliSatoshis() *uint64 {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterOptionalUint64INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_amount_milli_satoshis(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) Currency() Currency {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterCurrencyINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_currency(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) Description() Bolt11InvoiceDescription {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterBolt11InvoiceDescriptionINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_description(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) ExpiryTimeSeconds() uint64 {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterUint64INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint64_t {
+		return C.uniffi_ldk_node_fn_method_bolt11invoice_expiry_time_seconds(
+			_pointer, _uniffiStatus)
+	}))
+}
+
+func (_self *Bolt11Invoice) FallbackAddresses() []Address {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterSequenceTypeAddressINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_fallback_addresses(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) IsExpired() bool {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterBoolINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.int8_t {
+		return C.uniffi_ldk_node_fn_method_bolt11invoice_is_expired(
+			_pointer, _uniffiStatus)
+	}))
+}
+
+func (_self *Bolt11Invoice) MinFinalCltvExpiryDelta() uint64 {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterUint64INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint64_t {
+		return C.uniffi_ldk_node_fn_method_bolt11invoice_min_final_cltv_expiry_delta(
+			_pointer, _uniffiStatus)
+	}))
+}
+
+func (_self *Bolt11Invoice) Network() Network {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterTypeNetworkINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_network(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) PaymentHash() PaymentHash {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterTypePaymentHashINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_payment_hash(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) PaymentSecret() PaymentSecret {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterTypePaymentSecretINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_payment_secret(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) RecoverPayeePubKey() PublicKey {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterTypePublicKeyINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_recover_payee_pub_key(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) RouteHints() [][]RouteHintHop {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterSequenceSequenceRouteHintHopINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_route_hints(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) SecondsSinceEpoch() uint64 {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterUint64INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint64_t {
+		return C.uniffi_ldk_node_fn_method_bolt11invoice_seconds_since_epoch(
+			_pointer, _uniffiStatus)
+	}))
+}
+
+func (_self *Bolt11Invoice) SecondsUntilExpiry() uint64 {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterUint64INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint64_t {
+		return C.uniffi_ldk_node_fn_method_bolt11invoice_seconds_until_expiry(
+			_pointer, _uniffiStatus)
+	}))
+}
+
+func (_self *Bolt11Invoice) SignableHash() []uint8 {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterSequenceUint8INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_signable_hash(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) WouldExpire(atTimeSeconds uint64) bool {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterBoolINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.int8_t {
+		return C.uniffi_ldk_node_fn_method_bolt11invoice_would_expire(
+			_pointer, FfiConverterUint64INSTANCE.Lower(atTimeSeconds), _uniffiStatus)
+	}))
+}
+func (object *Bolt11Invoice) Destroy() {
+	runtime.SetFinalizer(object, nil)
+	object.ffiObject.destroy()
+}
+
+type FfiConverterBolt11Invoice struct{}
+
+var FfiConverterBolt11InvoiceINSTANCE = FfiConverterBolt11Invoice{}
+
+func (c FfiConverterBolt11Invoice) Lift(pointer unsafe.Pointer) *Bolt11Invoice {
+	result := &Bolt11Invoice{
+		newFfiObject(
+			pointer,
+			func(pointer unsafe.Pointer, status *C.RustCallStatus) unsafe.Pointer {
+				return C.uniffi_ldk_node_fn_clone_bolt11invoice(pointer, status)
+			},
+			func(pointer unsafe.Pointer, status *C.RustCallStatus) {
+				C.uniffi_ldk_node_fn_free_bolt11invoice(pointer, status)
+			},
+		),
+	}
+	runtime.SetFinalizer(result, (*Bolt11Invoice).Destroy)
+	return result
+}
+
+func (c FfiConverterBolt11Invoice) Read(reader io.Reader) *Bolt11Invoice {
+	return c.Lift(unsafe.Pointer(uintptr(readUint64(reader))))
+}
+
+func (c FfiConverterBolt11Invoice) Lower(value *Bolt11Invoice) unsafe.Pointer {
+	// TODO: this is bad - all synchronization from ObjectRuntime.go is discarded here,
+	// because the pointer will be decremented immediately after this function returns,
+	// and someone will be left holding onto a non-locked pointer.
+	pointer := value.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer value.ffiObject.decrementPointer()
+	return pointer
+
+}
+
+func (c FfiConverterBolt11Invoice) Write(writer io.Writer, value *Bolt11Invoice) {
+	writeUint64(writer, uint64(uintptr(c.Lower(value))))
+}
+
+type FfiDestroyerBolt11Invoice struct{}
+
+func (_ FfiDestroyerBolt11Invoice) Destroy(value *Bolt11Invoice) {
+	value.Destroy()
+}
+
 type Bolt11PaymentInterface interface {
 	ClaimForHash(paymentHash PaymentHash, claimableAmountMsat uint64, preimage PaymentPreimage) *NodeError
 	FailForHash(paymentHash PaymentHash) *NodeError
-	Receive(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32) (Bolt11Invoice, *NodeError)
-	ReceiveForHash(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (Bolt11Invoice, *NodeError)
-	ReceiveVariableAmount(description Bolt11InvoiceDescription, expirySecs uint32) (Bolt11Invoice, *NodeError)
-	ReceiveVariableAmountForHash(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (Bolt11Invoice, *NodeError)
-	ReceiveVariableAmountViaJitChannel(description Bolt11InvoiceDescription, expirySecs uint32, maxProportionalLspFeeLimitPpmMsat *uint64) (Bolt11Invoice, *NodeError)
-	ReceiveViaJitChannel(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, maxLspFeeLimitMsat *uint64) (Bolt11Invoice, *NodeError)
-	Send(invoice Bolt11Invoice, sendingParameters *SendingParameters) (PaymentId, *NodeError)
-	SendProbes(invoice Bolt11Invoice) *NodeError
-	SendProbesUsingAmount(invoice Bolt11Invoice, amountMsat uint64) *NodeError
-	SendUsingAmount(invoice Bolt11Invoice, amountMsat uint64, sendingParameters *SendingParameters) (PaymentId, *NodeError)
+	Receive(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, *NodeError)
+	ReceiveForHash(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, *NodeError)
+	ReceiveVariableAmount(description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, *NodeError)
+	ReceiveVariableAmountForHash(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, *NodeError)
+	ReceiveVariableAmountViaJitChannel(description Bolt11InvoiceDescription, expirySecs uint32, maxProportionalLspFeeLimitPpmMsat *uint64) (*Bolt11Invoice, *NodeError)
+	ReceiveViaJitChannel(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, maxLspFeeLimitMsat *uint64) (*Bolt11Invoice, *NodeError)
+	Send(invoice *Bolt11Invoice, sendingParameters *SendingParameters) (PaymentId, *NodeError)
+	SendProbes(invoice *Bolt11Invoice) *NodeError
+	SendProbesUsingAmount(invoice *Bolt11Invoice, amountMsat uint64) *NodeError
+	SendUsingAmount(invoice *Bolt11Invoice, amountMsat uint64, sendingParameters *SendingParameters) (PaymentId, *NodeError)
 }
 type Bolt11Payment struct {
 	ffiObject FfiObject
@@ -1601,115 +2000,103 @@ func (_self *Bolt11Payment) FailForHash(paymentHash PaymentHash) *NodeError {
 	return _uniffiErr
 }
 
-func (_self *Bolt11Payment) Receive(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32) (Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) Receive(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, *NodeError) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
-	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
-		return GoRustBuffer{
-			inner: C.uniffi_ldk_node_fn_method_bolt11payment_receive(
-				_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), _uniffiStatus),
-		}
+	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_bolt11payment_receive(
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
-		var _uniffiDefaultValue Bolt11Invoice
+		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
 	}
 }
 
-func (_self *Bolt11Payment) ReceiveForHash(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) ReceiveForHash(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, *NodeError) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
-	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
-		return GoRustBuffer{
-			inner: C.uniffi_ldk_node_fn_method_bolt11payment_receive_for_hash(
-				_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), _uniffiStatus),
-		}
+	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_for_hash(
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
-		var _uniffiDefaultValue Bolt11Invoice
+		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
 	}
 }
 
-func (_self *Bolt11Payment) ReceiveVariableAmount(description Bolt11InvoiceDescription, expirySecs uint32) (Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) ReceiveVariableAmount(description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, *NodeError) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
-	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
-		return GoRustBuffer{
-			inner: C.uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount(
-				_pointer, FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), _uniffiStatus),
-		}
+	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount(
+			_pointer, FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
-		var _uniffiDefaultValue Bolt11Invoice
+		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
 	}
 }
 
-func (_self *Bolt11Payment) ReceiveVariableAmountForHash(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) ReceiveVariableAmountForHash(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, *NodeError) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
-	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
-		return GoRustBuffer{
-			inner: C.uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_for_hash(
-				_pointer, FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), _uniffiStatus),
-		}
+	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_for_hash(
+			_pointer, FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
-		var _uniffiDefaultValue Bolt11Invoice
+		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
 	}
 }
 
-func (_self *Bolt11Payment) ReceiveVariableAmountViaJitChannel(description Bolt11InvoiceDescription, expirySecs uint32, maxProportionalLspFeeLimitPpmMsat *uint64) (Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) ReceiveVariableAmountViaJitChannel(description Bolt11InvoiceDescription, expirySecs uint32, maxProportionalLspFeeLimitPpmMsat *uint64) (*Bolt11Invoice, *NodeError) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
-	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
-		return GoRustBuffer{
-			inner: C.uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_via_jit_channel(
-				_pointer, FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterOptionalUint64INSTANCE.Lower(maxProportionalLspFeeLimitPpmMsat), _uniffiStatus),
-		}
+	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_via_jit_channel(
+			_pointer, FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterOptionalUint64INSTANCE.Lower(maxProportionalLspFeeLimitPpmMsat), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
-		var _uniffiDefaultValue Bolt11Invoice
+		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
 	}
 }
 
-func (_self *Bolt11Payment) ReceiveViaJitChannel(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, maxLspFeeLimitMsat *uint64) (Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) ReceiveViaJitChannel(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, maxLspFeeLimitMsat *uint64) (*Bolt11Invoice, *NodeError) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
-	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
-		return GoRustBuffer{
-			inner: C.uniffi_ldk_node_fn_method_bolt11payment_receive_via_jit_channel(
-				_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterOptionalUint64INSTANCE.Lower(maxLspFeeLimitMsat), _uniffiStatus),
-		}
+	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_via_jit_channel(
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterOptionalUint64INSTANCE.Lower(maxLspFeeLimitMsat), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
-		var _uniffiDefaultValue Bolt11Invoice
+		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
 	}
 }
 
-func (_self *Bolt11Payment) Send(invoice Bolt11Invoice, sendingParameters *SendingParameters) (PaymentId, *NodeError) {
+func (_self *Bolt11Payment) Send(invoice *Bolt11Invoice, sendingParameters *SendingParameters) (PaymentId, *NodeError) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return GoRustBuffer{
 			inner: C.uniffi_ldk_node_fn_method_bolt11payment_send(
-				_pointer, FfiConverterTypeBolt11InvoiceINSTANCE.Lower(invoice), FfiConverterOptionalSendingParametersINSTANCE.Lower(sendingParameters), _uniffiStatus),
+				_pointer, FfiConverterBolt11InvoiceINSTANCE.Lower(invoice), FfiConverterOptionalSendingParametersINSTANCE.Lower(sendingParameters), _uniffiStatus),
 		}
 	})
 	if _uniffiErr != nil {
@@ -1720,35 +2107,35 @@ func (_self *Bolt11Payment) Send(invoice Bolt11Invoice, sendingParameters *Sendi
 	}
 }
 
-func (_self *Bolt11Payment) SendProbes(invoice Bolt11Invoice) *NodeError {
+func (_self *Bolt11Payment) SendProbes(invoice *Bolt11Invoice) *NodeError {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_bolt11payment_send_probes(
-			_pointer, FfiConverterTypeBolt11InvoiceINSTANCE.Lower(invoice), _uniffiStatus)
+			_pointer, FfiConverterBolt11InvoiceINSTANCE.Lower(invoice), _uniffiStatus)
 		return false
 	})
 	return _uniffiErr
 }
 
-func (_self *Bolt11Payment) SendProbesUsingAmount(invoice Bolt11Invoice, amountMsat uint64) *NodeError {
+func (_self *Bolt11Payment) SendProbesUsingAmount(invoice *Bolt11Invoice, amountMsat uint64) *NodeError {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
 		C.uniffi_ldk_node_fn_method_bolt11payment_send_probes_using_amount(
-			_pointer, FfiConverterTypeBolt11InvoiceINSTANCE.Lower(invoice), FfiConverterUint64INSTANCE.Lower(amountMsat), _uniffiStatus)
+			_pointer, FfiConverterBolt11InvoiceINSTANCE.Lower(invoice), FfiConverterUint64INSTANCE.Lower(amountMsat), _uniffiStatus)
 		return false
 	})
 	return _uniffiErr
 }
 
-func (_self *Bolt11Payment) SendUsingAmount(invoice Bolt11Invoice, amountMsat uint64, sendingParameters *SendingParameters) (PaymentId, *NodeError) {
+func (_self *Bolt11Payment) SendUsingAmount(invoice *Bolt11Invoice, amountMsat uint64, sendingParameters *SendingParameters) (PaymentId, *NodeError) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return GoRustBuffer{
 			inner: C.uniffi_ldk_node_fn_method_bolt11payment_send_using_amount(
-				_pointer, FfiConverterTypeBolt11InvoiceINSTANCE.Lower(invoice), FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterOptionalSendingParametersINSTANCE.Lower(sendingParameters), _uniffiStatus),
+				_pointer, FfiConverterBolt11InvoiceINSTANCE.Lower(invoice), FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterOptionalSendingParametersINSTANCE.Lower(sendingParameters), _uniffiStatus),
 		}
 	})
 	if _uniffiErr != nil {
@@ -3744,7 +4131,7 @@ type Bolt11PaymentInfo struct {
 	ExpiresAt     DateTime
 	FeeTotalSat   uint64
 	OrderTotalSat uint64
-	Invoice       Bolt11Invoice
+	Invoice       *Bolt11Invoice
 }
 
 func (r *Bolt11PaymentInfo) Destroy() {
@@ -3752,7 +4139,7 @@ func (r *Bolt11PaymentInfo) Destroy() {
 	FfiDestroyerTypeDateTime{}.Destroy(r.ExpiresAt)
 	FfiDestroyerUint64{}.Destroy(r.FeeTotalSat)
 	FfiDestroyerUint64{}.Destroy(r.OrderTotalSat)
-	FfiDestroyerTypeBolt11Invoice{}.Destroy(r.Invoice)
+	FfiDestroyerBolt11Invoice{}.Destroy(r.Invoice)
 }
 
 type FfiConverterBolt11PaymentInfo struct{}
@@ -3769,7 +4156,7 @@ func (c FfiConverterBolt11PaymentInfo) Read(reader io.Reader) Bolt11PaymentInfo 
 		FfiConverterTypeDateTimeINSTANCE.Read(reader),
 		FfiConverterUint64INSTANCE.Read(reader),
 		FfiConverterUint64INSTANCE.Read(reader),
-		FfiConverterTypeBolt11InvoiceINSTANCE.Read(reader),
+		FfiConverterBolt11InvoiceINSTANCE.Read(reader),
 	}
 }
 
@@ -3782,7 +4169,7 @@ func (c FfiConverterBolt11PaymentInfo) Write(writer io.Writer, value Bolt11Payme
 	FfiConverterTypeDateTimeINSTANCE.Write(writer, value.ExpiresAt)
 	FfiConverterUint64INSTANCE.Write(writer, value.FeeTotalSat)
 	FfiConverterUint64INSTANCE.Write(writer, value.OrderTotalSat)
-	FfiConverterTypeBolt11InvoiceINSTANCE.Write(writer, value.Invoice)
+	FfiConverterBolt11InvoiceINSTANCE.Write(writer, value.Invoice)
 }
 
 type FfiDestroyerBolt11PaymentInfo struct{}
@@ -5051,6 +5438,62 @@ func (_ FfiDestroyerPeerDetails) Destroy(value PeerDetails) {
 	value.Destroy()
 }
 
+type RouteHintHop struct {
+	SrcNodeId       PublicKey
+	ShortChannelId  uint64
+	CltvExpiryDelta uint16
+	HtlcMinimumMsat *uint64
+	HtlcMaximumMsat *uint64
+	Fees            RoutingFees
+}
+
+func (r *RouteHintHop) Destroy() {
+	FfiDestroyerTypePublicKey{}.Destroy(r.SrcNodeId)
+	FfiDestroyerUint64{}.Destroy(r.ShortChannelId)
+	FfiDestroyerUint16{}.Destroy(r.CltvExpiryDelta)
+	FfiDestroyerOptionalUint64{}.Destroy(r.HtlcMinimumMsat)
+	FfiDestroyerOptionalUint64{}.Destroy(r.HtlcMaximumMsat)
+	FfiDestroyerRoutingFees{}.Destroy(r.Fees)
+}
+
+type FfiConverterRouteHintHop struct{}
+
+var FfiConverterRouteHintHopINSTANCE = FfiConverterRouteHintHop{}
+
+func (c FfiConverterRouteHintHop) Lift(rb RustBufferI) RouteHintHop {
+	return LiftFromRustBuffer[RouteHintHop](c, rb)
+}
+
+func (c FfiConverterRouteHintHop) Read(reader io.Reader) RouteHintHop {
+	return RouteHintHop{
+		FfiConverterTypePublicKeyINSTANCE.Read(reader),
+		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterUint16INSTANCE.Read(reader),
+		FfiConverterOptionalUint64INSTANCE.Read(reader),
+		FfiConverterOptionalUint64INSTANCE.Read(reader),
+		FfiConverterRoutingFeesINSTANCE.Read(reader),
+	}
+}
+
+func (c FfiConverterRouteHintHop) Lower(value RouteHintHop) C.RustBuffer {
+	return LowerIntoRustBuffer[RouteHintHop](c, value)
+}
+
+func (c FfiConverterRouteHintHop) Write(writer io.Writer, value RouteHintHop) {
+	FfiConverterTypePublicKeyINSTANCE.Write(writer, value.SrcNodeId)
+	FfiConverterUint64INSTANCE.Write(writer, value.ShortChannelId)
+	FfiConverterUint16INSTANCE.Write(writer, value.CltvExpiryDelta)
+	FfiConverterOptionalUint64INSTANCE.Write(writer, value.HtlcMinimumMsat)
+	FfiConverterOptionalUint64INSTANCE.Write(writer, value.HtlcMaximumMsat)
+	FfiConverterRoutingFeesINSTANCE.Write(writer, value.Fees)
+}
+
+type FfiDestroyerRouteHintHop struct{}
+
+func (_ FfiDestroyerRouteHintHop) Destroy(value RouteHintHop) {
+	value.Destroy()
+}
+
 type RoutingFees struct {
 	BaseMsat               uint32
 	ProportionalMillionths uint32
@@ -5976,6 +6419,41 @@ type FfiDestroyerConfirmationStatus struct{}
 
 func (_ FfiDestroyerConfirmationStatus) Destroy(value ConfirmationStatus) {
 	value.Destroy()
+}
+
+type Currency uint
+
+const (
+	CurrencyBitcoin        Currency = 1
+	CurrencyBitcoinTestnet Currency = 2
+	CurrencyRegtest        Currency = 3
+	CurrencySimnet         Currency = 4
+	CurrencySignet         Currency = 5
+)
+
+type FfiConverterCurrency struct{}
+
+var FfiConverterCurrencyINSTANCE = FfiConverterCurrency{}
+
+func (c FfiConverterCurrency) Lift(rb RustBufferI) Currency {
+	return LiftFromRustBuffer[Currency](c, rb)
+}
+
+func (c FfiConverterCurrency) Lower(value Currency) C.RustBuffer {
+	return LowerIntoRustBuffer[Currency](c, value)
+}
+func (FfiConverterCurrency) Read(reader io.Reader) Currency {
+	id := readInt32(reader)
+	return Currency(id)
+}
+
+func (FfiConverterCurrency) Write(writer io.Writer, value Currency) {
+	writeInt32(writer, int32(value))
+}
+
+type FfiDestroyerCurrency struct{}
+
+func (_ FfiDestroyerCurrency) Destroy(value Currency) {
 }
 
 type Event interface {
@@ -10692,6 +11170,49 @@ func (FfiDestroyerSequencePeerDetails) Destroy(sequence []PeerDetails) {
 	}
 }
 
+type FfiConverterSequenceRouteHintHop struct{}
+
+var FfiConverterSequenceRouteHintHopINSTANCE = FfiConverterSequenceRouteHintHop{}
+
+func (c FfiConverterSequenceRouteHintHop) Lift(rb RustBufferI) []RouteHintHop {
+	return LiftFromRustBuffer[[]RouteHintHop](c, rb)
+}
+
+func (c FfiConverterSequenceRouteHintHop) Read(reader io.Reader) []RouteHintHop {
+	length := readInt32(reader)
+	if length == 0 {
+		return nil
+	}
+	result := make([]RouteHintHop, 0, length)
+	for i := int32(0); i < length; i++ {
+		result = append(result, FfiConverterRouteHintHopINSTANCE.Read(reader))
+	}
+	return result
+}
+
+func (c FfiConverterSequenceRouteHintHop) Lower(value []RouteHintHop) C.RustBuffer {
+	return LowerIntoRustBuffer[[]RouteHintHop](c, value)
+}
+
+func (c FfiConverterSequenceRouteHintHop) Write(writer io.Writer, value []RouteHintHop) {
+	if len(value) > math.MaxInt32 {
+		panic("[]RouteHintHop is too large to fit into Int32")
+	}
+
+	writeInt32(writer, int32(len(value)))
+	for _, item := range value {
+		FfiConverterRouteHintHopINSTANCE.Write(writer, item)
+	}
+}
+
+type FfiDestroyerSequenceRouteHintHop struct{}
+
+func (FfiDestroyerSequenceRouteHintHop) Destroy(sequence []RouteHintHop) {
+	for _, value := range sequence {
+		FfiDestroyerRouteHintHop{}.Destroy(value)
+	}
+}
+
 type FfiConverterSequenceTlvEntry struct{}
 
 var FfiConverterSequenceTlvEntryINSTANCE = FfiConverterSequenceTlvEntry{}
@@ -10818,6 +11339,92 @@ type FfiDestroyerSequencePendingSweepBalance struct{}
 func (FfiDestroyerSequencePendingSweepBalance) Destroy(sequence []PendingSweepBalance) {
 	for _, value := range sequence {
 		FfiDestroyerPendingSweepBalance{}.Destroy(value)
+	}
+}
+
+type FfiConverterSequenceSequenceRouteHintHop struct{}
+
+var FfiConverterSequenceSequenceRouteHintHopINSTANCE = FfiConverterSequenceSequenceRouteHintHop{}
+
+func (c FfiConverterSequenceSequenceRouteHintHop) Lift(rb RustBufferI) [][]RouteHintHop {
+	return LiftFromRustBuffer[[][]RouteHintHop](c, rb)
+}
+
+func (c FfiConverterSequenceSequenceRouteHintHop) Read(reader io.Reader) [][]RouteHintHop {
+	length := readInt32(reader)
+	if length == 0 {
+		return nil
+	}
+	result := make([][]RouteHintHop, 0, length)
+	for i := int32(0); i < length; i++ {
+		result = append(result, FfiConverterSequenceRouteHintHopINSTANCE.Read(reader))
+	}
+	return result
+}
+
+func (c FfiConverterSequenceSequenceRouteHintHop) Lower(value [][]RouteHintHop) C.RustBuffer {
+	return LowerIntoRustBuffer[[][]RouteHintHop](c, value)
+}
+
+func (c FfiConverterSequenceSequenceRouteHintHop) Write(writer io.Writer, value [][]RouteHintHop) {
+	if len(value) > math.MaxInt32 {
+		panic("[][]RouteHintHop is too large to fit into Int32")
+	}
+
+	writeInt32(writer, int32(len(value)))
+	for _, item := range value {
+		FfiConverterSequenceRouteHintHopINSTANCE.Write(writer, item)
+	}
+}
+
+type FfiDestroyerSequenceSequenceRouteHintHop struct{}
+
+func (FfiDestroyerSequenceSequenceRouteHintHop) Destroy(sequence [][]RouteHintHop) {
+	for _, value := range sequence {
+		FfiDestroyerSequenceRouteHintHop{}.Destroy(value)
+	}
+}
+
+type FfiConverterSequenceTypeAddress struct{}
+
+var FfiConverterSequenceTypeAddressINSTANCE = FfiConverterSequenceTypeAddress{}
+
+func (c FfiConverterSequenceTypeAddress) Lift(rb RustBufferI) []Address {
+	return LiftFromRustBuffer[[]Address](c, rb)
+}
+
+func (c FfiConverterSequenceTypeAddress) Read(reader io.Reader) []Address {
+	length := readInt32(reader)
+	if length == 0 {
+		return nil
+	}
+	result := make([]Address, 0, length)
+	for i := int32(0); i < length; i++ {
+		result = append(result, FfiConverterTypeAddressINSTANCE.Read(reader))
+	}
+	return result
+}
+
+func (c FfiConverterSequenceTypeAddress) Lower(value []Address) C.RustBuffer {
+	return LowerIntoRustBuffer[[]Address](c, value)
+}
+
+func (c FfiConverterSequenceTypeAddress) Write(writer io.Writer, value []Address) {
+	if len(value) > math.MaxInt32 {
+		panic("[]Address is too large to fit into Int32")
+	}
+
+	writeInt32(writer, int32(len(value)))
+	for _, item := range value {
+		FfiConverterTypeAddressINSTANCE.Write(writer, item)
+	}
+}
+
+type FfiDestroyerSequenceTypeAddress struct{}
+
+func (FfiDestroyerSequenceTypeAddress) Destroy(sequence []Address) {
+	for _, value := range sequence {
+		FfiDestroyerTypeAddress{}.Destroy(value)
 	}
 }
 
@@ -11015,17 +11622,6 @@ type FfiConverterTypeBlockHash = FfiConverterString
 type FfiDestroyerTypeBlockHash = FfiDestroyerString
 
 var FfiConverterTypeBlockHashINSTANCE = FfiConverterString{}
-
-/**
- * Typealias from the type name used in the UDL file to the builtin type.  This
- * is needed because the UDL type name is used in function/method signatures.
- * It's also what we have an external type that references a custom type.
- */
-type Bolt11Invoice = string
-type FfiConverterTypeBolt11Invoice = FfiConverterString
-type FfiDestroyerTypeBolt11Invoice = FfiDestroyerString
-
-var FfiConverterTypeBolt11InvoiceINSTANCE = FfiConverterString{}
 
 /**
  * Typealias from the type name used in the UDL file to the builtin type.  This
