@@ -1575,7 +1575,7 @@ func (FfiConverterString) Read(reader io.Reader) string {
 	length := readInt32(reader)
 	buffer := make([]byte, length)
 	read_length, err := reader.Read(buffer)
-	if err != nil {
+	if err != nil && err != io.EOF {
 		panic(err)
 	}
 	if read_length != int(length) {
@@ -1638,7 +1638,7 @@ func (c FfiConverterBytes) Read(reader io.Reader) []byte {
 	length := readInt32(reader)
 	buffer := make([]byte, length)
 	read_length, err := reader.Read(buffer)
-	if err != nil {
+	if err != nil && err != io.EOF {
 		panic(err)
 	}
 	if read_length != int(length) {
@@ -1736,7 +1736,7 @@ type Bolt11Invoice struct {
 	ffiObject FfiObject
 }
 
-func Bolt11InvoiceFromStr(invoiceStr string) (*Bolt11Invoice, *NodeError) {
+func Bolt11InvoiceFromStr(invoiceStr string) (*Bolt11Invoice, error) {
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
 		return C.uniffi_ldk_node_fn_constructor_bolt11invoice_from_str(FfiConverterStringINSTANCE.Lower(invoiceStr), _uniffiStatus)
 	})
@@ -1744,7 +1744,7 @@ func Bolt11InvoiceFromStr(invoiceStr string) (*Bolt11Invoice, *NodeError) {
 		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
@@ -1961,24 +1961,24 @@ func (_ FfiDestroyerBolt11Invoice) Destroy(value *Bolt11Invoice) {
 }
 
 type Bolt11PaymentInterface interface {
-	ClaimForHash(paymentHash PaymentHash, claimableAmountMsat uint64, preimage PaymentPreimage) *NodeError
-	FailForHash(paymentHash PaymentHash) *NodeError
-	Receive(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, *NodeError)
-	ReceiveForHash(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, *NodeError)
-	ReceiveVariableAmount(description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, *NodeError)
-	ReceiveVariableAmountForHash(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, *NodeError)
-	ReceiveVariableAmountViaJitChannel(description Bolt11InvoiceDescription, expirySecs uint32, maxProportionalLspFeeLimitPpmMsat *uint64) (*Bolt11Invoice, *NodeError)
-	ReceiveViaJitChannel(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, maxLspFeeLimitMsat *uint64) (*Bolt11Invoice, *NodeError)
-	Send(invoice *Bolt11Invoice, sendingParameters *SendingParameters) (PaymentId, *NodeError)
-	SendProbes(invoice *Bolt11Invoice) *NodeError
-	SendProbesUsingAmount(invoice *Bolt11Invoice, amountMsat uint64) *NodeError
-	SendUsingAmount(invoice *Bolt11Invoice, amountMsat uint64, sendingParameters *SendingParameters) (PaymentId, *NodeError)
+	ClaimForHash(paymentHash PaymentHash, claimableAmountMsat uint64, preimage PaymentPreimage) error
+	FailForHash(paymentHash PaymentHash) error
+	Receive(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, error)
+	ReceiveForHash(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, error)
+	ReceiveVariableAmount(description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, error)
+	ReceiveVariableAmountForHash(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, error)
+	ReceiveVariableAmountViaJitChannel(description Bolt11InvoiceDescription, expirySecs uint32, maxProportionalLspFeeLimitPpmMsat *uint64) (*Bolt11Invoice, error)
+	ReceiveViaJitChannel(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, maxLspFeeLimitMsat *uint64) (*Bolt11Invoice, error)
+	Send(invoice *Bolt11Invoice, sendingParameters *SendingParameters) (PaymentId, error)
+	SendProbes(invoice *Bolt11Invoice) error
+	SendProbesUsingAmount(invoice *Bolt11Invoice, amountMsat uint64) error
+	SendUsingAmount(invoice *Bolt11Invoice, amountMsat uint64, sendingParameters *SendingParameters) (PaymentId, error)
 }
 type Bolt11Payment struct {
 	ffiObject FfiObject
 }
 
-func (_self *Bolt11Payment) ClaimForHash(paymentHash PaymentHash, claimableAmountMsat uint64, preimage PaymentPreimage) *NodeError {
+func (_self *Bolt11Payment) ClaimForHash(paymentHash PaymentHash, claimableAmountMsat uint64, preimage PaymentPreimage) error {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -1986,10 +1986,10 @@ func (_self *Bolt11Payment) ClaimForHash(paymentHash PaymentHash, claimableAmoun
 			_pointer, FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), FfiConverterUint64INSTANCE.Lower(claimableAmountMsat), FfiConverterTypePaymentPreimageINSTANCE.Lower(preimage), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *Bolt11Payment) FailForHash(paymentHash PaymentHash) *NodeError {
+func (_self *Bolt11Payment) FailForHash(paymentHash PaymentHash) error {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -1997,10 +1997,10 @@ func (_self *Bolt11Payment) FailForHash(paymentHash PaymentHash) *NodeError {
 			_pointer, FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *Bolt11Payment) Receive(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) Receive(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
@@ -2011,11 +2011,11 @@ func (_self *Bolt11Payment) Receive(amountMsat uint64, description Bolt11Invoice
 		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt11Payment) ReceiveForHash(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) ReceiveForHash(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
@@ -2026,11 +2026,11 @@ func (_self *Bolt11Payment) ReceiveForHash(amountMsat uint64, description Bolt11
 		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt11Payment) ReceiveVariableAmount(description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) ReceiveVariableAmount(description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
@@ -2041,11 +2041,11 @@ func (_self *Bolt11Payment) ReceiveVariableAmount(description Bolt11InvoiceDescr
 		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt11Payment) ReceiveVariableAmountForHash(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) ReceiveVariableAmountForHash(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
@@ -2056,11 +2056,11 @@ func (_self *Bolt11Payment) ReceiveVariableAmountForHash(description Bolt11Invoi
 		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt11Payment) ReceiveVariableAmountViaJitChannel(description Bolt11InvoiceDescription, expirySecs uint32, maxProportionalLspFeeLimitPpmMsat *uint64) (*Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) ReceiveVariableAmountViaJitChannel(description Bolt11InvoiceDescription, expirySecs uint32, maxProportionalLspFeeLimitPpmMsat *uint64) (*Bolt11Invoice, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
@@ -2071,11 +2071,11 @@ func (_self *Bolt11Payment) ReceiveVariableAmountViaJitChannel(description Bolt1
 		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt11Payment) ReceiveViaJitChannel(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, maxLspFeeLimitMsat *uint64) (*Bolt11Invoice, *NodeError) {
+func (_self *Bolt11Payment) ReceiveViaJitChannel(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, maxLspFeeLimitMsat *uint64) (*Bolt11Invoice, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
@@ -2086,11 +2086,11 @@ func (_self *Bolt11Payment) ReceiveViaJitChannel(amountMsat uint64, description 
 		var _uniffiDefaultValue *Bolt11Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt11Payment) Send(invoice *Bolt11Invoice, sendingParameters *SendingParameters) (PaymentId, *NodeError) {
+func (_self *Bolt11Payment) Send(invoice *Bolt11Invoice, sendingParameters *SendingParameters) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -2103,11 +2103,11 @@ func (_self *Bolt11Payment) Send(invoice *Bolt11Invoice, sendingParameters *Send
 		var _uniffiDefaultValue PaymentId
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt11Payment) SendProbes(invoice *Bolt11Invoice) *NodeError {
+func (_self *Bolt11Payment) SendProbes(invoice *Bolt11Invoice) error {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -2115,10 +2115,10 @@ func (_self *Bolt11Payment) SendProbes(invoice *Bolt11Invoice) *NodeError {
 			_pointer, FfiConverterBolt11InvoiceINSTANCE.Lower(invoice), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *Bolt11Payment) SendProbesUsingAmount(invoice *Bolt11Invoice, amountMsat uint64) *NodeError {
+func (_self *Bolt11Payment) SendProbesUsingAmount(invoice *Bolt11Invoice, amountMsat uint64) error {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -2126,10 +2126,10 @@ func (_self *Bolt11Payment) SendProbesUsingAmount(invoice *Bolt11Invoice, amount
 			_pointer, FfiConverterBolt11InvoiceINSTANCE.Lower(invoice), FfiConverterUint64INSTANCE.Lower(amountMsat), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *Bolt11Payment) SendUsingAmount(invoice *Bolt11Invoice, amountMsat uint64, sendingParameters *SendingParameters) (PaymentId, *NodeError) {
+func (_self *Bolt11Payment) SendUsingAmount(invoice *Bolt11Invoice, amountMsat uint64, sendingParameters *SendingParameters) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -2142,7 +2142,7 @@ func (_self *Bolt11Payment) SendUsingAmount(invoice *Bolt11Invoice, amountMsat u
 		var _uniffiDefaultValue PaymentId
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 func (object *Bolt11Payment) Destroy() {
@@ -2195,18 +2195,18 @@ func (_ FfiDestroyerBolt11Payment) Destroy(value *Bolt11Payment) {
 }
 
 type Bolt12PaymentInterface interface {
-	InitiateRefund(amountMsat uint64, expirySecs uint32, quantity *uint64, payerNote *string) (Refund, *NodeError)
-	Receive(amountMsat uint64, description string, expirySecs *uint32, quantity *uint64) (Offer, *NodeError)
-	ReceiveVariableAmount(description string, expirySecs *uint32) (Offer, *NodeError)
-	RequestRefundPayment(refund Refund) (Bolt12Invoice, *NodeError)
-	Send(offer Offer, quantity *uint64, payerNote *string) (PaymentId, *NodeError)
-	SendUsingAmount(offer Offer, amountMsat uint64, quantity *uint64, payerNote *string) (PaymentId, *NodeError)
+	InitiateRefund(amountMsat uint64, expirySecs uint32, quantity *uint64, payerNote *string) (Refund, error)
+	Receive(amountMsat uint64, description string, expirySecs *uint32, quantity *uint64) (Offer, error)
+	ReceiveVariableAmount(description string, expirySecs *uint32) (Offer, error)
+	RequestRefundPayment(refund Refund) (Bolt12Invoice, error)
+	Send(offer Offer, quantity *uint64, payerNote *string) (PaymentId, error)
+	SendUsingAmount(offer Offer, amountMsat uint64, quantity *uint64, payerNote *string) (PaymentId, error)
 }
 type Bolt12Payment struct {
 	ffiObject FfiObject
 }
 
-func (_self *Bolt12Payment) InitiateRefund(amountMsat uint64, expirySecs uint32, quantity *uint64, payerNote *string) (Refund, *NodeError) {
+func (_self *Bolt12Payment) InitiateRefund(amountMsat uint64, expirySecs uint32, quantity *uint64, payerNote *string) (Refund, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -2219,11 +2219,11 @@ func (_self *Bolt12Payment) InitiateRefund(amountMsat uint64, expirySecs uint32,
 		var _uniffiDefaultValue Refund
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeRefundINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypeRefundINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt12Payment) Receive(amountMsat uint64, description string, expirySecs *uint32, quantity *uint64) (Offer, *NodeError) {
+func (_self *Bolt12Payment) Receive(amountMsat uint64, description string, expirySecs *uint32, quantity *uint64) (Offer, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -2236,11 +2236,11 @@ func (_self *Bolt12Payment) Receive(amountMsat uint64, description string, expir
 		var _uniffiDefaultValue Offer
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeOfferINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypeOfferINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt12Payment) ReceiveVariableAmount(description string, expirySecs *uint32) (Offer, *NodeError) {
+func (_self *Bolt12Payment) ReceiveVariableAmount(description string, expirySecs *uint32) (Offer, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -2253,11 +2253,11 @@ func (_self *Bolt12Payment) ReceiveVariableAmount(description string, expirySecs
 		var _uniffiDefaultValue Offer
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeOfferINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypeOfferINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt12Payment) RequestRefundPayment(refund Refund) (Bolt12Invoice, *NodeError) {
+func (_self *Bolt12Payment) RequestRefundPayment(refund Refund) (Bolt12Invoice, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -2270,11 +2270,11 @@ func (_self *Bolt12Payment) RequestRefundPayment(refund Refund) (Bolt12Invoice, 
 		var _uniffiDefaultValue Bolt12Invoice
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeBolt12InvoiceINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypeBolt12InvoiceINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt12Payment) Send(offer Offer, quantity *uint64, payerNote *string) (PaymentId, *NodeError) {
+func (_self *Bolt12Payment) Send(offer Offer, quantity *uint64, payerNote *string) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -2287,11 +2287,11 @@ func (_self *Bolt12Payment) Send(offer Offer, quantity *uint64, payerNote *strin
 		var _uniffiDefaultValue PaymentId
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Bolt12Payment) SendUsingAmount(offer Offer, amountMsat uint64, quantity *uint64, payerNote *string) (PaymentId, *NodeError) {
+func (_self *Bolt12Payment) SendUsingAmount(offer Offer, amountMsat uint64, quantity *uint64, payerNote *string) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt12Payment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -2304,7 +2304,7 @@ func (_self *Bolt12Payment) SendUsingAmount(offer Offer, amountMsat uint64, quan
 		var _uniffiDefaultValue PaymentId
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 func (object *Bolt12Payment) Destroy() {
@@ -2357,30 +2357,30 @@ func (_ FfiDestroyerBolt12Payment) Destroy(value *Bolt12Payment) {
 }
 
 type BuilderInterface interface {
-	Build() (*Node, *BuildError)
-	BuildWithFsStore() (*Node, *BuildError)
-	BuildWithVssStore(vssUrl string, storeId string, lnurlAuthServerUrl string, fixedHeaders map[string]string) (*Node, *BuildError)
-	BuildWithVssStoreAndFixedHeaders(vssUrl string, storeId string, fixedHeaders map[string]string) (*Node, *BuildError)
+	Build() (*Node, error)
+	BuildWithFsStore() (*Node, error)
+	BuildWithVssStore(vssUrl string, storeId string, lnurlAuthServerUrl string, fixedHeaders map[string]string) (*Node, error)
+	BuildWithVssStoreAndFixedHeaders(vssUrl string, storeId string, fixedHeaders map[string]string) (*Node, error)
 	MigrateStorage(what MigrateStorage)
 	ResetState(what ResetState)
 	RestoreEncodedChannelMonitors(monitors []KeyValue)
-	SetAnnouncementAddresses(announcementAddresses []SocketAddress) *BuildError
+	SetAnnouncementAddresses(announcementAddresses []SocketAddress) error
 	SetChainSourceBitcoindRpc(rpcHost string, rpcPort uint16, rpcUser string, rpcPassword string)
 	SetChainSourceElectrum(serverUrl string, config *ElectrumSyncConfig)
 	SetChainSourceEsplora(serverUrl string, config *EsploraSyncConfig)
 	SetCustomLogger(logWriter LogWriter)
 	SetEntropyBip39Mnemonic(mnemonic Mnemonic, passphrase *string)
-	SetEntropySeedBytes(seedBytes []uint8) *BuildError
+	SetEntropySeedBytes(seedBytes []uint8) error
 	SetEntropySeedPath(seedPath string)
 	SetFilesystemLogger(logFilePath *string, maxLogLevel *LogLevel)
 	SetGossipSourceP2p()
 	SetGossipSourceRgs(rgsServerUrl string)
 	SetLiquiditySourceLsps1(nodeId PublicKey, address SocketAddress, token *string)
 	SetLiquiditySourceLsps2(nodeId PublicKey, address SocketAddress, token *string)
-	SetListeningAddresses(listeningAddresses []SocketAddress) *BuildError
+	SetListeningAddresses(listeningAddresses []SocketAddress) error
 	SetLogFacadeLogger()
 	SetNetwork(network Network)
-	SetNodeAlias(nodeAlias string) *BuildError
+	SetNodeAlias(nodeAlias string) error
 	SetStorageDirPath(storageDirPath string)
 }
 type Builder struct {
@@ -2399,7 +2399,7 @@ func BuilderFromConfig(config Config) *Builder {
 	}))
 }
 
-func (_self *Builder) Build() (*Node, *BuildError) {
+func (_self *Builder) Build() (*Node, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[BuildError](FfiConverterBuildError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
@@ -2410,11 +2410,11 @@ func (_self *Builder) Build() (*Node, *BuildError) {
 		var _uniffiDefaultValue *Node
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Builder) BuildWithFsStore() (*Node, *BuildError) {
+func (_self *Builder) BuildWithFsStore() (*Node, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[BuildError](FfiConverterBuildError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
@@ -2425,11 +2425,11 @@ func (_self *Builder) BuildWithFsStore() (*Node, *BuildError) {
 		var _uniffiDefaultValue *Node
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Builder) BuildWithVssStore(vssUrl string, storeId string, lnurlAuthServerUrl string, fixedHeaders map[string]string) (*Node, *BuildError) {
+func (_self *Builder) BuildWithVssStore(vssUrl string, storeId string, lnurlAuthServerUrl string, fixedHeaders map[string]string) (*Node, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[BuildError](FfiConverterBuildError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
@@ -2440,11 +2440,11 @@ func (_self *Builder) BuildWithVssStore(vssUrl string, storeId string, lnurlAuth
 		var _uniffiDefaultValue *Node
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Builder) BuildWithVssStoreAndFixedHeaders(vssUrl string, storeId string, fixedHeaders map[string]string) (*Node, *BuildError) {
+func (_self *Builder) BuildWithVssStoreAndFixedHeaders(vssUrl string, storeId string, fixedHeaders map[string]string) (*Node, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[BuildError](FfiConverterBuildError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
@@ -2455,7 +2455,7 @@ func (_self *Builder) BuildWithVssStoreAndFixedHeaders(vssUrl string, storeId st
 		var _uniffiDefaultValue *Node
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterNodeINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
@@ -2489,7 +2489,7 @@ func (_self *Builder) RestoreEncodedChannelMonitors(monitors []KeyValue) {
 	})
 }
 
-func (_self *Builder) SetAnnouncementAddresses(announcementAddresses []SocketAddress) *BuildError {
+func (_self *Builder) SetAnnouncementAddresses(announcementAddresses []SocketAddress) error {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[BuildError](FfiConverterBuildError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -2497,7 +2497,7 @@ func (_self *Builder) SetAnnouncementAddresses(announcementAddresses []SocketAdd
 			_pointer, FfiConverterSequenceTypeSocketAddressINSTANCE.Lower(announcementAddresses), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
 func (_self *Builder) SetChainSourceBitcoindRpc(rpcHost string, rpcPort uint16, rpcUser string, rpcPassword string) {
@@ -2550,7 +2550,7 @@ func (_self *Builder) SetEntropyBip39Mnemonic(mnemonic Mnemonic, passphrase *str
 	})
 }
 
-func (_self *Builder) SetEntropySeedBytes(seedBytes []uint8) *BuildError {
+func (_self *Builder) SetEntropySeedBytes(seedBytes []uint8) error {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[BuildError](FfiConverterBuildError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -2558,7 +2558,7 @@ func (_self *Builder) SetEntropySeedBytes(seedBytes []uint8) *BuildError {
 			_pointer, FfiConverterSequenceUint8INSTANCE.Lower(seedBytes), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
 func (_self *Builder) SetEntropySeedPath(seedPath string) {
@@ -2621,7 +2621,7 @@ func (_self *Builder) SetLiquiditySourceLsps2(nodeId PublicKey, address SocketAd
 	})
 }
 
-func (_self *Builder) SetListeningAddresses(listeningAddresses []SocketAddress) *BuildError {
+func (_self *Builder) SetListeningAddresses(listeningAddresses []SocketAddress) error {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[BuildError](FfiConverterBuildError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -2629,7 +2629,7 @@ func (_self *Builder) SetListeningAddresses(listeningAddresses []SocketAddress) 
 			_pointer, FfiConverterSequenceTypeSocketAddressINSTANCE.Lower(listeningAddresses), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
 func (_self *Builder) SetLogFacadeLogger() {
@@ -2652,7 +2652,7 @@ func (_self *Builder) SetNetwork(network Network) {
 	})
 }
 
-func (_self *Builder) SetNodeAlias(nodeAlias string) *BuildError {
+func (_self *Builder) SetNodeAlias(nodeAlias string) error {
 	_pointer := _self.ffiObject.incrementPointer("*Builder")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[BuildError](FfiConverterBuildError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -2660,7 +2660,7 @@ func (_self *Builder) SetNodeAlias(nodeAlias string) *BuildError {
 			_pointer, FfiConverterStringINSTANCE.Lower(nodeAlias), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
 func (_self *Builder) SetStorageDirPath(storageDirPath string) {
@@ -2818,14 +2818,14 @@ func (_ FfiDestroyerFeeRate) Destroy(value *FeeRate) {
 }
 
 type Lsps1LiquidityInterface interface {
-	CheckOrderStatus(orderId OrderId) (Lsps1OrderStatus, *NodeError)
-	RequestChannel(lspBalanceSat uint64, clientBalanceSat uint64, channelExpiryBlocks uint32, announceChannel bool) (Lsps1OrderStatus, *NodeError)
+	CheckOrderStatus(orderId OrderId) (Lsps1OrderStatus, error)
+	RequestChannel(lspBalanceSat uint64, clientBalanceSat uint64, channelExpiryBlocks uint32, announceChannel bool) (Lsps1OrderStatus, error)
 }
 type Lsps1Liquidity struct {
 	ffiObject FfiObject
 }
 
-func (_self *Lsps1Liquidity) CheckOrderStatus(orderId OrderId) (Lsps1OrderStatus, *NodeError) {
+func (_self *Lsps1Liquidity) CheckOrderStatus(orderId OrderId) (Lsps1OrderStatus, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Lsps1Liquidity")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -2838,11 +2838,11 @@ func (_self *Lsps1Liquidity) CheckOrderStatus(orderId OrderId) (Lsps1OrderStatus
 		var _uniffiDefaultValue Lsps1OrderStatus
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterLsps1OrderStatusINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterLsps1OrderStatusINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Lsps1Liquidity) RequestChannel(lspBalanceSat uint64, clientBalanceSat uint64, channelExpiryBlocks uint32, announceChannel bool) (Lsps1OrderStatus, *NodeError) {
+func (_self *Lsps1Liquidity) RequestChannel(lspBalanceSat uint64, clientBalanceSat uint64, channelExpiryBlocks uint32, announceChannel bool) (Lsps1OrderStatus, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Lsps1Liquidity")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -2855,7 +2855,7 @@ func (_self *Lsps1Liquidity) RequestChannel(lspBalanceSat uint64, clientBalanceS
 		var _uniffiDefaultValue Lsps1OrderStatus
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterLsps1OrderStatusINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterLsps1OrderStatusINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 func (object *Lsps1Liquidity) Destroy() {
@@ -3162,14 +3162,14 @@ type NodeInterface interface {
 	AnnouncementAddresses() *[]SocketAddress
 	Bolt11Payment() *Bolt11Payment
 	Bolt12Payment() *Bolt12Payment
-	CloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey) *NodeError
+	CloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey) error
 	Config() Config
-	Connect(nodeId PublicKey, address SocketAddress, persist bool) *NodeError
-	Disconnect(nodeId PublicKey) *NodeError
-	EventHandled() *NodeError
-	ExportPathfindingScores() ([]byte, *NodeError)
-	ForceCloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey, reason *string) *NodeError
-	GetEncodedChannelMonitors() ([]KeyValue, *NodeError)
+	Connect(nodeId PublicKey, address SocketAddress, persist bool) error
+	Disconnect(nodeId PublicKey) error
+	EventHandled() error
+	ExportPathfindingScores() ([]byte, error)
+	ForceCloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey, reason *string) error
+	GetEncodedChannelMonitors() ([]KeyValue, error)
 	ListBalances() BalanceDetails
 	ListChannels() []ChannelDetails
 	ListPayments() []PaymentDetails
@@ -3181,19 +3181,19 @@ type NodeInterface interface {
 	NodeAlias() *NodeAlias
 	NodeId() PublicKey
 	OnchainPayment() *OnchainPayment
-	OpenAnnouncedChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig *ChannelConfig) (UserChannelId, *NodeError)
-	OpenChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig *ChannelConfig) (UserChannelId, *NodeError)
+	OpenAnnouncedChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig *ChannelConfig) (UserChannelId, error)
+	OpenChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig *ChannelConfig) (UserChannelId, error)
 	Payment(paymentId PaymentId) *PaymentDetails
-	RemovePayment(paymentId PaymentId) *NodeError
+	RemovePayment(paymentId PaymentId) error
 	SignMessage(msg []uint8) string
 	SpontaneousPayment() *SpontaneousPayment
-	Start() *NodeError
+	Start() error
 	Status() NodeStatus
-	Stop() *NodeError
-	SyncWallets() *NodeError
+	Stop() error
+	SyncWallets() error
 	UnifiedQrPayment() *UnifiedQrPayment
-	UpdateChannelConfig(userChannelId UserChannelId, counterpartyNodeId PublicKey, channelConfig ChannelConfig) *NodeError
-	UpdateFeeEstimates() *NodeError
+	UpdateChannelConfig(userChannelId UserChannelId, counterpartyNodeId PublicKey, channelConfig ChannelConfig) error
+	UpdateFeeEstimates() error
 	VerifySignature(msg []uint8, sig string, pkey PublicKey) bool
 	WaitNextEvent() Event
 }
@@ -3230,7 +3230,7 @@ func (_self *Node) Bolt12Payment() *Bolt12Payment {
 	}))
 }
 
-func (_self *Node) CloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey) *NodeError {
+func (_self *Node) CloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3238,7 +3238,7 @@ func (_self *Node) CloseChannel(userChannelId UserChannelId, counterpartyNodeId 
 			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
 func (_self *Node) Config() Config {
@@ -3252,7 +3252,7 @@ func (_self *Node) Config() Config {
 	}))
 }
 
-func (_self *Node) Connect(nodeId PublicKey, address SocketAddress, persist bool) *NodeError {
+func (_self *Node) Connect(nodeId PublicKey, address SocketAddress, persist bool) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3260,10 +3260,10 @@ func (_self *Node) Connect(nodeId PublicKey, address SocketAddress, persist bool
 			_pointer, FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), FfiConverterTypeSocketAddressINSTANCE.Lower(address), FfiConverterBoolINSTANCE.Lower(persist), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *Node) Disconnect(nodeId PublicKey) *NodeError {
+func (_self *Node) Disconnect(nodeId PublicKey) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3271,10 +3271,10 @@ func (_self *Node) Disconnect(nodeId PublicKey) *NodeError {
 			_pointer, FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *Node) EventHandled() *NodeError {
+func (_self *Node) EventHandled() error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3282,10 +3282,10 @@ func (_self *Node) EventHandled() *NodeError {
 			_pointer, _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *Node) ExportPathfindingScores() ([]byte, *NodeError) {
+func (_self *Node) ExportPathfindingScores() ([]byte, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -3298,11 +3298,11 @@ func (_self *Node) ExportPathfindingScores() ([]byte, *NodeError) {
 		var _uniffiDefaultValue []byte
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterBytesINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterBytesINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Node) ForceCloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey, reason *string) *NodeError {
+func (_self *Node) ForceCloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey, reason *string) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3310,10 +3310,10 @@ func (_self *Node) ForceCloseChannel(userChannelId UserChannelId, counterpartyNo
 			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), FfiConverterOptionalStringINSTANCE.Lower(reason), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *Node) GetEncodedChannelMonitors() ([]KeyValue, *NodeError) {
+func (_self *Node) GetEncodedChannelMonitors() ([]KeyValue, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -3326,7 +3326,7 @@ func (_self *Node) GetEncodedChannelMonitors() ([]KeyValue, *NodeError) {
 		var _uniffiDefaultValue []KeyValue
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterSequenceKeyValueINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterSequenceKeyValueINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
@@ -3445,7 +3445,7 @@ func (_self *Node) OnchainPayment() *OnchainPayment {
 	}))
 }
 
-func (_self *Node) OpenAnnouncedChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig *ChannelConfig) (UserChannelId, *NodeError) {
+func (_self *Node) OpenAnnouncedChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig *ChannelConfig) (UserChannelId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -3458,11 +3458,11 @@ func (_self *Node) OpenAnnouncedChannel(nodeId PublicKey, address SocketAddress,
 		var _uniffiDefaultValue UserChannelId
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeUserChannelIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypeUserChannelIdINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *Node) OpenChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig *ChannelConfig) (UserChannelId, *NodeError) {
+func (_self *Node) OpenChannel(nodeId PublicKey, address SocketAddress, channelAmountSats uint64, pushToCounterpartyMsat *uint64, channelConfig *ChannelConfig) (UserChannelId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -3475,7 +3475,7 @@ func (_self *Node) OpenChannel(nodeId PublicKey, address SocketAddress, channelA
 		var _uniffiDefaultValue UserChannelId
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeUserChannelIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypeUserChannelIdINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
@@ -3490,7 +3490,7 @@ func (_self *Node) Payment(paymentId PaymentId) *PaymentDetails {
 	}))
 }
 
-func (_self *Node) RemovePayment(paymentId PaymentId) *NodeError {
+func (_self *Node) RemovePayment(paymentId PaymentId) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3498,7 +3498,7 @@ func (_self *Node) RemovePayment(paymentId PaymentId) *NodeError {
 			_pointer, FfiConverterTypePaymentIdINSTANCE.Lower(paymentId), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
 func (_self *Node) SignMessage(msg []uint8) string {
@@ -3521,7 +3521,7 @@ func (_self *Node) SpontaneousPayment() *SpontaneousPayment {
 	}))
 }
 
-func (_self *Node) Start() *NodeError {
+func (_self *Node) Start() error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3529,7 +3529,7 @@ func (_self *Node) Start() *NodeError {
 			_pointer, _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
 func (_self *Node) Status() NodeStatus {
@@ -3543,7 +3543,7 @@ func (_self *Node) Status() NodeStatus {
 	}))
 }
 
-func (_self *Node) Stop() *NodeError {
+func (_self *Node) Stop() error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3551,10 +3551,10 @@ func (_self *Node) Stop() *NodeError {
 			_pointer, _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *Node) SyncWallets() *NodeError {
+func (_self *Node) SyncWallets() error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3562,7 +3562,7 @@ func (_self *Node) SyncWallets() *NodeError {
 			_pointer, _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
 func (_self *Node) UnifiedQrPayment() *UnifiedQrPayment {
@@ -3574,7 +3574,7 @@ func (_self *Node) UnifiedQrPayment() *UnifiedQrPayment {
 	}))
 }
 
-func (_self *Node) UpdateChannelConfig(userChannelId UserChannelId, counterpartyNodeId PublicKey, channelConfig ChannelConfig) *NodeError {
+func (_self *Node) UpdateChannelConfig(userChannelId UserChannelId, counterpartyNodeId PublicKey, channelConfig ChannelConfig) error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3582,10 +3582,10 @@ func (_self *Node) UpdateChannelConfig(userChannelId UserChannelId, counterparty
 			_pointer, FfiConverterTypeUserChannelIdINSTANCE.Lower(userChannelId), FfiConverterTypePublicKeyINSTANCE.Lower(counterpartyNodeId), FfiConverterChannelConfigINSTANCE.Lower(channelConfig), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *Node) UpdateFeeEstimates() *NodeError {
+func (_self *Node) UpdateFeeEstimates() error {
 	_pointer := _self.ffiObject.incrementPointer("*Node")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3593,7 +3593,7 @@ func (_self *Node) UpdateFeeEstimates() *NodeError {
 			_pointer, _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
 func (_self *Node) VerifySignature(msg []uint8, sig string, pkey PublicKey) bool {
@@ -3665,15 +3665,15 @@ func (_ FfiDestroyerNode) Destroy(value *Node) {
 }
 
 type OnchainPaymentInterface interface {
-	NewAddress() (Address, *NodeError)
-	SendAllToAddress(address Address, retainReserve bool, feeRate **FeeRate) (Txid, *NodeError)
-	SendToAddress(address Address, amountSats uint64, feeRate **FeeRate) (Txid, *NodeError)
+	NewAddress() (Address, error)
+	SendAllToAddress(address Address, retainReserve bool, feeRate **FeeRate) (Txid, error)
+	SendToAddress(address Address, amountSats uint64, feeRate **FeeRate) (Txid, error)
 }
 type OnchainPayment struct {
 	ffiObject FfiObject
 }
 
-func (_self *OnchainPayment) NewAddress() (Address, *NodeError) {
+func (_self *OnchainPayment) NewAddress() (Address, error) {
 	_pointer := _self.ffiObject.incrementPointer("*OnchainPayment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -3686,11 +3686,11 @@ func (_self *OnchainPayment) NewAddress() (Address, *NodeError) {
 		var _uniffiDefaultValue Address
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeAddressINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypeAddressINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *OnchainPayment) SendAllToAddress(address Address, retainReserve bool, feeRate **FeeRate) (Txid, *NodeError) {
+func (_self *OnchainPayment) SendAllToAddress(address Address, retainReserve bool, feeRate **FeeRate) (Txid, error) {
 	_pointer := _self.ffiObject.incrementPointer("*OnchainPayment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -3703,11 +3703,11 @@ func (_self *OnchainPayment) SendAllToAddress(address Address, retainReserve boo
 		var _uniffiDefaultValue Txid
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeTxidINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypeTxidINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *OnchainPayment) SendToAddress(address Address, amountSats uint64, feeRate **FeeRate) (Txid, *NodeError) {
+func (_self *OnchainPayment) SendToAddress(address Address, amountSats uint64, feeRate **FeeRate) (Txid, error) {
 	_pointer := _self.ffiObject.incrementPointer("*OnchainPayment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -3720,7 +3720,7 @@ func (_self *OnchainPayment) SendToAddress(address Address, amountSats uint64, f
 		var _uniffiDefaultValue Txid
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypeTxidINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypeTxidINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 func (object *OnchainPayment) Destroy() {
@@ -3773,14 +3773,14 @@ func (_ FfiDestroyerOnchainPayment) Destroy(value *OnchainPayment) {
 }
 
 type SpontaneousPaymentInterface interface {
-	SendProbes(amountMsat uint64, nodeId PublicKey) *NodeError
-	SendWithTlvsAndPreimage(amountMsat uint64, nodeId PublicKey, sendingParameters *SendingParameters, customTlvs []TlvEntry, preimage *PaymentPreimage) (PaymentId, *NodeError)
+	SendProbes(amountMsat uint64, nodeId PublicKey) error
+	SendWithTlvsAndPreimage(amountMsat uint64, nodeId PublicKey, sendingParameters *SendingParameters, customTlvs []TlvEntry, preimage *PaymentPreimage) (PaymentId, error)
 }
 type SpontaneousPayment struct {
 	ffiObject FfiObject
 }
 
-func (_self *SpontaneousPayment) SendProbes(amountMsat uint64, nodeId PublicKey) *NodeError {
+func (_self *SpontaneousPayment) SendProbes(amountMsat uint64, nodeId PublicKey) error {
 	_pointer := _self.ffiObject.incrementPointer("*SpontaneousPayment")
 	defer _self.ffiObject.decrementPointer()
 	_, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) bool {
@@ -3788,10 +3788,10 @@ func (_self *SpontaneousPayment) SendProbes(amountMsat uint64, nodeId PublicKey)
 			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterTypePublicKeyINSTANCE.Lower(nodeId), _uniffiStatus)
 		return false
 	})
-	return _uniffiErr
+	return _uniffiErr.AsError()
 }
 
-func (_self *SpontaneousPayment) SendWithTlvsAndPreimage(amountMsat uint64, nodeId PublicKey, sendingParameters *SendingParameters, customTlvs []TlvEntry, preimage *PaymentPreimage) (PaymentId, *NodeError) {
+func (_self *SpontaneousPayment) SendWithTlvsAndPreimage(amountMsat uint64, nodeId PublicKey, sendingParameters *SendingParameters, customTlvs []TlvEntry, preimage *PaymentPreimage) (PaymentId, error) {
 	_pointer := _self.ffiObject.incrementPointer("*SpontaneousPayment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -3804,7 +3804,7 @@ func (_self *SpontaneousPayment) SendWithTlvsAndPreimage(amountMsat uint64, node
 		var _uniffiDefaultValue PaymentId
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterTypePaymentIdINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 func (object *SpontaneousPayment) Destroy() {
@@ -3857,14 +3857,14 @@ func (_ FfiDestroyerSpontaneousPayment) Destroy(value *SpontaneousPayment) {
 }
 
 type UnifiedQrPaymentInterface interface {
-	Receive(amountSats uint64, message string, expirySec uint32) (string, *NodeError)
-	Send(uriStr string) (QrPaymentResult, *NodeError)
+	Receive(amountSats uint64, message string, expirySec uint32) (string, error)
+	Send(uriStr string) (QrPaymentResult, error)
 }
 type UnifiedQrPayment struct {
 	ffiObject FfiObject
 }
 
-func (_self *UnifiedQrPayment) Receive(amountSats uint64, message string, expirySec uint32) (string, *NodeError) {
+func (_self *UnifiedQrPayment) Receive(amountSats uint64, message string, expirySec uint32) (string, error) {
 	_pointer := _self.ffiObject.incrementPointer("*UnifiedQrPayment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -3877,11 +3877,11 @@ func (_self *UnifiedQrPayment) Receive(amountSats uint64, message string, expiry
 		var _uniffiDefaultValue string
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterStringINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterStringINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 
-func (_self *UnifiedQrPayment) Send(uriStr string) (QrPaymentResult, *NodeError) {
+func (_self *UnifiedQrPayment) Send(uriStr string) (QrPaymentResult, error) {
 	_pointer := _self.ffiObject.incrementPointer("*UnifiedQrPayment")
 	defer _self.ffiObject.decrementPointer()
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
@@ -3894,7 +3894,7 @@ func (_self *UnifiedQrPayment) Send(uriStr string) (QrPaymentResult, *NodeError)
 		var _uniffiDefaultValue QrPaymentResult
 		return _uniffiDefaultValue, _uniffiErr
 	} else {
-		return FfiConverterQrPaymentResultINSTANCE.Lift(_uniffiRV), _uniffiErr
+		return FfiConverterQrPaymentResultINSTANCE.Lift(_uniffiRV), nil
 	}
 }
 func (object *UnifiedQrPayment) Destroy() {
