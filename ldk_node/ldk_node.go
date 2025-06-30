@@ -386,15 +386,6 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
-			return C.uniffi_ldk_node_checksum_method_bolt11invoice_description()
-		})
-		if checksum != 9887 {
-			// If this happens try cleaning and rebuilding your project
-			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_description: UniFFI API checksum mismatch")
-		}
-	}
-	{
-		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11invoice_expiry_time_seconds()
 		})
 		if checksum != 23625 {
@@ -409,6 +400,15 @@ func uniffiCheckChecksums() {
 		if checksum != 55276 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_fallback_addresses: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11invoice_invoice_description()
+		})
+		if checksum != 395 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11invoice_invoice_description: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -1717,9 +1717,9 @@ func (ffiObject *FfiObject) freeRustArcPtr() {
 type Bolt11InvoiceInterface interface {
 	AmountMilliSatoshis() *uint64
 	Currency() Currency
-	Description() Bolt11InvoiceDescription
 	ExpiryTimeSeconds() uint64
 	FallbackAddresses() []Address
+	InvoiceDescription() Bolt11InvoiceDescription
 	IsExpired() bool
 	MinFinalCltvExpiryDelta() uint64
 	Network() Network
@@ -1770,17 +1770,6 @@ func (_self *Bolt11Invoice) Currency() Currency {
 	}))
 }
 
-func (_self *Bolt11Invoice) Description() Bolt11InvoiceDescription {
-	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
-	defer _self.ffiObject.decrementPointer()
-	return FfiConverterBolt11InvoiceDescriptionINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
-		return GoRustBuffer{
-			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_description(
-				_pointer, _uniffiStatus),
-		}
-	}))
-}
-
 func (_self *Bolt11Invoice) ExpiryTimeSeconds() uint64 {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
 	defer _self.ffiObject.decrementPointer()
@@ -1796,6 +1785,17 @@ func (_self *Bolt11Invoice) FallbackAddresses() []Address {
 	return FfiConverterSequenceTypeAddressINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return GoRustBuffer{
 			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_fallback_addresses(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) InvoiceDescription() Bolt11InvoiceDescription {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterBolt11InvoiceDescriptionINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_invoice_description(
 				_pointer, _uniffiStatus),
 		}
 	}))
@@ -1911,6 +1911,47 @@ func (_self *Bolt11Invoice) WouldExpire(atTimeSeconds uint64) bool {
 			_pointer, FfiConverterUint64INSTANCE.Lower(atTimeSeconds), _uniffiStatus)
 	}))
 }
+
+func (_self *Bolt11Invoice) DebugString() string {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterStringINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_debug(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) String() string {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterStringINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_display(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Bolt11Invoice) Eq(other *Bolt11Invoice) bool {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterBoolINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.int8_t {
+		return C.uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_eq_eq(
+			_pointer, FfiConverterBolt11InvoiceINSTANCE.Lower(other), _uniffiStatus)
+	}))
+}
+
+func (_self *Bolt11Invoice) Ne(other *Bolt11Invoice) bool {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Invoice")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterBoolINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) C.int8_t {
+		return C.uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_eq_ne(
+			_pointer, FfiConverterBolt11InvoiceINSTANCE.Lower(other), _uniffiStatus)
+	}))
+}
+
 func (object *Bolt11Invoice) Destroy() {
 	runtime.SetFinalizer(object, nil)
 	object.ffiObject.destroy()
