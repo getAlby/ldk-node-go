@@ -1349,6 +1349,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_list_channel_monitor_sizes()
+		})
+		if checksum != 34459 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_list_channel_monitor_sizes: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_node_list_channels()
 		})
 		if checksum != 7954 {
@@ -4136,6 +4145,7 @@ type NodeInterface interface {
 	ForceCloseChannel(userChannelId UserChannelId, counterpartyNodeId PublicKey, reason *string) error
 	GetEncodedChannelMonitors() ([]KeyValue, error)
 	ListBalances() BalanceDetails
+	ListChannelMonitorSizes() []ChannelMonitorSizeInfo
 	ListChannels() []ChannelDetails
 	ListPayments() []PaymentDetails
 	ListPeers() []PeerDetails
@@ -4303,6 +4313,17 @@ func (_self *Node) ListBalances() BalanceDetails {
 	return FfiConverterBalanceDetailsINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return GoRustBuffer{
 			inner: C.uniffi_ldk_node_fn_method_node_list_balances(
+				_pointer, _uniffiStatus),
+		}
+	}))
+}
+
+func (_self *Node) ListChannelMonitorSizes() []ChannelMonitorSizeInfo {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterSequenceChannelMonitorSizeInfoINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_node_list_channel_monitor_sizes(
 				_pointer, _uniffiStatus),
 		}
 	}))
@@ -5896,6 +5917,46 @@ func (c FfiConverterChannelInfo) Write(writer io.Writer, value ChannelInfo) {
 type FfiDestroyerChannelInfo struct{}
 
 func (_ FfiDestroyerChannelInfo) Destroy(value ChannelInfo) {
+	value.Destroy()
+}
+
+type ChannelMonitorSizeInfo struct {
+	ChannelId ChannelId
+	SizeBytes uint64
+}
+
+func (r *ChannelMonitorSizeInfo) Destroy() {
+	FfiDestroyerTypeChannelId{}.Destroy(r.ChannelId)
+	FfiDestroyerUint64{}.Destroy(r.SizeBytes)
+}
+
+type FfiConverterChannelMonitorSizeInfo struct{}
+
+var FfiConverterChannelMonitorSizeInfoINSTANCE = FfiConverterChannelMonitorSizeInfo{}
+
+func (c FfiConverterChannelMonitorSizeInfo) Lift(rb RustBufferI) ChannelMonitorSizeInfo {
+	return LiftFromRustBuffer[ChannelMonitorSizeInfo](c, rb)
+}
+
+func (c FfiConverterChannelMonitorSizeInfo) Read(reader io.Reader) ChannelMonitorSizeInfo {
+	return ChannelMonitorSizeInfo{
+		FfiConverterTypeChannelIdINSTANCE.Read(reader),
+		FfiConverterUint64INSTANCE.Read(reader),
+	}
+}
+
+func (c FfiConverterChannelMonitorSizeInfo) Lower(value ChannelMonitorSizeInfo) C.RustBuffer {
+	return LowerIntoRustBuffer[ChannelMonitorSizeInfo](c, value)
+}
+
+func (c FfiConverterChannelMonitorSizeInfo) Write(writer io.Writer, value ChannelMonitorSizeInfo) {
+	FfiConverterTypeChannelIdINSTANCE.Write(writer, value.ChannelId)
+	FfiConverterUint64INSTANCE.Write(writer, value.SizeBytes)
+}
+
+type FfiDestroyerChannelMonitorSizeInfo struct{}
+
+func (_ FfiDestroyerChannelMonitorSizeInfo) Destroy(value ChannelMonitorSizeInfo) {
 	value.Destroy()
 }
 
@@ -12973,6 +13034,49 @@ type FfiDestroyerSequenceChannelDetails struct{}
 func (FfiDestroyerSequenceChannelDetails) Destroy(sequence []ChannelDetails) {
 	for _, value := range sequence {
 		FfiDestroyerChannelDetails{}.Destroy(value)
+	}
+}
+
+type FfiConverterSequenceChannelMonitorSizeInfo struct{}
+
+var FfiConverterSequenceChannelMonitorSizeInfoINSTANCE = FfiConverterSequenceChannelMonitorSizeInfo{}
+
+func (c FfiConverterSequenceChannelMonitorSizeInfo) Lift(rb RustBufferI) []ChannelMonitorSizeInfo {
+	return LiftFromRustBuffer[[]ChannelMonitorSizeInfo](c, rb)
+}
+
+func (c FfiConverterSequenceChannelMonitorSizeInfo) Read(reader io.Reader) []ChannelMonitorSizeInfo {
+	length := readInt32(reader)
+	if length == 0 {
+		return nil
+	}
+	result := make([]ChannelMonitorSizeInfo, 0, length)
+	for i := int32(0); i < length; i++ {
+		result = append(result, FfiConverterChannelMonitorSizeInfoINSTANCE.Read(reader))
+	}
+	return result
+}
+
+func (c FfiConverterSequenceChannelMonitorSizeInfo) Lower(value []ChannelMonitorSizeInfo) C.RustBuffer {
+	return LowerIntoRustBuffer[[]ChannelMonitorSizeInfo](c, value)
+}
+
+func (c FfiConverterSequenceChannelMonitorSizeInfo) Write(writer io.Writer, value []ChannelMonitorSizeInfo) {
+	if len(value) > math.MaxInt32 {
+		panic("[]ChannelMonitorSizeInfo is too large to fit into Int32")
+	}
+
+	writeInt32(writer, int32(len(value)))
+	for _, item := range value {
+		FfiConverterChannelMonitorSizeInfoINSTANCE.Write(writer, item)
+	}
+}
+
+type FfiDestroyerSequenceChannelMonitorSizeInfo struct{}
+
+func (FfiDestroyerSequenceChannelMonitorSizeInfo) Destroy(sequence []ChannelMonitorSizeInfo) {
+	for _, value := range sequence {
+		FfiDestroyerChannelMonitorSizeInfo{}.Destroy(value)
 	}
 }
 

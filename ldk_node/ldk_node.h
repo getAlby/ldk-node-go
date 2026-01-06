@@ -1101,6 +1101,11 @@ RustBuffer uniffi_ldk_node_fn_method_node_get_encoded_channel_monitors(void* ptr
 RustBuffer uniffi_ldk_node_fn_method_node_list_balances(void* ptr, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_CHANNEL_MONITOR_SIZES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_CHANNEL_MONITOR_SIZES
+RustBuffer uniffi_ldk_node_fn_method_node_list_channel_monitor_sizes(void* ptr, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_CHANNELS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_CHANNELS
 RustBuffer uniffi_ldk_node_fn_method_node_list_channels(void* ptr, RustCallStatus *out_status
@@ -2450,6 +2455,12 @@ uint16_t uniffi_ldk_node_checksum_method_node_get_encoded_channel_monitors(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_BALANCES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_BALANCES
 uint16_t uniffi_ldk_node_checksum_method_node_list_balances(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_CHANNEL_MONITOR_SIZES
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LIST_CHANNEL_MONITOR_SIZES
+uint16_t uniffi_ldk_node_checksum_method_node_list_channel_monitor_sizes(void
     
 );
 #endif
