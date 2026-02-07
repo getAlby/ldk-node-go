@@ -926,6 +926,11 @@ void uniffi_ldk_node_fn_method_builder_set_pathfinding_scores_source(void* ptr, 
 void uniffi_ldk_node_fn_method_builder_set_storage_dir_path(void* ptr, RustBuffer storage_dir_path, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_TOR_PROXY_ADDRESS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_TOR_PROXY_ADDRESS
+void uniffi_ldk_node_fn_method_builder_set_tor_proxy_address(void* ptr, RustBuffer tor_proxy_address, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_FEERATE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_FEERATE
 void* uniffi_ldk_node_fn_clone_feerate(void* ptr, RustCallStatus *out_status
@@ -2323,6 +2328,12 @@ uint16_t uniffi_ldk_node_checksum_method_builder_set_pathfinding_scores_source(v
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_STORAGE_DIR_PATH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_STORAGE_DIR_PATH
 uint16_t uniffi_ldk_node_checksum_method_builder_set_storage_dir_path(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_TOR_PROXY_ADDRESS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_BUILDER_SET_TOR_PROXY_ADDRESS
+uint16_t uniffi_ldk_node_checksum_method_builder_set_tor_proxy_address(void
     
 );
 #endif
