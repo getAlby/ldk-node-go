@@ -1151,6 +1151,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_builder_set_tor_proxy_address()
+		})
+		if checksum != 4635 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_builder_set_tor_proxy_address: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_feerate_to_sat_per_kwu()
 		})
 		if checksum != 58911 {
@@ -3325,6 +3334,7 @@ type BuilderInterface interface {
 	SetNodeAlias(nodeAlias string) error
 	SetPathfindingScoresSource(url string)
 	SetStorageDirPath(storageDirPath string)
+	SetTorProxyAddress(torProxyAddress string) error
 }
 type Builder struct {
 	ffiObject FfiObject
@@ -3645,6 +3655,17 @@ func (_self *Builder) SetStorageDirPath(storageDirPath string) {
 			_pointer, FfiConverterStringINSTANCE.Lower(storageDirPath), _uniffiStatus)
 		return false
 	})
+}
+
+func (_self *Builder) SetTorProxyAddress(torProxyAddress string) error {
+	_pointer := _self.ffiObject.incrementPointer("*Builder")
+	defer _self.ffiObject.decrementPointer()
+	_, _uniffiErr := rustCallWithError[BuildError](FfiConverterBuildError{}, func(_uniffiStatus *C.RustCallStatus) bool {
+		C.uniffi_ldk_node_fn_method_builder_set_tor_proxy_address(
+			_pointer, FfiConverterStringINSTANCE.Lower(torProxyAddress), _uniffiStatus)
+		return false
+	})
+	return _uniffiErr.AsError()
 }
 func (object *Builder) Destroy() {
 	runtime.SetFinalizer(object, nil)
