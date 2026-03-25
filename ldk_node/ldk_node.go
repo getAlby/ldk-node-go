@@ -548,6 +548,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_for_hash_with_min_cltv_expiry_delta()
+		})
+		if checksum != 47514 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_for_hash_with_min_cltv_expiry_delta: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount()
 		})
 		if checksum != 4893 {
@@ -562,6 +571,15 @@ func uniffiCheckChecksums() {
 		if checksum != 1402 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_for_hash: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_for_hash_with_min_cltv_expiry_delta()
+		})
+		if checksum != 10331 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_bolt11payment_receive_variable_amount_for_hash_with_min_cltv_expiry_delta: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -2537,8 +2555,10 @@ type Bolt11PaymentInterface interface {
 	FailForHash(paymentHash PaymentHash) error
 	Receive(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, error)
 	ReceiveForHash(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, error)
+	ReceiveForHashWithMinCltvExpiryDelta(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash, minCltvExpiryDelta uint16) (*Bolt11Invoice, error)
 	ReceiveVariableAmount(description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, error)
 	ReceiveVariableAmountForHash(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash) (*Bolt11Invoice, error)
+	ReceiveVariableAmountForHashWithMinCltvExpiryDelta(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash, minCltvExpiryDelta uint16) (*Bolt11Invoice, error)
 	ReceiveVariableAmountViaJitChannel(description Bolt11InvoiceDescription, expirySecs uint32, maxProportionalLspFeeLimitPpmMsat *uint64) (*Bolt11Invoice, error)
 	ReceiveVariableAmountViaJitChannelForHash(description Bolt11InvoiceDescription, expirySecs uint32, maxProportionalLspFeeLimitPpmMsat *uint64, paymentHash PaymentHash) (*Bolt11Invoice, error)
 	ReceiveViaJitChannel(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, maxLspFeeLimitMsat *uint64) (*Bolt11Invoice, error)
@@ -2604,6 +2624,21 @@ func (_self *Bolt11Payment) ReceiveForHash(amountMsat uint64, description Bolt11
 	}
 }
 
+func (_self *Bolt11Payment) ReceiveForHashWithMinCltvExpiryDelta(amountMsat uint64, description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash, minCltvExpiryDelta uint16) (*Bolt11Invoice, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_for_hash_with_min_cltv_expiry_delta(
+			_pointer, FfiConverterUint64INSTANCE.Lower(amountMsat), FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), FfiConverterUint16INSTANCE.Lower(minCltvExpiryDelta), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue *Bolt11Invoice
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), nil
+	}
+}
+
 func (_self *Bolt11Payment) ReceiveVariableAmount(description Bolt11InvoiceDescription, expirySecs uint32) (*Bolt11Invoice, error) {
 	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
 	defer _self.ffiObject.decrementPointer()
@@ -2625,6 +2660,21 @@ func (_self *Bolt11Payment) ReceiveVariableAmountForHash(description Bolt11Invoi
 	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
 		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_for_hash(
 			_pointer, FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), _uniffiStatus)
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue *Bolt11Invoice
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterBolt11InvoiceINSTANCE.Lift(_uniffiRV), nil
+	}
+}
+
+func (_self *Bolt11Payment) ReceiveVariableAmountForHashWithMinCltvExpiryDelta(description Bolt11InvoiceDescription, expirySecs uint32, paymentHash PaymentHash, minCltvExpiryDelta uint16) (*Bolt11Invoice, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Bolt11Payment")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_for_hash_with_min_cltv_expiry_delta(
+			_pointer, FfiConverterBolt11InvoiceDescriptionINSTANCE.Lower(description), FfiConverterUint32INSTANCE.Lower(expirySecs), FfiConverterTypePaymentHashINSTANCE.Lower(paymentHash), FfiConverterUint16INSTANCE.Lower(minCltvExpiryDelta), _uniffiStatus)
 	})
 	if _uniffiErr != nil {
 		var _uniffiDefaultValue *Bolt11Invoice
