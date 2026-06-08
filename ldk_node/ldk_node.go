@@ -368,6 +368,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_func_lsps2_compute_opening_fee_msat()
+		})
+		if checksum != 35888 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_func_lsps2_compute_opening_fee_msat: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_bolt11invoice_amount_milli_satoshis()
 		})
 		if checksum != 50823 {
@@ -1214,6 +1223,15 @@ func uniffiCheckChecksums() {
 	}
 	{
 		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_lsps2liquidity_request_opening_fee_params()
+		})
+		if checksum != 44958 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_lsps2liquidity_request_opening_fee_params: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
 			return C.uniffi_ldk_node_checksum_method_logwriter_log()
 		})
 		if checksum != 3299 {
@@ -1417,6 +1435,15 @@ func uniffiCheckChecksums() {
 		if checksum != 38201 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_node_lsps1_liquidity: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_lsps2_liquidity()
+		})
+		if checksum != 59985 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_lsps2_liquidity: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -3931,6 +3958,78 @@ func (_ FfiDestroyerLsps1Liquidity) Destroy(value *Lsps1Liquidity) {
 	value.Destroy()
 }
 
+type Lsps2LiquidityInterface interface {
+	RequestOpeningFeeParams() (Lsps2GetInfoResponse, error)
+}
+type Lsps2Liquidity struct {
+	ffiObject FfiObject
+}
+
+func (_self *Lsps2Liquidity) RequestOpeningFeeParams() (Lsps2GetInfoResponse, error) {
+	_pointer := _self.ffiObject.incrementPointer("*Lsps2Liquidity")
+	defer _self.ffiObject.decrementPointer()
+	_uniffiRV, _uniffiErr := rustCallWithError[NodeError](FfiConverterNodeError{}, func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_method_lsps2liquidity_request_opening_fee_params(
+				_pointer, _uniffiStatus),
+		}
+	})
+	if _uniffiErr != nil {
+		var _uniffiDefaultValue Lsps2GetInfoResponse
+		return _uniffiDefaultValue, _uniffiErr
+	} else {
+		return FfiConverterLsps2GetInfoResponseINSTANCE.Lift(_uniffiRV), nil
+	}
+}
+func (object *Lsps2Liquidity) Destroy() {
+	runtime.SetFinalizer(object, nil)
+	object.ffiObject.destroy()
+}
+
+type FfiConverterLsps2Liquidity struct{}
+
+var FfiConverterLsps2LiquidityINSTANCE = FfiConverterLsps2Liquidity{}
+
+func (c FfiConverterLsps2Liquidity) Lift(pointer unsafe.Pointer) *Lsps2Liquidity {
+	result := &Lsps2Liquidity{
+		newFfiObject(
+			pointer,
+			func(pointer unsafe.Pointer, status *C.RustCallStatus) unsafe.Pointer {
+				return C.uniffi_ldk_node_fn_clone_lsps2liquidity(pointer, status)
+			},
+			func(pointer unsafe.Pointer, status *C.RustCallStatus) {
+				C.uniffi_ldk_node_fn_free_lsps2liquidity(pointer, status)
+			},
+		),
+	}
+	runtime.SetFinalizer(result, (*Lsps2Liquidity).Destroy)
+	return result
+}
+
+func (c FfiConverterLsps2Liquidity) Read(reader io.Reader) *Lsps2Liquidity {
+	return c.Lift(unsafe.Pointer(uintptr(readUint64(reader))))
+}
+
+func (c FfiConverterLsps2Liquidity) Lower(value *Lsps2Liquidity) unsafe.Pointer {
+	// TODO: this is bad - all synchronization from ObjectRuntime.go is discarded here,
+	// because the pointer will be decremented immediately after this function returns,
+	// and someone will be left holding onto a non-locked pointer.
+	pointer := value.ffiObject.incrementPointer("*Lsps2Liquidity")
+	defer value.ffiObject.decrementPointer()
+	return pointer
+
+}
+
+func (c FfiConverterLsps2Liquidity) Write(writer io.Writer, value *Lsps2Liquidity) {
+	writeUint64(writer, uint64(uintptr(c.Lower(value))))
+}
+
+type FfiDestroyerLsps2Liquidity struct{}
+
+func (_ FfiDestroyerLsps2Liquidity) Destroy(value *Lsps2Liquidity) {
+	value.Destroy()
+}
+
 type LogWriter interface {
 	Log(record LogRecord)
 }
@@ -4201,6 +4300,7 @@ type NodeInterface interface {
 	ListPeers() []PeerDetails
 	ListeningAddresses() *[]SocketAddress
 	Lsps1Liquidity() *Lsps1Liquidity
+	Lsps2Liquidity() *Lsps2Liquidity
 	NetworkGraph() *NetworkGraph
 	NextEvent() *Event
 	NodeAlias() *NodeAlias
@@ -4428,6 +4528,15 @@ func (_self *Node) Lsps1Liquidity() *Lsps1Liquidity {
 	defer _self.ffiObject.decrementPointer()
 	return FfiConverterLsps1LiquidityINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
 		return C.uniffi_ldk_node_fn_method_node_lsps1_liquidity(
+			_pointer, _uniffiStatus)
+	}))
+}
+
+func (_self *Node) Lsps2Liquidity() *Lsps2Liquidity {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	return FfiConverterLsps2LiquidityINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) unsafe.Pointer {
+		return C.uniffi_ldk_node_fn_method_node_lsps2_liquidity(
 			_pointer, _uniffiStatus)
 	}))
 }
@@ -6635,6 +6744,106 @@ func (c FfiConverterLsps1PaymentInfo) Write(writer io.Writer, value Lsps1Payment
 type FfiDestroyerLsps1PaymentInfo struct{}
 
 func (_ FfiDestroyerLsps1PaymentInfo) Destroy(value Lsps1PaymentInfo) {
+	value.Destroy()
+}
+
+type Lsps2GetInfoResponse struct {
+	OpeningFeeParamsMenu []Lsps2OpeningFeeParams
+}
+
+func (r *Lsps2GetInfoResponse) Destroy() {
+	FfiDestroyerSequenceLsps2OpeningFeeParams{}.Destroy(r.OpeningFeeParamsMenu)
+}
+
+type FfiConverterLsps2GetInfoResponse struct{}
+
+var FfiConverterLsps2GetInfoResponseINSTANCE = FfiConverterLsps2GetInfoResponse{}
+
+func (c FfiConverterLsps2GetInfoResponse) Lift(rb RustBufferI) Lsps2GetInfoResponse {
+	return LiftFromRustBuffer[Lsps2GetInfoResponse](c, rb)
+}
+
+func (c FfiConverterLsps2GetInfoResponse) Read(reader io.Reader) Lsps2GetInfoResponse {
+	return Lsps2GetInfoResponse{
+		FfiConverterSequenceLsps2OpeningFeeParamsINSTANCE.Read(reader),
+	}
+}
+
+func (c FfiConverterLsps2GetInfoResponse) Lower(value Lsps2GetInfoResponse) C.RustBuffer {
+	return LowerIntoRustBuffer[Lsps2GetInfoResponse](c, value)
+}
+
+func (c FfiConverterLsps2GetInfoResponse) Write(writer io.Writer, value Lsps2GetInfoResponse) {
+	FfiConverterSequenceLsps2OpeningFeeParamsINSTANCE.Write(writer, value.OpeningFeeParamsMenu)
+}
+
+type FfiDestroyerLsps2GetInfoResponse struct{}
+
+func (_ FfiDestroyerLsps2GetInfoResponse) Destroy(value Lsps2GetInfoResponse) {
+	value.Destroy()
+}
+
+type Lsps2OpeningFeeParams struct {
+	MinFeeMsat           uint64
+	Proportional         uint32
+	ValidUntil           LSPSDateTime
+	MinLifetime          uint32
+	MaxClientToSelfDelay uint32
+	MinPaymentSizeMsat   uint64
+	MaxPaymentSizeMsat   uint64
+	Promise              string
+}
+
+func (r *Lsps2OpeningFeeParams) Destroy() {
+	FfiDestroyerUint64{}.Destroy(r.MinFeeMsat)
+	FfiDestroyerUint32{}.Destroy(r.Proportional)
+	FfiDestroyerTypeLSPSDateTime{}.Destroy(r.ValidUntil)
+	FfiDestroyerUint32{}.Destroy(r.MinLifetime)
+	FfiDestroyerUint32{}.Destroy(r.MaxClientToSelfDelay)
+	FfiDestroyerUint64{}.Destroy(r.MinPaymentSizeMsat)
+	FfiDestroyerUint64{}.Destroy(r.MaxPaymentSizeMsat)
+	FfiDestroyerString{}.Destroy(r.Promise)
+}
+
+type FfiConverterLsps2OpeningFeeParams struct{}
+
+var FfiConverterLsps2OpeningFeeParamsINSTANCE = FfiConverterLsps2OpeningFeeParams{}
+
+func (c FfiConverterLsps2OpeningFeeParams) Lift(rb RustBufferI) Lsps2OpeningFeeParams {
+	return LiftFromRustBuffer[Lsps2OpeningFeeParams](c, rb)
+}
+
+func (c FfiConverterLsps2OpeningFeeParams) Read(reader io.Reader) Lsps2OpeningFeeParams {
+	return Lsps2OpeningFeeParams{
+		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterUint32INSTANCE.Read(reader),
+		FfiConverterTypeLSPSDateTimeINSTANCE.Read(reader),
+		FfiConverterUint32INSTANCE.Read(reader),
+		FfiConverterUint32INSTANCE.Read(reader),
+		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterUint64INSTANCE.Read(reader),
+		FfiConverterStringINSTANCE.Read(reader),
+	}
+}
+
+func (c FfiConverterLsps2OpeningFeeParams) Lower(value Lsps2OpeningFeeParams) C.RustBuffer {
+	return LowerIntoRustBuffer[Lsps2OpeningFeeParams](c, value)
+}
+
+func (c FfiConverterLsps2OpeningFeeParams) Write(writer io.Writer, value Lsps2OpeningFeeParams) {
+	FfiConverterUint64INSTANCE.Write(writer, value.MinFeeMsat)
+	FfiConverterUint32INSTANCE.Write(writer, value.Proportional)
+	FfiConverterTypeLSPSDateTimeINSTANCE.Write(writer, value.ValidUntil)
+	FfiConverterUint32INSTANCE.Write(writer, value.MinLifetime)
+	FfiConverterUint32INSTANCE.Write(writer, value.MaxClientToSelfDelay)
+	FfiConverterUint64INSTANCE.Write(writer, value.MinPaymentSizeMsat)
+	FfiConverterUint64INSTANCE.Write(writer, value.MaxPaymentSizeMsat)
+	FfiConverterStringINSTANCE.Write(writer, value.Promise)
+}
+
+type FfiDestroyerLsps2OpeningFeeParams struct{}
+
+func (_ FfiDestroyerLsps2OpeningFeeParams) Destroy(value Lsps2OpeningFeeParams) {
 	value.Destroy()
 }
 
@@ -13216,6 +13425,49 @@ func (FfiDestroyerSequenceKeyValue) Destroy(sequence []KeyValue) {
 	}
 }
 
+type FfiConverterSequenceLsps2OpeningFeeParams struct{}
+
+var FfiConverterSequenceLsps2OpeningFeeParamsINSTANCE = FfiConverterSequenceLsps2OpeningFeeParams{}
+
+func (c FfiConverterSequenceLsps2OpeningFeeParams) Lift(rb RustBufferI) []Lsps2OpeningFeeParams {
+	return LiftFromRustBuffer[[]Lsps2OpeningFeeParams](c, rb)
+}
+
+func (c FfiConverterSequenceLsps2OpeningFeeParams) Read(reader io.Reader) []Lsps2OpeningFeeParams {
+	length := readInt32(reader)
+	if length == 0 {
+		return nil
+	}
+	result := make([]Lsps2OpeningFeeParams, 0, length)
+	for i := int32(0); i < length; i++ {
+		result = append(result, FfiConverterLsps2OpeningFeeParamsINSTANCE.Read(reader))
+	}
+	return result
+}
+
+func (c FfiConverterSequenceLsps2OpeningFeeParams) Lower(value []Lsps2OpeningFeeParams) C.RustBuffer {
+	return LowerIntoRustBuffer[[]Lsps2OpeningFeeParams](c, value)
+}
+
+func (c FfiConverterSequenceLsps2OpeningFeeParams) Write(writer io.Writer, value []Lsps2OpeningFeeParams) {
+	if len(value) > math.MaxInt32 {
+		panic("[]Lsps2OpeningFeeParams is too large to fit into Int32")
+	}
+
+	writeInt32(writer, int32(len(value)))
+	for _, item := range value {
+		FfiConverterLsps2OpeningFeeParamsINSTANCE.Write(writer, item)
+	}
+}
+
+type FfiDestroyerSequenceLsps2OpeningFeeParams struct{}
+
+func (FfiDestroyerSequenceLsps2OpeningFeeParams) Destroy(sequence []Lsps2OpeningFeeParams) {
+	for _, value := range sequence {
+		FfiDestroyerLsps2OpeningFeeParams{}.Destroy(value)
+	}
+}
+
 type FfiConverterSequencePaymentDetails struct{}
 
 var FfiConverterSequencePaymentDetailsINSTANCE = FfiConverterSequencePaymentDetails{}
@@ -14029,6 +14281,14 @@ func GenerateEntropyMnemonic(wordCount *WordCount) Mnemonic {
 	return FfiConverterTypeMnemonicINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
 		return GoRustBuffer{
 			inner: C.uniffi_ldk_node_fn_func_generate_entropy_mnemonic(FfiConverterOptionalWordCountINSTANCE.Lower(wordCount), _uniffiStatus),
+		}
+	}))
+}
+
+func Lsps2ComputeOpeningFeeMsat(paymentSizeMsat uint64, openingFeeParams Lsps2OpeningFeeParams) *uint64 {
+	return FfiConverterOptionalUint64INSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {
+		return GoRustBuffer{
+			inner: C.uniffi_ldk_node_fn_func_lsps2_compute_opening_fee_msat(FfiConverterUint64INSTANCE.Lower(paymentSizeMsat), FfiConverterLsps2OpeningFeeParamsINSTANCE.Lower(openingFeeParams), _uniffiStatus),
 		}
 	}))
 }

@@ -991,6 +991,21 @@ RustBuffer uniffi_ldk_node_fn_method_lsps1liquidity_check_order_status(void* ptr
 RustBuffer uniffi_ldk_node_fn_method_lsps1liquidity_request_channel(void* ptr, uint64_t lsp_balance_sat, uint64_t client_balance_sat, uint32_t channel_expiry_blocks, int8_t announce_channel, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LSPS2LIQUIDITY
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LSPS2LIQUIDITY
+void* uniffi_ldk_node_fn_clone_lsps2liquidity(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_LSPS2LIQUIDITY
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_LSPS2LIQUIDITY
+void uniffi_ldk_node_fn_free_lsps2liquidity(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LSPS2LIQUIDITY_REQUEST_OPENING_FEE_PARAMS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LSPS2LIQUIDITY_REQUEST_OPENING_FEE_PARAMS
+RustBuffer uniffi_ldk_node_fn_method_lsps2liquidity_request_opening_fee_params(void* ptr, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LOGWRITER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LOGWRITER
 void* uniffi_ldk_node_fn_clone_logwriter(void* ptr, RustCallStatus *out_status
@@ -1139,6 +1154,11 @@ RustBuffer uniffi_ldk_node_fn_method_node_listening_addresses(void* ptr, RustCal
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LSPS1_LIQUIDITY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LSPS1_LIQUIDITY
 void* uniffi_ldk_node_fn_method_node_lsps1_liquidity(void* ptr, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LSPS2_LIQUIDITY
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LSPS2_LIQUIDITY
+void* uniffi_ldk_node_fn_method_node_lsps2_liquidity(void* ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NETWORK_GRAPH
@@ -1522,6 +1542,11 @@ RustBuffer uniffi_ldk_node_fn_func_default_config(RustCallStatus *out_status
 RustBuffer uniffi_ldk_node_fn_func_generate_entropy_mnemonic(RustBuffer word_count, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FUNC_LSPS2_COMPUTE_OPENING_FEE_MSAT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FUNC_LSPS2_COMPUTE_OPENING_FEE_MSAT
+RustBuffer uniffi_ldk_node_fn_func_lsps2_compute_opening_fee_msat(uint64_t payment_size_msat, RustBuffer opening_fee_params, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUSTBUFFER_ALLOC
 #define UNIFFI_FFIDEF_FFI_LDK_NODE_RUSTBUFFER_ALLOC
 RustBuffer ffi_ldk_node_rustbuffer_alloc(uint64_t size, RustCallStatus *out_status
@@ -1811,6 +1836,12 @@ uint16_t uniffi_ldk_node_checksum_func_default_config(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_FUNC_GENERATE_ENTROPY_MNEMONIC
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_FUNC_GENERATE_ENTROPY_MNEMONIC
 uint16_t uniffi_ldk_node_checksum_func_generate_entropy_mnemonic(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_FUNC_LSPS2_COMPUTE_OPENING_FEE_MSAT
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_FUNC_LSPS2_COMPUTE_OPENING_FEE_MSAT
+uint16_t uniffi_ldk_node_checksum_func_lsps2_compute_opening_fee_msat(void
     
 );
 #endif
@@ -2378,6 +2409,12 @@ uint16_t uniffi_ldk_node_checksum_method_lsps1liquidity_request_channel(void
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_LSPS2LIQUIDITY_REQUEST_OPENING_FEE_PARAMS
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_LSPS2LIQUIDITY_REQUEST_OPENING_FEE_PARAMS
+uint16_t uniffi_ldk_node_checksum_method_lsps2liquidity_request_opening_fee_params(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_LOGWRITER_LOG
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_LOGWRITER_LOG
 uint16_t uniffi_ldk_node_checksum_method_logwriter_log(void
@@ -2513,6 +2550,12 @@ uint16_t uniffi_ldk_node_checksum_method_node_listening_addresses(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LSPS1_LIQUIDITY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LSPS1_LIQUIDITY
 uint16_t uniffi_ldk_node_checksum_method_node_lsps1_liquidity(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LSPS2_LIQUIDITY
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_LSPS2_LIQUIDITY
+uint16_t uniffi_ldk_node_checksum_method_node_lsps2_liquidity(void
     
 );
 #endif
