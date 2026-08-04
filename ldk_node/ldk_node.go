@@ -10,6 +10,7 @@ import (
 	"io"
 	"math"
 	"runtime"
+	"runtime/cgo"
 	"sync"
 	"sync/atomic"
 	"unsafe"
@@ -1462,6 +1463,15 @@ func uniffiCheckChecksums() {
 		if checksum != 7682 {
 			// If this happens try cleaning and rebuilding your project
 			panic("ldk_node: uniffi_ldk_node_checksum_method_node_next_event: UniFFI API checksum mismatch")
+		}
+	}
+	{
+		checksum := rustCall(func(_uniffiStatus *C.RustCallStatus) C.uint16_t {
+			return C.uniffi_ldk_node_checksum_method_node_next_event_async()
+		})
+		if checksum != 25426 {
+			// If this happens try cleaning and rebuilding your project
+			panic("ldk_node: uniffi_ldk_node_checksum_method_node_next_event_async: UniFFI API checksum mismatch")
 		}
 	}
 	{
@@ -4303,6 +4313,7 @@ type NodeInterface interface {
 	Lsps2Liquidity() *Lsps2Liquidity
 	NetworkGraph() *NetworkGraph
 	NextEvent() *Event
+	NextEventAsync() Event
 	NodeAlias() *NodeAlias
 	NodeId() PublicKey
 	OnchainPayment() *OnchainPayment
@@ -4559,6 +4570,37 @@ func (_self *Node) NextEvent() *Event {
 				_pointer, _uniffiStatus),
 		}
 	}))
+}
+
+func (_self *Node) NextEventAsync() Event {
+	_pointer := _self.ffiObject.incrementPointer("*Node")
+	defer _self.ffiObject.decrementPointer()
+	res, _ := uniffiRustCallAsync[error](
+		nil,
+		// completeFn
+		func(handle C.uint64_t, status *C.RustCallStatus) RustBufferI {
+			res := C.ffi_ldk_node_rust_future_complete_rust_buffer(handle, status)
+			return GoRustBuffer{
+				inner: res,
+			}
+		},
+		// liftFn
+		func(ffi RustBufferI) Event {
+			return FfiConverterEventINSTANCE.Lift(ffi)
+		},
+		C.uniffi_ldk_node_fn_method_node_next_event_async(
+			_pointer),
+		// pollFn
+		func(handle C.uint64_t, continuation C.UniffiRustFutureContinuationCallback, data C.uint64_t) {
+			C.ffi_ldk_node_rust_future_poll_rust_buffer(handle, continuation, data)
+		},
+		// freeFn
+		func(handle C.uint64_t) {
+			C.ffi_ldk_node_rust_future_free_rust_buffer(handle)
+		},
+	)
+
+	return res
 }
 
 func (_self *Node) NodeAlias() *NodeAlias {
@@ -14268,6 +14310,69 @@ type FfiConverterTypeUserChannelId = FfiConverterString
 type FfiDestroyerTypeUserChannelId = FfiDestroyerString
 
 var FfiConverterTypeUserChannelIdINSTANCE = FfiConverterString{}
+
+const (
+	uniffiRustFuturePollReady      int8 = 0
+	uniffiRustFuturePollMaybeReady int8 = 1
+)
+
+type rustFuturePollFunc func(C.uint64_t, C.UniffiRustFutureContinuationCallback, C.uint64_t)
+type rustFutureCompleteFunc[T any] func(C.uint64_t, *C.RustCallStatus) T
+type rustFutureFreeFunc func(C.uint64_t)
+
+//export ldk_node_uniffiFutureContinuationCallback
+func ldk_node_uniffiFutureContinuationCallback(data C.uint64_t, pollResult C.int8_t) {
+	h := cgo.Handle(uintptr(data))
+	waiter := h.Value().(chan int8)
+	waiter <- int8(pollResult)
+}
+
+func uniffiRustCallAsync[E any, T any, F any](
+	errConverter BufReader[*E],
+	completeFunc rustFutureCompleteFunc[F],
+	liftFunc func(F) T,
+	rustFuture C.uint64_t,
+	pollFunc rustFuturePollFunc,
+	freeFunc rustFutureFreeFunc,
+) (T, *E) {
+	defer freeFunc(rustFuture)
+
+	pollResult := int8(-1)
+	waiter := make(chan int8, 1)
+
+	chanHandle := cgo.NewHandle(waiter)
+	defer chanHandle.Delete()
+
+	for pollResult != uniffiRustFuturePollReady {
+		pollFunc(
+			rustFuture,
+			(C.UniffiRustFutureContinuationCallback)(C.ldk_node_uniffiFutureContinuationCallback),
+			C.uint64_t(chanHandle),
+		)
+		pollResult = <-waiter
+	}
+
+	var goValue T
+	var ffiValue F
+	var err *E
+
+	ffiValue, err = rustCallWithError(errConverter, func(status *C.RustCallStatus) F {
+		return completeFunc(rustFuture, status)
+	})
+	if err != nil {
+		return goValue, err
+	}
+	return liftFunc(ffiValue), nil
+}
+
+//export ldk_node_uniffiFreeGorutine
+func ldk_node_uniffiFreeGorutine(data C.uint64_t) {
+	handle := cgo.Handle(uintptr(data))
+	defer handle.Delete()
+
+	guard := handle.Value().(chan struct{})
+	guard <- struct{}{}
+}
 
 func DefaultConfig() Config {
 	return FfiConverterConfigINSTANCE.Lift(rustCall(func(_uniffiStatus *C.RustCallStatus) RustBufferI {

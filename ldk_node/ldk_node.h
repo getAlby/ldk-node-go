@@ -1171,6 +1171,11 @@ void* uniffi_ldk_node_fn_method_node_network_graph(void* ptr, RustCallStatus *ou
 RustBuffer uniffi_ldk_node_fn_method_node_next_event(void* ptr, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NEXT_EVENT_ASYNC
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NEXT_EVENT_ASYNC
+uint64_t uniffi_ldk_node_fn_method_node_next_event_async(void* ptr
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NODE_ALIAS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NODE_ALIAS
 RustBuffer uniffi_ldk_node_fn_method_node_node_alias(void* ptr, RustCallStatus *out_status
@@ -2571,6 +2576,12 @@ uint16_t uniffi_ldk_node_checksum_method_node_next_event(void
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NEXT_EVENT_ASYNC
+#define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NEXT_EVENT_ASYNC
+uint16_t uniffi_ldk_node_checksum_method_node_next_event_async(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NODE_ALIAS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_CHECKSUM_METHOD_NODE_NODE_ALIAS
 uint16_t uniffi_ldk_node_checksum_method_node_node_alias(void
@@ -2940,3 +2951,6 @@ uint32_t ffi_ldk_node_uniffi_contract_version(void
 
  void ldk_node_cgo_dispatchCallbackInterfaceLogWriterMethod0(uint64_t uniffi_handle, RustBuffer record, void* uniffi_out_return, RustCallStatus* callStatus );
  void ldk_node_cgo_dispatchCallbackInterfaceLogWriterFree(uint64_t handle);
+
+void ldk_node_uniffiFutureContinuationCallback(uint64_t, int8_t);
+void ldk_node_uniffiFreeGorutine(uint64_t);
